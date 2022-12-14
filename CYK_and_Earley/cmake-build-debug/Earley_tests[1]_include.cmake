@@ -1,0 +1,5 @@
+if(EXISTS "/Users/sadovinama/CLionProjects/first_algorithm/cmake-build-debug/Earley_tests[1]_tests.cmake")
+  include("/Users/sadovinama/CLionProjects/first_algorithm/cmake-build-debug/Earley_tests[1]_tests.cmake")
+else()
+  add_test(Earley_tests_NOT_BUILT Earley_tests_NOT_BUILT)
+endif()
