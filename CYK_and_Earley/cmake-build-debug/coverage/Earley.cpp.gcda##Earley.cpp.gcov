@@ -1,0 +1,293 @@
+        -:    0:Source:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/src/Earley.cpp
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/src/Earley.cpp.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/src/Earley.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "Earley.h"
+        -:    2:#include <algorithm>
+        -:    3:
+function _ZltRK5stateS1_ called 1173 returned 100% blocks executed 100%
+     1173:    4:bool operator<(const state& one, const state& two) {
+     1173:    4-block  0
+     1173:    5:    return one.rule < two.rule;
+     1173:    5-block  0
+        -:    6:}
+        -:    7:
+function _ZN6Parser6EarleyEv called 5 returned 0% blocks executed 77%
+        5:    8:void Parser::Earley() {
+        5:    8-block  0
+        5:    9:    g.to_CNF();
+        5:   10:    int size = word.size();
+        5:   11:    D.resize(size + 1);
+        5:   12:    int new_start = std::max(*(g.nonterminals.rbegin()) + 1, *(g.alpabet.rbegin()) + 1);
+        5:   13:    std::vector<int> tmp = {'.', g.start};
+        5:   14:    g.transitions[new_start].insert({g.start});
+        5:   14-block  0
+branch  0 taken 5
+branch  1 taken 0
+        5:   14-block  1
+branch  2 taken 5
+branch  3 taken 0
+        5:   14-block  2
+branch  4 taken 5
+branch  5 taken 0
+    $$$$$:   14-block  3
+        5:   15:    g.nonterminals.insert(new_start);
+        5:   15-block  0
+branch  0 taken 5
+branch  1 taken 0
+        5:   16:    D[0].insert({new_start,state(tmp, 0, 0)});
+        5:   16-block  0
+branch  0 taken 5
+branch  1 taken 0
+        5:   16-block  1
+branch  2 taken 5
+branch  3 taken 0
+    $$$$$:   16-block  2
+       48:   17:    for(int j = 0; j <= size; ++j) {
+        5:   17-block  0
+       48:   17-block  1
+branch  0 taken 43
+branch  1 taken 5
+       43:   17-block  2
+       43:   18:        scan(j);
+       43:   18-block  0
+branch  0 taken 43
+branch  1 taken 0
+       43:   19:        bool changes = true;
+      153:   20:        while(changes) {
+       43:   20-block  0
+      153:   20-block  1
+branch  0 taken 110
+branch  1 taken 43
+      110:   20-block  2
+      110:   21:            changes = false;
+      110:   22:            changes = complete(j);
+      110:   22-block  0
+branch  0 taken 110
+branch  1 taken 0
+      110:   23:            changes = changes || predict(j);
+      110:   23-block  0
+branch  0 taken 25
+branch  1 taken 85
+       85:   23-block  1
+branch  2 taken 85
+branch  3 taken 0
+       85:   23-block  2
+        -:   24:        }
+       43:   25:    }
+       43:   25-block  0
+        5:   26:    std::vector<int> help = {g.start, '.'};
+        5:   26-block  0
+branch  0 taken 5
+branch  1 taken 0
+        5:   27:    if(D[size].contains({new_start, state(help, 1, 0)})) {
+        5:   27-block  0
+branch  0 taken 5
+branch  1 taken 0
+        5:   27-block  1
+branch  2 taken 5
+branch  3 taken 0
+        5:   27-block  2
+branch  4 taken 2
+branch  5 taken 3
+    $$$$$:   27-block  3
+        2:   28:        std::cout <<  1;
+        2:   28-block  0
+branch  0 taken 2
+branch  1 taken 0
+        2:   29:    } else {
+        2:   29-block  0
+        3:   30:        std::cout << 0;
+        3:   30-block  0
+branch  0 taken 3
+branch  1 taken 0
+        -:   31:    }
+        5:   32:}
+    $$$$$:   32-block  0
+    $$$$$:   32-block  1
+        5:   32-block  2
+    $$$$$:   32-block  3
+    $$$$$:   32-block  4
+    $$$$$:   32-block  5
+        -:   33:
+function _ZN6Parser4scanEi called 43 returned 0% blocks executed 85%
+       43:   34:void Parser::scan(int j) {
+       43:   34-block  0
+       43:   35:    if (j == 0) {
+       43:   35-block  0
+branch  0 taken 5
+branch  1 taken 38
+        5:   36:        return;
+        5:   36-block  0
+        -:   37:    }
+      222:   38:    for(auto& context: D[j - 1]) {
+       38:   38-block  0
+      222:   38-block  1
+branch  0 taken 184
+branch  1 taken 38
+      184:   38-block  2
+      184:   38-block  3
+      184:   39:        if(context.second.index_point + 1 < context.second.rule.size() &&
+      184:   39-block  0
+branch  0 taken 132
+branch  1 taken 52
+      132:   39-block  1
+branch  2 taken 31
+branch  3 taken 101
+      132:   40:            context.second.rule[context.second.index_point + 1] == word[j - 1]) {
+       31:   41:            std::pair<int, state> tmp = context;
+       31:   42:            std::swap(tmp.second.rule[tmp.second.index_point], tmp.second.rule[++tmp.second.index_point]);
+       31:   43:            D[j].insert(tmp);
+       31:   43-block  0
+branch  0 taken 31
+branch  1 taken 0
+       31:   44:        }
+       31:   44-block  0
+    $$$$$:   44-block  1
+    $$$$$:   44-block  2
+        -:   45:    }
+       43:   46:}
+       43:   46-block  0
+        -:   47:
+function _ZN6Parser8completeEi called 110 returned 0% blocks executed 90%
+      110:   48:bool Parser::complete(int j) {
+      110:   48-block  0
+      110:   49:    bool res = false;
+      593:   50:    for(auto& context1: D[j]) {
+      110:   50-block  0
+      593:   50-block  1
+branch  0 taken 483
+branch  1 taken 110
+      229:   50-block  2
+      483:   50-block  3
+      483:   51:        if(context1.second.index_point != context1.second.rule.size() - 1) {
+      483:   51-block  0
+branch  0 taken 254
+branch  1 taken 229
+      254:   52:            continue;
+      254:   52-block  0
+        -:   53:        }
+     2141:   54:        for(auto& context2: D[context1.second.i]) {
+      229:   54-block  0
+     2141:   54-block  1
+branch  0 taken 1912
+branch  1 taken 229
+     1912:   54-block  2
+     1912:   54-block  3
+     1912:   55:            if(context2.second.index_point + 1 < context2.second.rule.size() &&
+     1912:   55-block  0
+branch  0 taken 1571
+branch  1 taken 341
+     1571:   55-block  1
+branch  2 taken 242
+branch  3 taken 1329
+     1571:   56:                        context1.first == context2.second.rule[context2.second.index_point + 1]) {
+      242:   57:                std::pair<int, state> tmp = context2;
+      242:   58:                std::swap(tmp.second.rule[tmp.second.index_point], tmp.second.rule[++tmp.second.index_point]);
+      242:   59:                if(!D[j].contains(tmp)) {
+      242:   59-block  0
+branch  0 taken 242
+branch  1 taken 0
+      242:   59-block  1
+branch  2 taken 183
+branch  3 taken 59
+       59:   60:                    D[j].insert(tmp);
+       59:   60-block  0
+branch  0 taken 59
+branch  1 taken 0
+       59:   61:                    res = true;
+       59:   62:                }
+       59:   62-block  0
+      242:   63:            }
+    $$$$$:   63-block  0
+      242:   63-block  1
+    $$$$$:   63-block  2
+        -:   64:        }
+        -:   65:    }
+      110:   66:    return res;
+      110:   66-block  0
+    #####:   67:}
+        -:   68:
+function _ZN6Parser7predictEi called 85 returned 0% blocks executed 78%
+       85:   69:bool Parser::predict(int j) {
+       85:   69-block  0
+       85:   70:    bool res = false;
+      537:   71:    for(auto& context: D[j]) {
+       85:   71-block  0
+      537:   71-block  1
+branch  0 taken 452
+branch  1 taken 85
+      199:   71-block  2
+      452:   71-block  3
+      452:   72:        if(context.second.index_point + 1 == context.second.rule.size()) {
+      452:   72-block  0
+branch  0 taken 161
+branch  1 taken 291
+      161:   73:            continue;
+      161:   73-block  0
+        -:   74:        }
+      291:   75:        int nonterm = context.second.rule[context.second.index_point + 1];
+      291:   76:        if(!g.nonterminals.contains(nonterm)) {
+      291:   76-block  0
+branch  0 taken 199
+branch  1 taken 92
+       92:   77:            continue;
+       92:   77-block  0
+        -:   78:        }
+      463:   79:        for(auto& right_word: g.transitions[nonterm]) {
+      199:   79-block  0
+      463:   79-block  1
+branch  0 taken 264
+branch  1 taken 199
+      264:   79-block  2
+      264:   79-block  3
+      264:   80:            std::vector<int> tmp = {'.'};
+      667:   81:            for(int i = 0; i < right_word.size(); ++i) {
+      264:   81-block  0
+      667:   81-block  1
+branch  0 taken 403
+branch  1 taken 264
+      403:   81-block  2
+      403:   82:                tmp.push_back(right_word[i]);
+      403:   82-block  0
+branch  0 taken 403
+branch  1 taken 0
+      403:   83:            }
+      403:   83-block  0
+      264:   84:            state help(tmp, 0, j);
+      264:   84-block  0
+branch  0 taken 264
+branch  1 taken 0
+      264:   85:            if(!D[j].contains({nonterm, help})) {
+      264:   85-block  0
+branch  0 taken 264
+branch  1 taken 0
+      264:   85-block  1
+branch  2 taken 264
+branch  3 taken 0
+      264:   85-block  2
+branch  4 taken 97
+branch  5 taken 167
+    $$$$$:   85-block  3
+       97:   86:                D[j].insert({nonterm, help});
+       97:   86-block  0
+branch  0 taken 97
+branch  1 taken 0
+       97:   86-block  1
+branch  2 taken 97
+branch  3 taken 0
+    $$$$$:   86-block  2
+       97:   87:                res = true;
+       97:   88:            }
+       97:   88-block  0
+      264:   89:        }
+    $$$$$:   89-block  0
+    $$$$$:   89-block  1
+    $$$$$:   89-block  2
+        -:   90:    }
+       85:   91:    return res;
+       85:   91-block  0
+    #####:   92:}
+    $$$$$:   92-block  0
+    $$$$$:   92-block  1

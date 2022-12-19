@@ -1,0 +1,76 @@
+        -:    0:Source:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/tests/../src/Grammar.h
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/tests/Earley_tests.cpp.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/tests/Earley_tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <iostream>
+        -:    2:#include <string>
+        -:    3:#include <vector>
+        -:    4:#include <stack>
+        -:    5:#include <set>
+        -:    6:#include <unordered_set>
+        -:    7:#include <map>
+        -:    8:#include <deque>
+        -:    9:#include <queue>
+        -:   10:
+        -:   11://in struct Grammar declared set of transitions
+function _ZN7GrammarD1Ev called 0 returned 0% blocks executed 0%
+function _ZN7GrammarC1ERKS_ called 0 returned 0% blocks executed 0%
+function _ZN7GrammarC2ERKS_ called 0 returned 0% blocks executed 0%
+function _ZN7GrammarD2Ev called 0 returned 0% blocks executed 0%
+    #####:   12:struct Grammar {
+    $$$$$:   12-block  0
+    $$$$$:   12-block  1
+    $$$$$:   12-block  2
+branch  0 never executed
+branch  1 never executed
+    $$$$$:   12-block  3
+branch  2 never executed
+branch  3 never executed
+    $$$$$:   12-block  4
+    $$$$$:   12-block  5
+    $$$$$:   12-block  6
+    $$$$$:   12-block  7
+    $$$$$:   12-block  8
+    $$$$$:   12-block  9
+        -:   13:    int start;
+    #####:   14:    int eps = 1;
+    #####:   15:    bool is_conclusion_eps = false;
+        -:   16:    std::map<int, std::set<std::vector<int>>> transitions;
+        -:   17:    std::set<int> alpabet;
+        -:   18:    std::set<int> nonterminals;
+function _ZN7GrammarC1EiNSt3__13mapIiNS0_3setINS0_6vectorIiNS0_9allocatorIiEEEENS0_4lessIS6_EENS4_IS6_EEEENS7_IiEENS4_INS0_4pairIKiSA_EEEEEERKNS2_IiSB_S5_EESJ_ called 0 returned 0% blocks executed 0%
+function _ZN7GrammarC2EiNSt3__13mapIiNS0_3setINS0_6vectorIiNS0_9allocatorIiEEEENS0_4lessIS6_EENS4_IS6_EEEENS7_IiEENS4_INS0_4pairIKiSA_EEEEEERKNS2_IiSB_S5_EESJ_ called 0 returned 0% blocks executed 0%
+    #####:   19:    Grammar(int start, const std::map<int, std::set<std::vector<int>>> transitions, const std::set<int>& alphabet, const std::set<int>& nonterminals)
+    $$$$$:   19-block  0
+    $$$$$:   19-block  1
+    #####:   20:            : start(start), transitions(transitions), alpabet(alphabet), nonterminals(nonterminals) {}
+    $$$$$:   20-block  0
+    $$$$$:   20-block  1
+branch  0 never executed
+branch  1 never executed
+    $$$$$:   20-block  2
+branch  2 never executed
+branch  3 never executed
+    $$$$$:   20-block  3
+branch  4 never executed
+branch  5 never executed
+    $$$$$:   20-block  4
+    $$$$$:   20-block  5
+    $$$$$:   20-block  6
+    $$$$$:   20-block  7
+    $$$$$:   20-block  8
+        -:   21:    void add_transition(int from, std::set<std::string>& to);
+        -:   22:    bool is_generative(int nonterm);
+        -:   23:    bool is_achievable(int start, int nonterm);
+        -:   24:    void first_step_CNF();
+        -:   25:    void second_step_CNF();
+        -:   26:    void third_step_CNF();
+        -:   27:    void fourth_step_CNF();
+        -:   28:    void fifth_step_CNF();
+        -:   29:    bool is_conclusion_empty_word(int nonterm);
+        -:   30:    void sixth_step_CNF();
+        -:   31:    void seventh_step_CNF();
+        -:   32:    void del_empty_word_rules();
+        -:   33:    void to_CNF();
+        -:   34:};

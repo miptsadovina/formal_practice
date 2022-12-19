@@ -1,0 +1,39 @@
+        -:    0:Source:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/tests/../src/Earley.h
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/tests/Earley_tests.cpp.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/tests/Earley_tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "Grammar.h"
+        -:    2:
+function _ZN5stateD1Ev called 1110 returned 100% blocks executed 100%
+function _ZN5stateD2Ev called 1110 returned 100% blocks executed 100%
+     2220:    3:struct state{
+     1110:    3-block  0
+     1110:    3-block  1
+        -:    4:    std::vector<int> rule;
+        -:    5:    int index_point;
+        -:    6:    int i;
+        -:    7:    state(std::vector<int>& rule, int index_point, int i) :
+        -:    8:            rule(rule), index_point(index_point), i(i) {}
+        -:    9:};
+        -:   10:
+function _ZN6ParserD1Ev called 5 returned 100% blocks executed 100%
+function _ZN6ParserD2Ev called 5 returned 100% blocks executed 100%
+       10:   11:struct Parser {
+        5:   11-block  0
+        5:   11-block  1
+        -:   12:    Grammar g;
+        -:   13:    const std::string& word;
+        -:   14:    std::vector<std::set<std::pair<int, state>>> D;
+function _ZN6ParserC1ER7GrammarRKNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEE called 5 returned 100% blocks executed 100%
+function _ZN6ParserC2ER7GrammarRKNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEE called 5 returned 100% blocks executed 100%
+       10:   15:    Parser(Grammar& grammar,const std::string& word) : g(grammar), word(word) {}
+        5:   15-block  0
+        5:   15-block  1
+        5:   15-block  2
+        5:   15-block  3
+        -:   16:    void Earley();
+        -:   17:    void scan(int j);
+        -:   18:    bool predict(int j);
+        -:   19:    bool complete(int j);
+        -:   20:};

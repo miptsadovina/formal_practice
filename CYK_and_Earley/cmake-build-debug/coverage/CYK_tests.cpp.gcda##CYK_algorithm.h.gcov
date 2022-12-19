@@ -1,0 +1,22 @@
+        -:    0:Source:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/tests/../src/CYK_algorithm.h
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/tests/CYK_tests.cpp.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/tests/CYK_tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "Grammar.h"
+        -:    2:
+function _ZN3CYKD1Ev called 5 returned 100% blocks executed 100%
+function _ZN3CYKD2Ev called 5 returned 100% blocks executed 100%
+       10:    3:struct CYK{
+        5:    3-block  0
+        5:    3-block  1
+        -:    4:    Grammar g;
+function _ZN3CYKC1ER7Grammar called 5 returned 100% blocks executed 100%
+function _ZN3CYKC2ER7Grammar called 5 returned 100% blocks executed 100%
+       10:    5:    CYK(Grammar& grammar) : g(grammar) {}
+        5:    5-block  0
+        5:    5-block  1
+        5:    5-block  2
+        5:    5-block  3
+        -:    6:    void CYK_algorithm(const std::string& word);
+        -:    7:};

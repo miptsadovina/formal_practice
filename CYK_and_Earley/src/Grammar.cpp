@@ -116,9 +116,6 @@ void Grammar::third_step_CNF() {
                     nonterms.push_back(letter);
                 }
             }
-            if(terms.empty() || nonterms.empty()) {
-                continue;
-            }
             std::vector<int> new_right_word;
             for(int i = 0; i < word.size(); ++i) {
                 if(alpabet.contains(word[i])) {

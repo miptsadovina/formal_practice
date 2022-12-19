@@ -1,18 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja /Users/sadovinama/CLionProjects/first_algorithm
-CMake Error at tests/Earley_tests/CMakeLists.txt:8 (add_executable):
-  add_executable cannot create target "unit_tests" because another target
-  with the same name already exists.  The existing target is an executable
-  created in source directory
-  "/Users/sadovinama/CLionProjects/first_algorithm/tests/CYK_tests".  See
-  documentation for policy CMP0002 for more details.
-
-
-CMake Error at /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/GoogleTest.cmake:466 (add_custom_command):
-  TARGET 'unit_tests' was not created in this directory.
-Call Stack (most recent call first):
-  tests/Earley_tests/CMakeLists.txt:27 (gtest_discover_tests)
-
-
--- Configuring incomplete, errors occurred!
-See also "/Users/sadovinama/CLionProjects/first_algorithm/cmake-build-debug/CMakeFiles/CMakeOutput.log".
-See also "/Users/sadovinama/CLionProjects/first_algorithm/cmake-build-debug/CMakeFiles/CMakeError.log".
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug

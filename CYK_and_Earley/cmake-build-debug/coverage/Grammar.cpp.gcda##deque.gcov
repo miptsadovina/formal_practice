@@ -1,0 +1,3277 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/deque
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/src/Grammar.cpp.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/src/Grammar.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -*- C++ -*-
+        -:    2://===---------------------------- deque -----------------------------------===//
+        -:    3://
+        -:    4:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    5:// See https://llvm.org/LICENSE.txt for license information.
+        -:    6:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    7://
+        -:    8://===----------------------------------------------------------------------===//
+        -:    9:
+        -:   10:#ifndef _LIBCPP_DEQUE
+        -:   11:#define _LIBCPP_DEQUE
+        -:   12:
+        -:   13:/*
+        -:   14:    deque synopsis
+        -:   15:
+        -:   16:namespace std
+        -:   17:{
+        -:   18:
+        -:   19:template <class T, class Allocator = allocator<T> >
+        -:   20:class deque
+        -:   21:{
+        -:   22:public:
+        -:   23:    // types:
+        -:   24:    typedef T value_type;
+        -:   25:    typedef Allocator allocator_type;
+        -:   26:
+        -:   27:    typedef typename allocator_type::reference       reference;
+        -:   28:    typedef typename allocator_type::const_reference const_reference;
+        -:   29:    typedef implementation-defined                   iterator;
+        -:   30:    typedef implementation-defined                   const_iterator;
+        -:   31:    typedef typename allocator_type::size_type       size_type;
+        -:   32:    typedef typename allocator_type::difference_type difference_type;
+        -:   33:
+        -:   34:    typedef typename allocator_type::pointer         pointer;
+        -:   35:    typedef typename allocator_type::const_pointer   const_pointer;
+        -:   36:    typedef std::reverse_iterator<iterator>          reverse_iterator;
+        -:   37:    typedef std::reverse_iterator<const_iterator>    const_reverse_iterator;
+        -:   38:
+        -:   39:    // construct/copy/destroy:
+        -:   40:    deque() noexcept(is_nothrow_default_constructible<allocator_type>::value);
+        -:   41:    explicit deque(const allocator_type& a);
+        -:   42:    explicit deque(size_type n);
+        -:   43:    explicit deque(size_type n, const allocator_type& a); // C++14
+        -:   44:    deque(size_type n, const value_type& v);
+        -:   45:    deque(size_type n, const value_type& v, const allocator_type& a);
+        -:   46:    template <class InputIterator>
+        -:   47:        deque(InputIterator f, InputIterator l);
+        -:   48:    template <class InputIterator>
+        -:   49:        deque(InputIterator f, InputIterator l, const allocator_type& a);
+        -:   50:    deque(const deque& c);
+        -:   51:    deque(deque&& c)
+        -:   52:        noexcept(is_nothrow_move_constructible<allocator_type>::value);
+        -:   53:    deque(initializer_list<value_type> il, const Allocator& a = allocator_type());
+        -:   54:    deque(const deque& c, const allocator_type& a);
+        -:   55:    deque(deque&& c, const allocator_type& a);
+        -:   56:    ~deque();
+        -:   57:
+        -:   58:    deque& operator=(const deque& c);
+        -:   59:    deque& operator=(deque&& c)
+        -:   60:        noexcept(
+        -:   61:             allocator_type::propagate_on_container_move_assignment::value &&
+        -:   62:             is_nothrow_move_assignable<allocator_type>::value);
+        -:   63:    deque& operator=(initializer_list<value_type> il);
+        -:   64:
+        -:   65:    template <class InputIterator>
+        -:   66:        void assign(InputIterator f, InputIterator l);
+        -:   67:    void assign(size_type n, const value_type& v);
+        -:   68:    void assign(initializer_list<value_type> il);
+        -:   69:
+        -:   70:    allocator_type get_allocator() const noexcept;
+        -:   71:
+        -:   72:    // iterators:
+        -:   73:
+        -:   74:    iterator       begin() noexcept;
+        -:   75:    const_iterator begin() const noexcept;
+        -:   76:    iterator       end() noexcept;
+        -:   77:    const_iterator end() const noexcept;
+        -:   78:
+        -:   79:    reverse_iterator       rbegin() noexcept;
+        -:   80:    const_reverse_iterator rbegin() const noexcept;
+        -:   81:    reverse_iterator       rend() noexcept;
+        -:   82:    const_reverse_iterator rend() const noexcept;
+        -:   83:
+        -:   84:    const_iterator         cbegin() const noexcept;
+        -:   85:    const_iterator         cend() const noexcept;
+        -:   86:    const_reverse_iterator crbegin() const noexcept;
+        -:   87:    const_reverse_iterator crend() const noexcept;
+        -:   88:
+        -:   89:    // capacity:
+        -:   90:    size_type size() const noexcept;
+        -:   91:    size_type max_size() const noexcept;
+        -:   92:    void resize(size_type n);
+        -:   93:    void resize(size_type n, const value_type& v);
+        -:   94:    void shrink_to_fit();
+        -:   95:    bool empty() const noexcept;
+        -:   96:
+        -:   97:    // element access:
+        -:   98:    reference operator[](size_type i);
+        -:   99:    const_reference operator[](size_type i) const;
+        -:  100:    reference at(size_type i);
+        -:  101:    const_reference at(size_type i) const;
+        -:  102:    reference front();
+        -:  103:    const_reference front() const;
+        -:  104:    reference back();
+        -:  105:    const_reference back() const;
+        -:  106:
+        -:  107:    // modifiers:
+        -:  108:    void push_front(const value_type& v);
+        -:  109:    void push_front(value_type&& v);
+        -:  110:    void push_back(const value_type& v);
+        -:  111:    void push_back(value_type&& v);
+        -:  112:    template <class... Args> reference emplace_front(Args&&... args);  // reference in C++17
+        -:  113:    template <class... Args> reference emplace_back(Args&&... args);   // reference in C++17
+        -:  114:    template <class... Args> iterator emplace(const_iterator p, Args&&... args);
+        -:  115:    iterator insert(const_iterator p, const value_type& v);
+        -:  116:    iterator insert(const_iterator p, value_type&& v);
+        -:  117:    iterator insert(const_iterator p, size_type n, const value_type& v);
+        -:  118:    template <class InputIterator>
+        -:  119:        iterator insert(const_iterator p, InputIterator f, InputIterator l);
+        -:  120:    iterator insert(const_iterator p, initializer_list<value_type> il);
+        -:  121:    void pop_front();
+        -:  122:    void pop_back();
+        -:  123:    iterator erase(const_iterator p);
+        -:  124:    iterator erase(const_iterator f, const_iterator l);
+        -:  125:    void swap(deque& c)
+        -:  126:        noexcept(allocator_traits<allocator_type>::is_always_equal::value);  // C++17
+        -:  127:    void clear() noexcept;
+        -:  128:};
+        -:  129:
+        -:  130:template <class InputIterator, class Allocator = allocator<typename iterator_traits<InputIterator>::value_type>>
+        -:  131:   deque(InputIterator, InputIterator, Allocator = Allocator())
+        -:  132:   -> deque<typename iterator_traits<InputIterator>::value_type, Allocator>;
+        -:  133:
+        -:  134:template <class T, class Allocator>
+        -:  135:    bool operator==(const deque<T,Allocator>& x, const deque<T,Allocator>& y);
+        -:  136:template <class T, class Allocator>
+        -:  137:    bool operator< (const deque<T,Allocator>& x, const deque<T,Allocator>& y);
+        -:  138:template <class T, class Allocator>
+        -:  139:    bool operator!=(const deque<T,Allocator>& x, const deque<T,Allocator>& y);
+        -:  140:template <class T, class Allocator>
+        -:  141:    bool operator> (const deque<T,Allocator>& x, const deque<T,Allocator>& y);
+        -:  142:template <class T, class Allocator>
+        -:  143:    bool operator>=(const deque<T,Allocator>& x, const deque<T,Allocator>& y);
+        -:  144:template <class T, class Allocator>
+        -:  145:    bool operator<=(const deque<T,Allocator>& x, const deque<T,Allocator>& y);
+        -:  146:
+        -:  147:// specialized algorithms:
+        -:  148:template <class T, class Allocator>
+        -:  149:    void swap(deque<T,Allocator>& x, deque<T,Allocator>& y)
+        -:  150:         noexcept(noexcept(x.swap(y)));
+        -:  151:
+        -:  152:template <class T, class Allocator, class U>
+        -:  153:    typename deque<T, Allocator>::size_type
+        -:  154:    erase(deque<T, Allocator>& c, const U& value);       // C++20
+        -:  155:template <class T, class Allocator, class Predicate>
+        -:  156:    typename deque<T, Allocator>::size_type
+        -:  157:    erase_if(deque<T, Allocator>& c, Predicate pred);    // C++20
+        -:  158:
+        -:  159:}  // std
+        -:  160:
+        -:  161:*/
+        -:  162:
+        -:  163:#include <__config>
+        -:  164:#include <__split_buffer>
+        -:  165:#include <type_traits>
+        -:  166:#include <initializer_list>
+        -:  167:#include <iterator>
+        -:  168:#include <algorithm>
+        -:  169:#include <stdexcept>
+        -:  170:#include <version>
+        -:  171:
+        -:  172:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:  173:#pragma GCC system_header
+        -:  174:#endif
+        -:  175:
+        -:  176:_LIBCPP_PUSH_MACROS
+        -:  177:#include <__undef_macros>
+        -:  178:
+        -:  179:
+        -:  180:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:  181:
+        -:  182:template <class _Tp, class _Allocator> class __deque_base;
+        -:  183:template <class _Tp, class _Allocator = allocator<_Tp> > class _LIBCPP_TEMPLATE_VIS deque;
+        -:  184:
+        -:  185:template <class _ValueType, class _Pointer, class _Reference, class _MapPointer,
+        -:  186:          class _DiffType, _DiffType _BlockSize>
+        -:  187:class _LIBCPP_TEMPLATE_VIS __deque_iterator;
+        -:  188:
+        -:  189:template <class _RAIter,
+        -:  190:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  191:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  192:copy(_RAIter __f,
+        -:  193:     _RAIter __l,
+        -:  194:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  195:     typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type* = 0);
+        -:  196:
+        -:  197:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  198:          class _OutputIterator>
+        -:  199:_OutputIterator
+        -:  200:copy(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  201:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  202:     _OutputIterator __r);
+        -:  203:
+        -:  204:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  205:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  206:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  207:copy(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  208:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  209:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  210:
+        -:  211:template <class _RAIter,
+        -:  212:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  213:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  214:copy_backward(_RAIter __f,
+        -:  215:              _RAIter __l,
+        -:  216:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  217:              typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type* = 0);
+        -:  218:
+        -:  219:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  220:          class _OutputIterator>
+        -:  221:_OutputIterator
+        -:  222:copy_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  223:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  224:              _OutputIterator __r);
+        -:  225:
+        -:  226:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  227:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  228:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  229:copy_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  230:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  231:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  232:
+        -:  233:template <class _RAIter,
+        -:  234:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  235:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  236:move(_RAIter __f,
+        -:  237:     _RAIter __l,
+        -:  238:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  239:     typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type* = 0);
+        -:  240:
+        -:  241:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  242:          class _OutputIterator>
+        -:  243:_OutputIterator
+        -:  244:move(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  245:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  246:     _OutputIterator __r);
+        -:  247:
+        -:  248:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  249:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  250:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  251:move(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  252:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  253:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  254:
+        -:  255:template <class _RAIter,
+        -:  256:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  257:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  258:move_backward(_RAIter __f,
+        -:  259:              _RAIter __l,
+        -:  260:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  261:              typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type* = 0);
+        -:  262:
+        -:  263:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  264:          class _OutputIterator>
+        -:  265:_OutputIterator
+        -:  266:move_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  267:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  268:              _OutputIterator __r);
+        -:  269:
+        -:  270:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  271:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  272:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  273:move_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  274:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  275:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  276:
+        -:  277:template <class _ValueType, class _DiffType>
+        -:  278:struct __deque_block_size {
+        -:  279:  static const _DiffType value = sizeof(_ValueType) < 256 ? 4096 / sizeof(_ValueType) : 16;
+        -:  280:};
+        -:  281:
+        -:  282:template <class _ValueType, class _Pointer, class _Reference, class _MapPointer,
+        -:  283:          class _DiffType, _DiffType _BS =
+        -:  284:#ifdef _LIBCPP_ABI_INCOMPLETE_TYPES_IN_DEQUE
+        -:  285:// Keep template parameter to avoid changing all template declarations thoughout
+        -:  286:// this file.
+        -:  287:                               0
+        -:  288:#else
+        -:  289:                               __deque_block_size<_ValueType, _DiffType>::value
+        -:  290:#endif
+        -:  291:          >
+        -:  292:class _LIBCPP_TEMPLATE_VIS __deque_iterator
+        -:  293:{
+        -:  294:    typedef _MapPointer __map_iterator;
+        -:  295:public:
+        -:  296:    typedef _Pointer  pointer;
+        -:  297:    typedef _DiffType difference_type;
+        -:  298:private:
+        -:  299:    __map_iterator __m_iter_;
+        -:  300:    pointer        __ptr_;
+        -:  301:
+        -:  302:    static const difference_type __block_size;
+        -:  303:public:
+        -:  304:    typedef _ValueType                  value_type;
+        -:  305:    typedef random_access_iterator_tag  iterator_category;
+        -:  306:    typedef _Reference                  reference;
+        -:  307:
+        -:  308:    _LIBCPP_INLINE_VISIBILITY __deque_iterator() _NOEXCEPT
+        -:  309:#if _LIBCPP_STD_VER > 11
+        -:  310:     : __m_iter_(nullptr), __ptr_(nullptr)
+        -:  311:#endif
+        -:  312:     {}
+        -:  313:
+        -:  314:    template <class _Pp, class _Rp, class _MP>
+        -:  315:    _LIBCPP_INLINE_VISIBILITY
+        -:  316:    __deque_iterator(const __deque_iterator<value_type, _Pp, _Rp, _MP, difference_type, _BS>& __it,
+        -:  317:                typename enable_if<is_convertible<_Pp, pointer>::value>::type* = 0) _NOEXCEPT
+        -:  318:        : __m_iter_(__it.__m_iter_), __ptr_(__it.__ptr_) {}
+        -:  319:
+function _ZNKSt3__116__deque_iteratorIiPiRiPS1_lLl1024EEdeEv called 30 returned 100% blocks executed 100%
+       30:  320:    _LIBCPP_INLINE_VISIBILITY reference operator*() const {return *__ptr_;}
+       30:  320-block  0
+       30:  320-block  1
+        -:  321:    _LIBCPP_INLINE_VISIBILITY pointer operator->() const {return __ptr_;}
+        -:  322:
+function _ZNSt3__116__deque_iteratorIiPiRiPS1_lLl1024EEppEv called 0 returned 0% blocks executed 0%
+    #####:  323:    _LIBCPP_INLINE_VISIBILITY __deque_iterator& operator++()
+    $$$$$:  323-block  0
+        -:  324:    {
+    #####:  325:        if (++__ptr_ - *__m_iter_ == __block_size)
+    $$$$$:  325-block  0
+branch  0 never executed
+branch  1 never executed
+        -:  326:        {
+    #####:  327:            ++__m_iter_;
+    #####:  328:            __ptr_ = *__m_iter_;
+    #####:  329:        }
+    $$$$$:  329-block  0
+    #####:  330:        return *this;
+    $$$$$:  330-block  0
+        -:  331:    }
+        -:  332:
+        -:  333:    _LIBCPP_INLINE_VISIBILITY __deque_iterator operator++(int)
+        -:  334:    {
+        -:  335:        __deque_iterator __tmp = *this;
+        -:  336:        ++(*this);
+        -:  337:        return __tmp;
+        -:  338:    }
+        -:  339:
+        -:  340:    _LIBCPP_INLINE_VISIBILITY __deque_iterator& operator--()
+        -:  341:    {
+        -:  342:        if (__ptr_ == *__m_iter_)
+        -:  343:        {
+        -:  344:            --__m_iter_;
+        -:  345:            __ptr_ = *__m_iter_ + __block_size;
+        -:  346:        }
+        -:  347:        --__ptr_;
+        -:  348:        return *this;
+        -:  349:    }
+        -:  350:
+        -:  351:    _LIBCPP_INLINE_VISIBILITY __deque_iterator operator--(int)
+        -:  352:    {
+        -:  353:        __deque_iterator __tmp = *this;
+        -:  354:        --(*this);
+        -:  355:        return __tmp;
+        -:  356:    }
+        -:  357:
+        -:  358:    _LIBCPP_INLINE_VISIBILITY __deque_iterator& operator+=(difference_type __n)
+        -:  359:    {
+        -:  360:        if (__n != 0)
+        -:  361:        {
+        -:  362:            __n += __ptr_ - *__m_iter_;
+        -:  363:            if (__n > 0)
+        -:  364:            {
+        -:  365:                __m_iter_ += __n / __block_size;
+        -:  366:                __ptr_ = *__m_iter_ + __n % __block_size;
+        -:  367:            }
+        -:  368:            else // (__n < 0)
+        -:  369:            {
+        -:  370:                difference_type __z = __block_size - 1 - __n;
+        -:  371:                __m_iter_ -= __z / __block_size;
+        -:  372:                __ptr_ = *__m_iter_ + (__block_size - 1 - __z % __block_size);
+        -:  373:            }
+        -:  374:        }
+        -:  375:        return *this;
+        -:  376:    }
+        -:  377:
+        -:  378:    _LIBCPP_INLINE_VISIBILITY __deque_iterator& operator-=(difference_type __n)
+        -:  379:    {
+        -:  380:        return *this += -__n;
+        -:  381:    }
+        -:  382:
+        -:  383:    _LIBCPP_INLINE_VISIBILITY __deque_iterator operator+(difference_type __n) const
+        -:  384:    {
+        -:  385:        __deque_iterator __t(*this);
+        -:  386:        __t += __n;
+        -:  387:        return __t;
+        -:  388:    }
+        -:  389:
+        -:  390:    _LIBCPP_INLINE_VISIBILITY __deque_iterator operator-(difference_type __n) const
+        -:  391:    {
+        -:  392:        __deque_iterator __t(*this);
+        -:  393:        __t -= __n;
+        -:  394:        return __t;
+        -:  395:    }
+        -:  396:
+        -:  397:    _LIBCPP_INLINE_VISIBILITY
+        -:  398:    friend __deque_iterator operator+(difference_type __n, const __deque_iterator& __it)
+        -:  399:        {return __it + __n;}
+        -:  400:
+        -:  401:    _LIBCPP_INLINE_VISIBILITY
+        -:  402:    friend difference_type operator-(const __deque_iterator& __x, const __deque_iterator& __y)
+        -:  403:    {
+        -:  404:        if (__x != __y)
+        -:  405:            return (__x.__m_iter_ - __y.__m_iter_) * __block_size
+        -:  406:                 + (__x.__ptr_ - *__x.__m_iter_)
+        -:  407:                 - (__y.__ptr_ - *__y.__m_iter_);
+        -:  408:        return 0;
+        -:  409:    }
+        -:  410:
+        -:  411:    _LIBCPP_INLINE_VISIBILITY reference operator[](difference_type __n) const
+        -:  412:        {return *(*this + __n);}
+        -:  413:
+        -:  414:    _LIBCPP_INLINE_VISIBILITY friend
+function _ZNSt3__1eqERKNS_16__deque_iteratorIiPiRiPS1_lLl1024EEES6_ called 24 returned 100% blocks executed 100%
+       24:  415:        bool operator==(const __deque_iterator& __x, const __deque_iterator& __y)
+       24:  415-block  0
+       24:  416:        {return __x.__ptr_ == __y.__ptr_;}
+       24:  416-block  0
+        -:  417:
+        -:  418:    _LIBCPP_INLINE_VISIBILITY friend
+function _ZNSt3__1neERKNS_16__deque_iteratorIiPiRiPS1_lLl1024EEES6_ called 24 returned 100% blocks executed 100%
+       24:  419:        bool operator!=(const __deque_iterator& __x, const __deque_iterator& __y)
+       24:  419-block  0
+       24:  420:        {return !(__x == __y);}
+       24:  420-block  0
+        -:  421:
+        -:  422:    _LIBCPP_INLINE_VISIBILITY friend
+        -:  423:        bool operator<(const __deque_iterator& __x, const __deque_iterator& __y)
+        -:  424:        {return __x.__m_iter_ < __y.__m_iter_ ||
+        -:  425:               (__x.__m_iter_ == __y.__m_iter_ && __x.__ptr_ < __y.__ptr_);}
+        -:  426:
+        -:  427:    _LIBCPP_INLINE_VISIBILITY friend
+        -:  428:        bool operator>(const __deque_iterator& __x, const __deque_iterator& __y)
+        -:  429:        {return __y < __x;}
+        -:  430:
+        -:  431:    _LIBCPP_INLINE_VISIBILITY friend
+        -:  432:        bool operator<=(const __deque_iterator& __x, const __deque_iterator& __y)
+        -:  433:        {return !(__y < __x);}
+        -:  434:
+        -:  435:    _LIBCPP_INLINE_VISIBILITY friend
+        -:  436:        bool operator>=(const __deque_iterator& __x, const __deque_iterator& __y)
+        -:  437:        {return !(__x < __y);}
+        -:  438:
+        -:  439:private:
+function _ZNSt3__116__deque_iteratorIiPiRiPS1_lLl1024EEC1ES3_S1_ called 78 returned 100% blocks executed 100%
+function _ZNSt3__116__deque_iteratorIiPiRiPS1_lLl1024EEC2ES3_S1_ called 78 returned 100% blocks executed 100%
+      156:  440:    _LIBCPP_INLINE_VISIBILITY __deque_iterator(__map_iterator __m, pointer __p) _NOEXCEPT
+       78:  440-block  0
+       78:  440-block  1
+      156:  441:        : __m_iter_(__m), __ptr_(__p) {}
+       78:  441-block  0
+       78:  441-block  1
+        -:  442:
+        -:  443:    template <class _Tp, class _Ap> friend class __deque_base;
+        -:  444:    template <class _Tp, class _Ap> friend class _LIBCPP_TEMPLATE_VIS deque;
+        -:  445:    template <class _Vp, class _Pp, class _Rp, class _MP, class _Dp, _Dp>
+        -:  446:        friend class _LIBCPP_TEMPLATE_VIS __deque_iterator;
+        -:  447:
+        -:  448:    template <class _RAIter,
+        -:  449:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  450:    friend
+        -:  451:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  452:    copy(_RAIter __f,
+        -:  453:         _RAIter __l,
+        -:  454:         __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  455:         typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*);
+        -:  456:
+        -:  457:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  458:              class _OutputIterator>
+        -:  459:    friend
+        -:  460:    _OutputIterator
+        -:  461:    copy(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  462:         __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  463:         _OutputIterator __r);
+        -:  464:
+        -:  465:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  466:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  467:    friend
+        -:  468:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  469:    copy(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  470:         __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  471:         __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  472:
+        -:  473:    template <class _RAIter,
+        -:  474:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  475:    friend
+        -:  476:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  477:    copy_backward(_RAIter __f,
+        -:  478:                  _RAIter __l,
+        -:  479:                  __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  480:                  typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*);
+        -:  481:
+        -:  482:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  483:              class _OutputIterator>
+        -:  484:    friend
+        -:  485:    _OutputIterator
+        -:  486:    copy_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  487:                  __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  488:                  _OutputIterator __r);
+        -:  489:
+        -:  490:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  491:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  492:    friend
+        -:  493:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  494:    copy_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  495:                  __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  496:                  __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  497:
+        -:  498:    template <class _RAIter,
+        -:  499:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  500:    friend
+        -:  501:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  502:    move(_RAIter __f,
+        -:  503:         _RAIter __l,
+        -:  504:         __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  505:         typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*);
+        -:  506:
+        -:  507:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  508:              class _OutputIterator>
+        -:  509:    friend
+        -:  510:    _OutputIterator
+        -:  511:    move(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  512:         __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  513:         _OutputIterator __r);
+        -:  514:
+        -:  515:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  516:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  517:    friend
+        -:  518:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  519:    move(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  520:         __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  521:         __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  522:
+        -:  523:    template <class _RAIter,
+        -:  524:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  525:    friend
+        -:  526:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  527:    move_backward(_RAIter __f,
+        -:  528:                  _RAIter __l,
+        -:  529:                  __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  530:                  typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*);
+        -:  531:
+        -:  532:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  533:              class _OutputIterator>
+        -:  534:    friend
+        -:  535:    _OutputIterator
+        -:  536:    move_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  537:                  __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  538:                  _OutputIterator __r);
+        -:  539:
+        -:  540:    template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  541:              class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  542:    friend
+        -:  543:    __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  544:    move_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  545:                  __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  546:                  __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r);
+        -:  547:};
+        -:  548:
+        -:  549:template <class _ValueType, class _Pointer, class _Reference, class _MapPointer,
+        -:  550:          class _DiffType, _DiffType _BlockSize>
+        -:  551:const _DiffType __deque_iterator<_ValueType, _Pointer, _Reference, _MapPointer,
+        -:  552:                                 _DiffType, _BlockSize>::__block_size =
+        -:  553:    __deque_block_size<_ValueType, _DiffType>::value;
+        -:  554:
+        -:  555:// copy
+        -:  556:
+        -:  557:template <class _RAIter,
+        -:  558:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  559:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  560:copy(_RAIter __f,
+        -:  561:     _RAIter __l,
+        -:  562:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  563:     typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*)
+        -:  564:{
+        -:  565:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::difference_type difference_type;
+        -:  566:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::pointer pointer;
+        -:  567:    const difference_type __block_size = __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::__block_size;
+        -:  568:    while (__f != __l)
+        -:  569:    {
+        -:  570:        pointer __rb = __r.__ptr_;
+        -:  571:        pointer __re = *__r.__m_iter_ + __block_size;
+        -:  572:        difference_type __bs = __re - __rb;
+        -:  573:        difference_type __n = __l - __f;
+        -:  574:        _RAIter __m = __l;
+        -:  575:        if (__n > __bs)
+        -:  576:        {
+        -:  577:            __n = __bs;
+        -:  578:            __m = __f + __n;
+        -:  579:        }
+        -:  580:        _VSTD::copy(__f, __m, __rb);
+        -:  581:        __f = __m;
+        -:  582:        __r += __n;
+        -:  583:    }
+        -:  584:    return __r;
+        -:  585:}
+        -:  586:
+        -:  587:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  588:          class _OutputIterator>
+        -:  589:_OutputIterator
+        -:  590:copy(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  591:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  592:     _OutputIterator __r)
+        -:  593:{
+        -:  594:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  595:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  596:    const difference_type __block_size = __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::__block_size;
+        -:  597:    difference_type __n = __l - __f;
+        -:  598:    while (__n > 0)
+        -:  599:    {
+        -:  600:        pointer __fb = __f.__ptr_;
+        -:  601:        pointer __fe = *__f.__m_iter_ + __block_size;
+        -:  602:        difference_type __bs = __fe - __fb;
+        -:  603:        if (__bs > __n)
+        -:  604:        {
+        -:  605:            __bs = __n;
+        -:  606:            __fe = __fb + __bs;
+        -:  607:        }
+        -:  608:        __r = _VSTD::copy(__fb, __fe, __r);
+        -:  609:        __n -= __bs;
+        -:  610:        __f += __bs;
+        -:  611:    }
+        -:  612:    return __r;
+        -:  613:}
+        -:  614:
+        -:  615:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  616:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  617:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  618:copy(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  619:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  620:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r)
+        -:  621:{
+        -:  622:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  623:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  624:    const difference_type __block_size = __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::__block_size;
+        -:  625:    difference_type __n = __l - __f;
+        -:  626:    while (__n > 0)
+        -:  627:    {
+        -:  628:        pointer __fb = __f.__ptr_;
+        -:  629:        pointer __fe = *__f.__m_iter_ + __block_size;
+        -:  630:        difference_type __bs = __fe - __fb;
+        -:  631:        if (__bs > __n)
+        -:  632:        {
+        -:  633:            __bs = __n;
+        -:  634:            __fe = __fb + __bs;
+        -:  635:        }
+        -:  636:        __r = _VSTD::copy(__fb, __fe, __r);
+        -:  637:        __n -= __bs;
+        -:  638:        __f += __bs;
+        -:  639:    }
+        -:  640:    return __r;
+        -:  641:}
+        -:  642:
+        -:  643:// copy_backward
+        -:  644:
+        -:  645:template <class _RAIter,
+        -:  646:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  647:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  648:copy_backward(_RAIter __f,
+        -:  649:              _RAIter __l,
+        -:  650:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  651:              typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*)
+        -:  652:{
+        -:  653:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::difference_type difference_type;
+        -:  654:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::pointer pointer;
+        -:  655:    while (__f != __l)
+        -:  656:    {
+        -:  657:        __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __rp = _VSTD::prev(__r);
+        -:  658:        pointer __rb = *__rp.__m_iter_;
+        -:  659:        pointer __re = __rp.__ptr_ + 1;
+        -:  660:        difference_type __bs = __re - __rb;
+        -:  661:        difference_type __n = __l - __f;
+        -:  662:        _RAIter __m = __f;
+        -:  663:        if (__n > __bs)
+        -:  664:        {
+        -:  665:            __n = __bs;
+        -:  666:            __m = __l - __n;
+        -:  667:        }
+        -:  668:        _VSTD::copy_backward(__m, __l, __re);
+        -:  669:        __l = __m;
+        -:  670:        __r -= __n;
+        -:  671:    }
+        -:  672:    return __r;
+        -:  673:}
+        -:  674:
+        -:  675:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  676:          class _OutputIterator>
+        -:  677:_OutputIterator
+        -:  678:copy_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  679:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  680:              _OutputIterator __r)
+        -:  681:{
+        -:  682:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  683:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  684:    difference_type __n = __l - __f;
+        -:  685:    while (__n > 0)
+        -:  686:    {
+        -:  687:        --__l;
+        -:  688:        pointer __lb = *__l.__m_iter_;
+        -:  689:        pointer __le = __l.__ptr_ + 1;
+        -:  690:        difference_type __bs = __le - __lb;
+        -:  691:        if (__bs > __n)
+        -:  692:        {
+        -:  693:            __bs = __n;
+        -:  694:            __lb = __le - __bs;
+        -:  695:        }
+        -:  696:        __r = _VSTD::copy_backward(__lb, __le, __r);
+        -:  697:        __n -= __bs;
+        -:  698:        __l -= __bs - 1;
+        -:  699:    }
+        -:  700:    return __r;
+        -:  701:}
+        -:  702:
+        -:  703:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  704:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  705:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  706:copy_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  707:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  708:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r)
+        -:  709:{
+        -:  710:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  711:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  712:    difference_type __n = __l - __f;
+        -:  713:    while (__n > 0)
+        -:  714:    {
+        -:  715:        --__l;
+        -:  716:        pointer __lb = *__l.__m_iter_;
+        -:  717:        pointer __le = __l.__ptr_ + 1;
+        -:  718:        difference_type __bs = __le - __lb;
+        -:  719:        if (__bs > __n)
+        -:  720:        {
+        -:  721:            __bs = __n;
+        -:  722:            __lb = __le - __bs;
+        -:  723:        }
+        -:  724:        __r = _VSTD::copy_backward(__lb, __le, __r);
+        -:  725:        __n -= __bs;
+        -:  726:        __l -= __bs - 1;
+        -:  727:    }
+        -:  728:    return __r;
+        -:  729:}
+        -:  730:
+        -:  731:// move
+        -:  732:
+        -:  733:template <class _RAIter,
+        -:  734:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  735:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  736:move(_RAIter __f,
+        -:  737:     _RAIter __l,
+        -:  738:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  739:     typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*)
+        -:  740:{
+        -:  741:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::difference_type difference_type;
+        -:  742:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::pointer pointer;
+        -:  743:    const difference_type __block_size = __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::__block_size;
+        -:  744:    while (__f != __l)
+        -:  745:    {
+        -:  746:        pointer __rb = __r.__ptr_;
+        -:  747:        pointer __re = *__r.__m_iter_ + __block_size;
+        -:  748:        difference_type __bs = __re - __rb;
+        -:  749:        difference_type __n = __l - __f;
+        -:  750:        _RAIter __m = __l;
+        -:  751:        if (__n > __bs)
+        -:  752:        {
+        -:  753:            __n = __bs;
+        -:  754:            __m = __f + __n;
+        -:  755:        }
+        -:  756:        _VSTD::move(__f, __m, __rb);
+        -:  757:        __f = __m;
+        -:  758:        __r += __n;
+        -:  759:    }
+        -:  760:    return __r;
+        -:  761:}
+        -:  762:
+        -:  763:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  764:          class _OutputIterator>
+        -:  765:_OutputIterator
+        -:  766:move(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  767:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  768:     _OutputIterator __r)
+        -:  769:{
+        -:  770:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  771:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  772:    const difference_type __block_size = __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::__block_size;
+        -:  773:    difference_type __n = __l - __f;
+        -:  774:    while (__n > 0)
+        -:  775:    {
+        -:  776:        pointer __fb = __f.__ptr_;
+        -:  777:        pointer __fe = *__f.__m_iter_ + __block_size;
+        -:  778:        difference_type __bs = __fe - __fb;
+        -:  779:        if (__bs > __n)
+        -:  780:        {
+        -:  781:            __bs = __n;
+        -:  782:            __fe = __fb + __bs;
+        -:  783:        }
+        -:  784:        __r = _VSTD::move(__fb, __fe, __r);
+        -:  785:        __n -= __bs;
+        -:  786:        __f += __bs;
+        -:  787:    }
+        -:  788:    return __r;
+        -:  789:}
+        -:  790:
+        -:  791:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  792:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  793:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  794:move(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  795:     __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  796:     __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r)
+        -:  797:{
+        -:  798:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  799:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  800:    const difference_type __block_size = __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::__block_size;
+        -:  801:    difference_type __n = __l - __f;
+        -:  802:    while (__n > 0)
+        -:  803:    {
+        -:  804:        pointer __fb = __f.__ptr_;
+        -:  805:        pointer __fe = *__f.__m_iter_ + __block_size;
+        -:  806:        difference_type __bs = __fe - __fb;
+        -:  807:        if (__bs > __n)
+        -:  808:        {
+        -:  809:            __bs = __n;
+        -:  810:            __fe = __fb + __bs;
+        -:  811:        }
+        -:  812:        __r = _VSTD::move(__fb, __fe, __r);
+        -:  813:        __n -= __bs;
+        -:  814:        __f += __bs;
+        -:  815:    }
+        -:  816:    return __r;
+        -:  817:}
+        -:  818:
+        -:  819:// move_backward
+        -:  820:
+        -:  821:template <class _RAIter,
+        -:  822:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  823:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  824:move_backward(_RAIter __f,
+        -:  825:              _RAIter __l,
+        -:  826:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r,
+        -:  827:              typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*)
+        -:  828:{
+        -:  829:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::difference_type difference_type;
+        -:  830:    typedef typename __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>::pointer pointer;
+        -:  831:    while (__f != __l)
+        -:  832:    {
+        -:  833:        __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __rp = _VSTD::prev(__r);
+        -:  834:        pointer __rb = *__rp.__m_iter_;
+        -:  835:        pointer __re = __rp.__ptr_ + 1;
+        -:  836:        difference_type __bs = __re - __rb;
+        -:  837:        difference_type __n = __l - __f;
+        -:  838:        _RAIter __m = __f;
+        -:  839:        if (__n > __bs)
+        -:  840:        {
+        -:  841:            __n = __bs;
+        -:  842:            __m = __l - __n;
+        -:  843:        }
+        -:  844:        _VSTD::move_backward(__m, __l, __re);
+        -:  845:        __l = __m;
+        -:  846:        __r -= __n;
+        -:  847:    }
+        -:  848:    return __r;
+        -:  849:}
+        -:  850:
+        -:  851:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  852:          class _OutputIterator>
+        -:  853:_OutputIterator
+        -:  854:move_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  855:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  856:              _OutputIterator __r)
+        -:  857:{
+        -:  858:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  859:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  860:    difference_type __n = __l - __f;
+        -:  861:    while (__n > 0)
+        -:  862:    {
+        -:  863:        --__l;
+        -:  864:        pointer __lb = *__l.__m_iter_;
+        -:  865:        pointer __le = __l.__ptr_ + 1;
+        -:  866:        difference_type __bs = __le - __lb;
+        -:  867:        if (__bs > __n)
+        -:  868:        {
+        -:  869:            __bs = __n;
+        -:  870:            __lb = __le - __bs;
+        -:  871:        }
+        -:  872:        __r = _VSTD::move_backward(__lb, __le, __r);
+        -:  873:        __n -= __bs;
+        -:  874:        __l -= __bs - 1;
+        -:  875:    }
+        -:  876:    return __r;
+        -:  877:}
+        -:  878:
+        -:  879:template <class _V1, class _P1, class _R1, class _M1, class _D1, _D1 _B1,
+        -:  880:          class _V2, class _P2, class _R2, class _M2, class _D2, _D2 _B2>
+        -:  881:__deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2>
+        -:  882:move_backward(__deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __f,
+        -:  883:              __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1> __l,
+        -:  884:              __deque_iterator<_V2, _P2, _R2, _M2, _D2, _B2> __r)
+        -:  885:{
+        -:  886:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::difference_type difference_type;
+        -:  887:    typedef typename __deque_iterator<_V1, _P1, _R1, _M1, _D1, _B1>::pointer pointer;
+        -:  888:    difference_type __n = __l - __f;
+        -:  889:    while (__n > 0)
+        -:  890:    {
+        -:  891:        --__l;
+        -:  892:        pointer __lb = *__l.__m_iter_;
+        -:  893:        pointer __le = __l.__ptr_ + 1;
+        -:  894:        difference_type __bs = __le - __lb;
+        -:  895:        if (__bs > __n)
+        -:  896:        {
+        -:  897:            __bs = __n;
+        -:  898:            __lb = __le - __bs;
+        -:  899:        }
+        -:  900:        __r = _VSTD::move_backward(__lb, __le, __r);
+        -:  901:        __n -= __bs;
+        -:  902:        __l -= __bs - 1;
+        -:  903:    }
+        -:  904:    return __r;
+        -:  905:}
+        -:  906:
+        -:  907:template <bool>
+        -:  908:class __deque_base_common
+        -:  909:{
+        -:  910:protected:
+        -:  911:    _LIBCPP_NORETURN void __throw_length_error() const;
+        -:  912:    _LIBCPP_NORETURN void __throw_out_of_range() const;
+        -:  913:};
+        -:  914:
+        -:  915:template <bool __b>
+        -:  916:void
+        -:  917:__deque_base_common<__b>::__throw_length_error() const
+        -:  918:{
+        -:  919:    _VSTD::__throw_length_error("deque");
+        -:  920:}
+        -:  921:
+        -:  922:template <bool __b>
+        -:  923:void
+        -:  924:__deque_base_common<__b>::__throw_out_of_range() const
+        -:  925:{
+        -:  926:    _VSTD::__throw_out_of_range("deque");
+        -:  927:}
+        -:  928:
+        -:  929:template <class _Tp, class _Allocator>
+        -:  930:class __deque_base
+        -:  931:    : protected __deque_base_common<true>
+        -:  932:{
+        -:  933:    __deque_base(const __deque_base& __c);
+        -:  934:    __deque_base& operator=(const __deque_base& __c);
+        -:  935:public:
+        -:  936:    typedef _Allocator                               allocator_type;
+        -:  937:    typedef allocator_traits<allocator_type>         __alloc_traits;
+        -:  938:    typedef typename __alloc_traits::size_type       size_type;
+        -:  939:
+        -:  940:    typedef _Tp                                      value_type;
+        -:  941:    typedef value_type&                              reference;
+        -:  942:    typedef const value_type&                        const_reference;
+        -:  943:    typedef typename __alloc_traits::difference_type difference_type;
+        -:  944:    typedef typename __alloc_traits::pointer         pointer;
+        -:  945:    typedef typename __alloc_traits::const_pointer   const_pointer;
+        -:  946:
+        -:  947:    static const difference_type __block_size;
+        -:  948:
+        -:  949:    typedef typename __rebind_alloc_helper<__alloc_traits, pointer>::type __pointer_allocator;
+        -:  950:    typedef allocator_traits<__pointer_allocator>        __map_traits;
+        -:  951:    typedef typename __map_traits::pointer               __map_pointer;
+        -:  952:    typedef typename __rebind_alloc_helper<__alloc_traits, const_pointer>::type __const_pointer_allocator;
+        -:  953:    typedef typename allocator_traits<__const_pointer_allocator>::const_pointer __map_const_pointer;
+        -:  954:    typedef __split_buffer<pointer, __pointer_allocator> __map;
+        -:  955:
+        -:  956:    typedef __deque_iterator<value_type, pointer, reference, __map_pointer,
+        -:  957:                             difference_type>    iterator;
+        -:  958:    typedef __deque_iterator<value_type, const_pointer, const_reference, __map_const_pointer,
+        -:  959:                             difference_type>    const_iterator;
+        -:  960:
+        -:  961:    struct __deque_block_range {
+        -:  962:      explicit __deque_block_range(pointer __b, pointer __e) _NOEXCEPT : __begin_(__b), __end_(__e) {}
+        -:  963:      const pointer __begin_;
+        -:  964:      const pointer __end_;
+        -:  965:    };
+        -:  966:
+        -:  967:    struct __deque_range {
+        -:  968:      iterator __pos_;
+        -:  969:      const iterator __end_;
+        -:  970:
+        -:  971:      __deque_range(iterator __pos, iterator __e) _NOEXCEPT
+        -:  972:        : __pos_(__pos), __end_(__e) {}
+        -:  973:
+        -:  974:      explicit operator bool() const _NOEXCEPT {
+        -:  975:        return __pos_ != __end_;
+        -:  976:      }
+        -:  977:
+        -:  978:      __deque_range begin() const {
+        -:  979:        return *this;
+        -:  980:      }
+        -:  981:
+        -:  982:      __deque_range end() const {
+        -:  983:        return __deque_range(__end_, __end_);
+        -:  984:      }
+        -:  985:      __deque_block_range operator*() const _NOEXCEPT {
+        -:  986:         if (__pos_.__m_iter_ == __end_.__m_iter_) {
+        -:  987:          return __deque_block_range(__pos_.__ptr_, __end_.__ptr_);
+        -:  988:        }
+        -:  989:        return __deque_block_range(__pos_.__ptr_, *__pos_.__m_iter_ + __block_size);
+        -:  990:      }
+        -:  991:
+        -:  992:      __deque_range& operator++() _NOEXCEPT {
+        -:  993:        if (__pos_.__m_iter_ == __end_.__m_iter_) {
+        -:  994:          __pos_ = __end_;
+        -:  995:        } else {
+        -:  996:          ++__pos_.__m_iter_;
+        -:  997:          __pos_.__ptr_ = *__pos_.__m_iter_;
+        -:  998:        }
+        -:  999:        return *this;
+        -: 1000:      }
+        -: 1001:
+        -: 1002:
+        -: 1003:      friend bool operator==(__deque_range const& __lhs, __deque_range const& __rhs) {
+        -: 1004:        return __lhs.__pos_ == __rhs.__pos_;
+        -: 1005:      }
+        -: 1006:      friend bool operator!=(__deque_range const& __lhs, __deque_range const& __rhs) {
+        -: 1007:        return !(__lhs == __rhs);
+        -: 1008:      }
+        -: 1009:    };
+        -: 1010:
+        -: 1011:
+        -: 1012:
+        -: 1013:    struct _ConstructTransaction {
+        -: 1014:      _ConstructTransaction(__deque_base* __db, __deque_block_range& __r)
+        -: 1015:        : __pos_(__r.__begin_), __end_(__r.__end_), __begin_(__r.__begin_), __base_(__db) {}
+        -: 1016:
+        -: 1017:
+        -: 1018:      ~_ConstructTransaction() {
+        -: 1019:        __base_->size() += (__pos_ - __begin_);
+        -: 1020:      }
+        -: 1021:
+        -: 1022:      pointer __pos_;
+        -: 1023:      const pointer __end_;
+        -: 1024:    private:
+        -: 1025:      const pointer __begin_;
+        -: 1026:      __deque_base * const __base_;
+        -: 1027:    };
+        -: 1028:
+        -: 1029:protected:
+        -: 1030:    __map __map_;
+        -: 1031:    size_type __start_;
+        -: 1032:    __compressed_pair<size_type, allocator_type> __size_;
+        -: 1033:
+        -: 1034:    iterator       begin() _NOEXCEPT;
+        -: 1035:    const_iterator begin() const _NOEXCEPT;
+        -: 1036:    iterator       end() _NOEXCEPT;
+        -: 1037:    const_iterator end() const _NOEXCEPT;
+        -: 1038:
+function _ZNSt3__112__deque_baseIiNS_9allocatorIiEEE4sizeEv called 138 returned 100% blocks executed 100%
+      138: 1039:    _LIBCPP_INLINE_VISIBILITY size_type&            size()          {return __size_.first();}
+      138: 1039-block  0
+      138: 1039-block  1
+        -: 1040:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__112__deque_baseIiNS_9allocatorIiEEE4sizeEv called 84 returned 100% blocks executed 100%
+       84: 1041:    const size_type& size() const _NOEXCEPT {return __size_.first();}
+       84: 1041-block  0
+       84: 1041-block  1
+function _ZNSt3__112__deque_baseIiNS_9allocatorIiEEE7__allocEv called 132 returned 100% blocks executed 100%
+      132: 1042:    _LIBCPP_INLINE_VISIBILITY allocator_type&       __alloc()       {return __size_.second();}
+      132: 1042-block  0
+      132: 1042-block  1
+        -: 1043:    _LIBCPP_INLINE_VISIBILITY
+        -: 1044:    const allocator_type& __alloc() const _NOEXCEPT {return __size_.second();}
+        -: 1045:
+        -: 1046:    _LIBCPP_INLINE_VISIBILITY
+       24: 1047:    __deque_base()
+        -: 1048:        _NOEXCEPT_(is_nothrow_default_constructible<allocator_type>::value);
+        -: 1049:    _LIBCPP_INLINE_VISIBILITY
+        -: 1050:    explicit __deque_base(const allocator_type& __a);
+        -: 1051:public:
+        -: 1052:    ~__deque_base();
+        -: 1053:
+        -: 1054:#ifndef _LIBCPP_CXX03_LANG
+        -: 1055:    __deque_base(__deque_base&& __c)
+        -: 1056:        _NOEXCEPT_(is_nothrow_move_constructible<allocator_type>::value);
+        -: 1057:    __deque_base(__deque_base&& __c, const allocator_type& __a);
+        -: 1058:#endif  // _LIBCPP_CXX03_LANG
+        -: 1059:
+        -: 1060:    void swap(__deque_base& __c)
+        -: 1061:#if _LIBCPP_STD_VER >= 14
+        -: 1062:        _NOEXCEPT;
+        -: 1063:#else
+        -: 1064:        _NOEXCEPT_(!__alloc_traits::propagate_on_container_swap::value ||
+        -: 1065:                    __is_nothrow_swappable<allocator_type>::value);
+        -: 1066:#endif
+        -: 1067:protected:
+        -: 1068:    void clear() _NOEXCEPT;
+        -: 1069:
+        -: 1070:    bool __invariants() const;
+        -: 1071:
+        -: 1072:    _LIBCPP_INLINE_VISIBILITY
+        -: 1073:    void __move_assign(__deque_base& __c)
+        -: 1074:        _NOEXCEPT_(__alloc_traits::propagate_on_container_move_assignment::value &&
+        -: 1075:                   is_nothrow_move_assignable<allocator_type>::value)
+        -: 1076:    {
+        -: 1077:        __map_ = _VSTD::move(__c.__map_);
+        -: 1078:        __start_ = __c.__start_;
+        -: 1079:        size() = __c.size();
+        -: 1080:        __move_assign_alloc(__c);
+        -: 1081:        __c.__start_ = __c.size() = 0;
+        -: 1082:    }
+        -: 1083:
+        -: 1084:    _LIBCPP_INLINE_VISIBILITY
+        -: 1085:    void __move_assign_alloc(__deque_base& __c)
+        -: 1086:        _NOEXCEPT_(!__alloc_traits::propagate_on_container_move_assignment::value ||
+        -: 1087:                   is_nothrow_move_assignable<allocator_type>::value)
+        -: 1088:        {__move_assign_alloc(__c, integral_constant<bool,
+        -: 1089:                      __alloc_traits::propagate_on_container_move_assignment::value>());}
+        -: 1090:
+        -: 1091:private:
+        -: 1092:    _LIBCPP_INLINE_VISIBILITY
+        -: 1093:    void __move_assign_alloc(__deque_base& __c, true_type)
+        -: 1094:        _NOEXCEPT_(is_nothrow_move_assignable<allocator_type>::value)
+        -: 1095:        {
+        -: 1096:            __alloc() = _VSTD::move(__c.__alloc());
+        -: 1097:        }
+        -: 1098:
+        -: 1099:    _LIBCPP_INLINE_VISIBILITY
+        -: 1100:    void __move_assign_alloc(__deque_base&, false_type) _NOEXCEPT
+        -: 1101:        {}
+        -: 1102:};
+        -: 1103:
+        -: 1104:template <class _Tp, class _Allocator>
+        -: 1105:const typename __deque_base<_Tp, _Allocator>::difference_type
+        -: 1106:    __deque_base<_Tp, _Allocator>::__block_size =
+        -: 1107:        __deque_block_size<value_type, difference_type>::value;
+        -: 1108:
+        -: 1109:template <class _Tp, class _Allocator>
+        -: 1110:bool
+        -: 1111:__deque_base<_Tp, _Allocator>::__invariants() const
+        -: 1112:{
+        -: 1113:    if (!__map_.__invariants())
+        -: 1114:        return false;
+        -: 1115:    if (__map_.size() >= size_type(-1) / __block_size)
+        -: 1116:        return false;
+        -: 1117:    for (typename __map::const_iterator __i = __map_.begin(), __e = __map_.end();
+        -: 1118:         __i != __e; ++__i)
+        -: 1119:        if (*__i == nullptr)
+        -: 1120:            return false;
+        -: 1121:    if (__map_.size() != 0)
+        -: 1122:    {
+        -: 1123:        if (size() >= __map_.size() * __block_size)
+        -: 1124:            return false;
+        -: 1125:        if (__start_ >= __map_.size() * __block_size - size())
+        -: 1126:            return false;
+        -: 1127:    }
+        -: 1128:    else
+        -: 1129:    {
+        -: 1130:        if (size() != 0)
+        -: 1131:            return false;
+        -: 1132:        if (__start_ != 0)
+        -: 1133:            return false;
+        -: 1134:    }
+        -: 1135:    return true;
+        -: 1136:}
+        -: 1137:
+        -: 1138:template <class _Tp, class _Allocator>
+        -: 1139:typename __deque_base<_Tp, _Allocator>::iterator
+function _ZNSt3__112__deque_baseIiNS_9allocatorIiEEE5beginEv called 24 returned 0% blocks executed 71%
+       24: 1140:__deque_base<_Tp, _Allocator>::begin() _NOEXCEPT
+       24: 1140-block  0
+        -: 1141:{
+       24: 1142:    __map_pointer __mp = __map_.begin() + __start_ / __block_size;
+       24: 1143:    return iterator(__mp, __map_.empty() ? 0 : *__mp + __start_ % __block_size);
+       24: 1143-block  0
+branch  0 taken 24
+branch  1 taken 0
+       24: 1143-block  1
+branch  2 taken 0
+branch  3 taken 24
+    $$$$$: 1143-block  2
+       24: 1143-block  3
+       24: 1143-block  4
+    $$$$$: 1143-block  5
+        -: 1144:}
+        -: 1145:
+        -: 1146:template <class _Tp, class _Allocator>
+        -: 1147:typename __deque_base<_Tp, _Allocator>::const_iterator
+        -: 1148:__deque_base<_Tp, _Allocator>::begin() const _NOEXCEPT
+        -: 1149:{
+        -: 1150:    __map_const_pointer __mp = static_cast<__map_const_pointer>(__map_.begin() + __start_ / __block_size);
+        -: 1151:    return const_iterator(__mp, __map_.empty() ? 0 : *__mp + __start_ % __block_size);
+        -: 1152:}
+        -: 1153:
+        -: 1154:template <class _Tp, class _Allocator>
+        -: 1155:typename __deque_base<_Tp, _Allocator>::iterator
+function _ZNSt3__112__deque_baseIiNS_9allocatorIiEEE3endEv called 54 returned 0% blocks executed 71%
+       54: 1156:__deque_base<_Tp, _Allocator>::end() _NOEXCEPT
+       54: 1156-block  0
+        -: 1157:{
+       54: 1158:    size_type __p = size() + __start_;
+       54: 1158-block  0
+branch  0 taken 54
+branch  1 taken 0
+    $$$$$: 1158-block  1
+       54: 1159:    __map_pointer __mp = __map_.begin() + __p / __block_size;
+       54: 1160:    return iterator(__mp, __map_.empty() ? 0 : *__mp + __p % __block_size);
+       54: 1160-block  0
+branch  0 taken 0
+branch  1 taken 54
+    $$$$$: 1160-block  1
+       54: 1160-block  2
+       54: 1160-block  3
+        -: 1161:}
+        -: 1162:
+        -: 1163:template <class _Tp, class _Allocator>
+        -: 1164:typename __deque_base<_Tp, _Allocator>::const_iterator
+        -: 1165:__deque_base<_Tp, _Allocator>::end() const _NOEXCEPT
+        -: 1166:{
+        -: 1167:    size_type __p = size() + __start_;
+        -: 1168:    __map_const_pointer __mp = static_cast<__map_const_pointer>(__map_.begin() + __p / __block_size);
+        -: 1169:    return const_iterator(__mp, __map_.empty() ? 0 : *__mp + __p % __block_size);
+        -: 1170:}
+        -: 1171:
+        -: 1172:template <class _Tp, class _Allocator>
+        -: 1173:inline
+function _ZNSt3__112__deque_baseIiNS_9allocatorIiEEEC2Ev called 24 returned 0% blocks executed 60%
+       24: 1174:__deque_base<_Tp, _Allocator>::__deque_base()
+       24: 1174-block  0
+        -: 1175:    _NOEXCEPT_(is_nothrow_default_constructible<allocator_type>::value)
+       48: 1176:    : __start_(0), __size_(0, __default_init_tag()) {}
+       24: 1176-block  0
+branch  0 taken 24
+branch  1 taken 0
+       24: 1176-block  1
+branch  2 taken 24
+branch  3 taken 0
+       24: 1176-block  2
+    $$$$$: 1176-block  3
+    $$$$$: 1176-block  4
+        -: 1177:
+        -: 1178:template <class _Tp, class _Allocator>
+        -: 1179:inline
+        -: 1180:__deque_base<_Tp, _Allocator>::__deque_base(const allocator_type& __a)
+        -: 1181:    : __map_(__pointer_allocator(__a)), __start_(0), __size_(0, __a) {}
+        -: 1182:
+        -: 1183:template <class _Tp, class _Allocator>
+function _ZNSt3__112__deque_baseIiNS_9allocatorIiEEED2Ev called 24 returned 0% blocks executed 77%
+       24: 1184:__deque_base<_Tp, _Allocator>::~__deque_base()
+       24: 1184-block  0
+        -: 1185:{
+       24: 1186:    clear();
+       24: 1187:    typename __map::iterator __i = __map_.begin();
+       24: 1188:    typename __map::iterator __e = __map_.end();
+       48: 1189:    for (; __i != __e; ++__i)
+       24: 1189-block  0
+       48: 1189-block  1
+branch  0 taken 24
+branch  1 taken 24
+       24: 1189-block  2
+       24: 1190:        __alloc_traits::deallocate(__alloc(), *__i, __block_size);
+       24: 1190-block  0
+branch  0 taken 24
+branch  1 taken 0
+       24: 1190-block  1
+       24: 1191:}
+    $$$$$: 1191-block  0
+       24: 1191-block  1
+    $$$$$: 1191-block  2
+        -: 1192:
+        -: 1193:#ifndef _LIBCPP_CXX03_LANG
+        -: 1194:
+        -: 1195:template <class _Tp, class _Allocator>
+        -: 1196:__deque_base<_Tp, _Allocator>::__deque_base(__deque_base&& __c)
+        -: 1197:    _NOEXCEPT_(is_nothrow_move_constructible<allocator_type>::value)
+        -: 1198:    : __map_(_VSTD::move(__c.__map_)),
+        -: 1199:      __start_(_VSTD::move(__c.__start_)),
+        -: 1200:      __size_(_VSTD::move(__c.__size_))
+        -: 1201:{
+        -: 1202:    __c.__start_ = 0;
+        -: 1203:    __c.size() = 0;
+        -: 1204:}
+        -: 1205:
+        -: 1206:template <class _Tp, class _Allocator>
+        -: 1207:__deque_base<_Tp, _Allocator>::__deque_base(__deque_base&& __c, const allocator_type& __a)
+        -: 1208:    : __map_(_VSTD::move(__c.__map_), __pointer_allocator(__a)),
+        -: 1209:      __start_(_VSTD::move(__c.__start_)),
+        -: 1210:      __size_(_VSTD::move(__c.size()), __a)
+        -: 1211:{
+        -: 1212:    if (__a == __c.__alloc())
+        -: 1213:    {
+        -: 1214:        __c.__start_ = 0;
+        -: 1215:        __c.size() = 0;
+        -: 1216:    }
+        -: 1217:    else
+        -: 1218:    {
+        -: 1219:        __map_.clear();
+        -: 1220:        __start_ = 0;
+        -: 1221:        size() = 0;
+        -: 1222:    }
+        -: 1223:}
+        -: 1224:
+        -: 1225:#endif  // _LIBCPP_CXX03_LANG
+        -: 1226:
+        -: 1227:template <class _Tp, class _Allocator>
+        -: 1228:void
+        -: 1229:__deque_base<_Tp, _Allocator>::swap(__deque_base& __c)
+        -: 1230:#if _LIBCPP_STD_VER >= 14
+        -: 1231:        _NOEXCEPT
+        -: 1232:#else
+        -: 1233:        _NOEXCEPT_(!__alloc_traits::propagate_on_container_swap::value ||
+        -: 1234:                    __is_nothrow_swappable<allocator_type>::value)
+        -: 1235:#endif
+        -: 1236:{
+        -: 1237:    __map_.swap(__c.__map_);
+        -: 1238:    _VSTD::swap(__start_, __c.__start_);
+        -: 1239:    _VSTD::swap(size(), __c.size());
+        -: 1240:    __swap_allocator(__alloc(), __c.__alloc());
+        -: 1241:}
+        -: 1242:
+        -: 1243:template <class _Tp, class _Allocator>
+        -: 1244:void
+function _ZNSt3__112__deque_baseIiNS_9allocatorIiEEE5clearEv called 24 returned 0% blocks executed 56%
+       24: 1245:__deque_base<_Tp, _Allocator>::clear() _NOEXCEPT
+       24: 1245-block  0
+        -: 1246:{
+       24: 1247:    allocator_type& __a = __alloc();
+       24: 1247-block  0
+branch  0 taken 24
+branch  1 taken 0
+    $$$$$: 1247-block  1
+       24: 1248:    for (iterator __i = begin(), __e = end(); __i != __e; ++__i)
+       24: 1248-block  0
+       24: 1248-block  1
+branch  0 taken 24
+branch  1 taken 0
+       24: 1248-block  2
+branch  2 taken 0
+branch  3 taken 24
+    $$$$$: 1248-block  3
+branch  4 never executed
+branch  5 never executed
+    $$$$$: 1248-block  4
+    #####: 1249:        __alloc_traits::destroy(__a, _VSTD::addressof(*__i));
+    $$$$$: 1249-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$: 1249-block  1
+branch  2 never executed
+branch  3 never executed
+    $$$$$: 1249-block  2
+       24: 1250:    size() = 0;
+       24: 1250-block  0
+branch  0 taken 24
+branch  1 taken 0
+       24: 1251:    while (__map_.size() > 2)
+       24: 1251-block  0
+       24: 1251-block  1
+branch  0 taken 24
+branch  1 taken 0
+       24: 1251-block  2
+branch  2 taken 0
+branch  3 taken 24
+    $$$$$: 1251-block  3
+        -: 1252:    {
+    #####: 1253:        __alloc_traits::deallocate(__a, __map_.front(), __block_size);
+    $$$$$: 1253-block  0
+branch  0 never executed
+branch  1 never executed
+    #####: 1254:        __map_.pop_front();
+    $$$$$: 1254-block  0
+branch  0 never executed
+branch  1 never executed
+        -: 1255:    }
+       24: 1256:    switch (__map_.size())
+       24: 1256-block  0
+branch  0 taken 24
+branch  1 taken 0
+       24: 1256-block  1
+branch  2 taken 0
+branch  3 taken 24
+branch  4 taken 0
+        -: 1257:    {
+        -: 1258:    case 1:
+       24: 1259:        __start_ = __block_size / 2;
+       24: 1260:        break;
+       24: 1260-block  0
+        -: 1261:    case 2:
+    #####: 1262:        __start_ = __block_size;
+    #####: 1263:        break;
+    $$$$$: 1263-block  0
+        -: 1264:    }
+       24: 1265:}
+       24: 1265-block  0
+        -: 1266:
+        -: 1267:template <class _Tp, class _Allocator /*= allocator<_Tp>*/>
+function _ZNSt3__15dequeIiNS_9allocatorIiEEED1Ev called 24 returned 100% blocks executed 100%
+function _ZNSt3__15dequeIiNS_9allocatorIiEEED2Ev called 24 returned 100% blocks executed 100%
+       48: 1268:class _LIBCPP_TEMPLATE_VIS deque
+       24: 1268-block  0
+       24: 1268-block  1
+        -: 1269:    : private __deque_base<_Tp, _Allocator>
+        -: 1270:{
+        -: 1271:public:
+        -: 1272:    // types:
+        -: 1273:
+        -: 1274:    typedef _Tp value_type;
+        -: 1275:    typedef _Allocator allocator_type;
+        -: 1276:
+        -: 1277:    static_assert((is_same<typename allocator_type::value_type, value_type>::value),
+        -: 1278:                  "Allocator::value_type must be same type as value_type");
+        -: 1279:
+        -: 1280:    typedef __deque_base<value_type, allocator_type> __base;
+        -: 1281:
+        -: 1282:    typedef typename __base::__alloc_traits        __alloc_traits;
+        -: 1283:    typedef typename __base::reference             reference;
+        -: 1284:    typedef typename __base::const_reference       const_reference;
+        -: 1285:    typedef typename __base::iterator              iterator;
+        -: 1286:    typedef typename __base::const_iterator        const_iterator;
+        -: 1287:    typedef typename __base::size_type             size_type;
+        -: 1288:    typedef typename __base::difference_type       difference_type;
+        -: 1289:
+        -: 1290:    typedef typename __base::pointer               pointer;
+        -: 1291:    typedef typename __base::const_pointer         const_pointer;
+        -: 1292:    typedef _VSTD::reverse_iterator<iterator>       reverse_iterator;
+        -: 1293:    typedef _VSTD::reverse_iterator<const_iterator> const_reverse_iterator;
+        -: 1294:
+        -: 1295:    using typename __base::__deque_range;
+        -: 1296:    using typename __base::__deque_block_range;
+        -: 1297:    using typename __base::_ConstructTransaction;
+        -: 1298:
+        -: 1299:    // construct/copy/destroy:
+        -: 1300:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__15dequeIiNS_9allocatorIiEEEC1Ev called 24 returned 100% blocks executed 100%
+function _ZNSt3__15dequeIiNS_9allocatorIiEEEC2Ev called 24 returned 100% blocks executed 100%
+       48: 1301:    deque()
+       24: 1301-block  0
+       24: 1301-block  1
+        -: 1302:        _NOEXCEPT_(is_nothrow_default_constructible<allocator_type>::value)
+       72: 1303:        {}
+       24: 1303-block  0
+       24: 1303-block  1
+       24: 1303-block  2
+        -: 1304:    _LIBCPP_INLINE_VISIBILITY explicit deque(const allocator_type& __a) : __base(__a) {}
+        -: 1305:    explicit deque(size_type __n);
+        -: 1306:#if _LIBCPP_STD_VER > 11
+        -: 1307:    explicit deque(size_type __n, const _Allocator& __a);
+        -: 1308:#endif
+        -: 1309:    deque(size_type __n, const value_type& __v);
+        -: 1310:    deque(size_type __n, const value_type& __v, const allocator_type& __a);
+        -: 1311:    template <class _InputIter>
+        -: 1312:        deque(_InputIter __f, _InputIter __l,
+        -: 1313:              typename enable_if<__is_cpp17_input_iterator<_InputIter>::value>::type* = 0);
+        -: 1314:    template <class _InputIter>
+        -: 1315:        deque(_InputIter __f, _InputIter __l, const allocator_type& __a,
+        -: 1316:              typename enable_if<__is_cpp17_input_iterator<_InputIter>::value>::type* = 0);
+        -: 1317:    deque(const deque& __c);
+        -: 1318:    deque(const deque& __c, const allocator_type& __a);
+        -: 1319:
+        -: 1320:    deque& operator=(const deque& __c);
+        -: 1321:
+        -: 1322:#ifndef _LIBCPP_CXX03_LANG
+        -: 1323:    deque(initializer_list<value_type> __il);
+        -: 1324:    deque(initializer_list<value_type> __il, const allocator_type& __a);
+        -: 1325:
+        -: 1326:    _LIBCPP_INLINE_VISIBILITY
+        -: 1327:    deque& operator=(initializer_list<value_type> __il) {assign(__il); return *this;}
+        -: 1328:
+        -: 1329:    _LIBCPP_INLINE_VISIBILITY
+        -: 1330:    deque(deque&& __c) _NOEXCEPT_(is_nothrow_move_constructible<__base>::value);
+        -: 1331:    _LIBCPP_INLINE_VISIBILITY
+        -: 1332:    deque(deque&& __c, const allocator_type& __a);
+        -: 1333:    _LIBCPP_INLINE_VISIBILITY
+        -: 1334:    deque& operator=(deque&& __c)
+        -: 1335:        _NOEXCEPT_(__alloc_traits::propagate_on_container_move_assignment::value &&
+        -: 1336:                   is_nothrow_move_assignable<allocator_type>::value);
+        -: 1337:
+        -: 1338:    _LIBCPP_INLINE_VISIBILITY
+        -: 1339:    void assign(initializer_list<value_type> __il) {assign(__il.begin(), __il.end());}
+        -: 1340:#endif  // _LIBCPP_CXX03_LANG
+        -: 1341:
+        -: 1342:    template <class _InputIter>
+        -: 1343:        void assign(_InputIter __f, _InputIter __l,
+        -: 1344:                    typename enable_if<__is_cpp17_input_iterator<_InputIter>::value &&
+        -: 1345:                                      !__is_cpp17_random_access_iterator<_InputIter>::value>::type* = 0);
+        -: 1346:    template <class _RAIter>
+        -: 1347:        void assign(_RAIter __f, _RAIter __l,
+        -: 1348:                    typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type* = 0);
+        -: 1349:    void assign(size_type __n, const value_type& __v);
+        -: 1350:
+        -: 1351:    _LIBCPP_INLINE_VISIBILITY
+        -: 1352:    allocator_type get_allocator() const _NOEXCEPT;
+        -: 1353:
+        -: 1354:    // iterators:
+        -: 1355:
+        -: 1356:    _LIBCPP_INLINE_VISIBILITY
+        -: 1357:    iterator       begin() _NOEXCEPT       {return __base::begin();}
+        -: 1358:    _LIBCPP_INLINE_VISIBILITY
+        -: 1359:    const_iterator begin() const _NOEXCEPT {return __base::begin();}
+        -: 1360:    _LIBCPP_INLINE_VISIBILITY
+        -: 1361:    iterator       end() _NOEXCEPT         {return __base::end();}
+        -: 1362:    _LIBCPP_INLINE_VISIBILITY
+        -: 1363:    const_iterator end()   const _NOEXCEPT {return __base::end();}
+        -: 1364:
+        -: 1365:    _LIBCPP_INLINE_VISIBILITY
+        -: 1366:    reverse_iterator       rbegin() _NOEXCEPT
+        -: 1367:        {return       reverse_iterator(__base::end());}
+        -: 1368:    _LIBCPP_INLINE_VISIBILITY
+        -: 1369:    const_reverse_iterator rbegin() const _NOEXCEPT
+        -: 1370:        {return const_reverse_iterator(__base::end());}
+        -: 1371:    _LIBCPP_INLINE_VISIBILITY
+        -: 1372:    reverse_iterator       rend() _NOEXCEPT
+        -: 1373:        {return       reverse_iterator(__base::begin());}
+        -: 1374:    _LIBCPP_INLINE_VISIBILITY
+        -: 1375:    const_reverse_iterator rend()   const _NOEXCEPT
+        -: 1376:        {return const_reverse_iterator(__base::begin());}
+        -: 1377:
+        -: 1378:    _LIBCPP_INLINE_VISIBILITY
+        -: 1379:    const_iterator         cbegin()  const _NOEXCEPT
+        -: 1380:        {return __base::begin();}
+        -: 1381:    _LIBCPP_INLINE_VISIBILITY
+        -: 1382:    const_iterator         cend()    const _NOEXCEPT
+        -: 1383:        {return __base::end();}
+        -: 1384:    _LIBCPP_INLINE_VISIBILITY
+        -: 1385:    const_reverse_iterator crbegin() const _NOEXCEPT
+        -: 1386:        {return const_reverse_iterator(__base::end());}
+        -: 1387:    _LIBCPP_INLINE_VISIBILITY
+        -: 1388:    const_reverse_iterator crend()   const _NOEXCEPT
+        -: 1389:        {return const_reverse_iterator(__base::begin());}
+        -: 1390:
+        -: 1391:    // capacity:
+        -: 1392:    _LIBCPP_INLINE_VISIBILITY
+        -: 1393:    size_type size() const _NOEXCEPT {return __base::size();}
+        -: 1394:    _LIBCPP_INLINE_VISIBILITY
+        -: 1395:    size_type max_size() const _NOEXCEPT
+        -: 1396:        {return std::min<size_type>(
+        -: 1397:            __alloc_traits::max_size(__base::__alloc()),
+        -: 1398:            numeric_limits<difference_type>::max());}
+        -: 1399:    void resize(size_type __n);
+        -: 1400:    void resize(size_type __n, const value_type& __v);
+        -: 1401:    void shrink_to_fit() _NOEXCEPT;
+        -: 1402:    _LIBCPP_NODISCARD_AFTER_CXX17 _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__15dequeIiNS_9allocatorIiEEE5emptyEv called 54 returned 100% blocks executed 100%
+       54: 1403:    bool empty() const _NOEXCEPT {return __base::size() == 0;}
+       54: 1403-block  0
+       54: 1403-block  1
+        -: 1404:
+        -: 1405:    // element access:
+        -: 1406:    _LIBCPP_INLINE_VISIBILITY
+        -: 1407:    reference operator[](size_type __i) _NOEXCEPT;
+        -: 1408:    _LIBCPP_INLINE_VISIBILITY
+        -: 1409:    const_reference operator[](size_type __i) const _NOEXCEPT;
+        -: 1410:    _LIBCPP_INLINE_VISIBILITY
+        -: 1411:    reference at(size_type __i);
+        -: 1412:    _LIBCPP_INLINE_VISIBILITY
+        -: 1413:    const_reference at(size_type __i) const;
+        -: 1414:    _LIBCPP_INLINE_VISIBILITY
+        -: 1415:    reference front() _NOEXCEPT;
+        -: 1416:    _LIBCPP_INLINE_VISIBILITY
+        -: 1417:    const_reference front() const _NOEXCEPT;
+        -: 1418:    _LIBCPP_INLINE_VISIBILITY
+        -: 1419:    reference back() _NOEXCEPT;
+        -: 1420:    _LIBCPP_INLINE_VISIBILITY
+        -: 1421:    const_reference back() const _NOEXCEPT;
+        -: 1422:
+        -: 1423:    // 23.2.2.3 modifiers:
+        -: 1424:    void push_front(const value_type& __v);
+        -: 1425:    void push_back(const value_type& __v);
+        -: 1426:#ifndef _LIBCPP_CXX03_LANG
+        -: 1427:#if _LIBCPP_STD_VER > 14
+        -: 1428:    template <class... _Args> reference emplace_front(_Args&&... __args);
+        -: 1429:    template <class... _Args> reference emplace_back (_Args&&... __args);
+        -: 1430:#else
+        -: 1431:    template <class... _Args> void      emplace_front(_Args&&... __args);
+        -: 1432:    template <class... _Args> void      emplace_back (_Args&&... __args);
+        -: 1433:#endif
+        -: 1434:    template <class... _Args> iterator emplace(const_iterator __p, _Args&&... __args);
+        -: 1435:
+        -: 1436:    void push_front(value_type&& __v);
+        -: 1437:    void push_back(value_type&& __v);
+        -: 1438:    iterator insert(const_iterator __p, value_type&& __v);
+        -: 1439:
+        -: 1440:    _LIBCPP_INLINE_VISIBILITY
+        -: 1441:    iterator insert(const_iterator __p, initializer_list<value_type> __il)
+        -: 1442:        {return insert(__p, __il.begin(), __il.end());}
+        -: 1443:#endif  // _LIBCPP_CXX03_LANG
+        -: 1444:    iterator insert(const_iterator __p, const value_type& __v);
+        -: 1445:    iterator insert(const_iterator __p, size_type __n, const value_type& __v);
+        -: 1446:    template <class _InputIter>
+        -: 1447:        iterator insert(const_iterator __p, _InputIter __f, _InputIter __l,
+        -: 1448:                         typename enable_if<__is_cpp17_input_iterator<_InputIter>::value
+        -: 1449:                                         &&!__is_cpp17_forward_iterator<_InputIter>::value>::type* = 0);
+        -: 1450:    template <class _ForwardIterator>
+        -: 1451:        iterator insert(const_iterator __p, _ForwardIterator __f, _ForwardIterator __l,
+        -: 1452:                               typename enable_if<__is_cpp17_forward_iterator<_ForwardIterator>::value
+        -: 1453:                                         &&!__is_cpp17_bidirectional_iterator<_ForwardIterator>::value>::type* = 0);
+        -: 1454:    template <class _BiIter>
+        -: 1455:        iterator insert(const_iterator __p, _BiIter __f, _BiIter __l,
+        -: 1456:                         typename enable_if<__is_cpp17_bidirectional_iterator<_BiIter>::value>::type* = 0);
+        -: 1457:
+        -: 1458:    void pop_front();
+        -: 1459:    void pop_back();
+        -: 1460:    iterator erase(const_iterator __p);
+        -: 1461:    iterator erase(const_iterator __f, const_iterator __l);
+        -: 1462:
+        -: 1463:    _LIBCPP_INLINE_VISIBILITY
+        -: 1464:    void swap(deque& __c)
+        -: 1465:#if _LIBCPP_STD_VER >= 14
+        -: 1466:        _NOEXCEPT;
+        -: 1467:#else
+        -: 1468:        _NOEXCEPT_(!__alloc_traits::propagate_on_container_swap::value ||
+        -: 1469:                   __is_nothrow_swappable<allocator_type>::value);
+        -: 1470:#endif
+        -: 1471:    _LIBCPP_INLINE_VISIBILITY
+        -: 1472:    void clear() _NOEXCEPT;
+        -: 1473:
+        -: 1474:    _LIBCPP_INLINE_VISIBILITY
+        -: 1475:    bool __invariants() const {return __base::__invariants();}
+        -: 1476:
+        -: 1477:    typedef typename __base::__map_const_pointer __map_const_pointer;
+        -: 1478:
+        -: 1479:    _LIBCPP_INLINE_VISIBILITY
+        -: 1480:    static size_type __recommend_blocks(size_type __n)
+        -: 1481:    {
+        -: 1482:        return __n / __base::__block_size + (__n % __base::__block_size != 0);
+        -: 1483:    }
+        -: 1484:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__15dequeIiNS_9allocatorIiEEE10__capacityEv called 30 returned 100% blocks executed 100%
+       30: 1485:    size_type __capacity() const
+       30: 1485-block  0
+        -: 1486:    {
+       30: 1487:        return __base::__map_.size() == 0 ? 0 : __base::__map_.size() * __base::__block_size - 1;
+       30: 1487-block  0
+branch  0 taken 24
+branch  1 taken 6
+       24: 1487-block  1
+        6: 1487-block  2
+       30: 1487-block  3
+        -: 1488:    }
+        -: 1489:    _LIBCPP_INLINE_VISIBILITY
+        -: 1490:    size_type __block_count() const
+        -: 1491:    {
+        -: 1492:        return __base::__map_.size();
+        -: 1493:    }
+        -: 1494:
+        -: 1495:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__15dequeIiNS_9allocatorIiEEE13__front_spareEv called 54 returned 100% blocks executed 100%
+       54: 1496:    size_type __front_spare() const
+       54: 1496-block  0
+        -: 1497:    {
+       54: 1498:        return __base::__start_;
+       54: 1498-block  0
+        -: 1499:    }
+        -: 1500:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__15dequeIiNS_9allocatorIiEEE20__front_spare_blocksEv called 30 returned 100% blocks executed 100%
+       30: 1501:    size_type __front_spare_blocks() const {
+       30: 1501-block  0
+       30: 1502:      return __front_spare() / __base::__block_size;
+       30: 1502-block  0
+        -: 1503:    }
+        -: 1504:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__15dequeIiNS_9allocatorIiEEE12__back_spareEv called 30 returned 100% blocks executed 100%
+       30: 1505:    size_type __back_spare() const
+       30: 1505-block  0
+        -: 1506:    {
+       30: 1507:        return __capacity() - (__base::__start_ + __base::size());
+       30: 1507-block  0
+        -: 1508:    }
+        -: 1509:    _LIBCPP_INLINE_VISIBILITY
+        -: 1510:    size_type __back_spare_blocks() const {
+        -: 1511:      return __back_spare() / __base::__block_size;
+        -: 1512:    }
+        -: 1513:
+        -: 1514: private:
+        -: 1515:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__15dequeIiNS_9allocatorIiEEE26__maybe_remove_front_spareEb called 30 returned 100% blocks executed 71%
+       30: 1516:    bool __maybe_remove_front_spare(bool __keep_one = true) {
+       30: 1516-block  0
+       30: 1517:      if (__front_spare_blocks() >= 2 || (!__keep_one && __front_spare_blocks())) {
+       30: 1517-block  0
+branch  0 taken 0
+branch  1 taken 30
+       30: 1517-block  1
+branch  2 taken 30
+branch  3 taken 0
+    $$$$$: 1517-block  2
+branch  4 never executed
+branch  5 never executed
+    #####: 1518:        __alloc_traits::deallocate(__base::__alloc(), __base::__map_.front(),
+        -: 1519:                                   __base::__block_size);
+    #####: 1520:        __base::__map_.pop_front();
+    #####: 1521:        __base::__start_ -= __base::__block_size;
+    #####: 1522:        return true;
+    $$$$$: 1522-block  0
+        -: 1523:      }
+       30: 1524:      return false;
+       30: 1524-block  0
+       30: 1525:    }
+       30: 1525-block  0
+        -: 1526:
+        -: 1527:    _LIBCPP_INLINE_VISIBILITY
+        -: 1528:    bool __maybe_remove_back_spare(bool __keep_one = true) {
+        -: 1529:      if (__back_spare_blocks() >= 2 || (!__keep_one && __back_spare_blocks())) {
+        -: 1530:        __alloc_traits::deallocate(__base::__alloc(), __base::__map_.back(),
+        -: 1531:                                   __base::__block_size);
+        -: 1532:        __base::__map_.pop_back();
+        -: 1533:        return true;
+        -: 1534:      }
+        -: 1535:      return false;
+        -: 1536:    }
+        -: 1537:
+        -: 1538:    template <class _InpIter>
+        -: 1539:        void __append(_InpIter __f, _InpIter __l,
+        -: 1540:                 typename enable_if<__is_cpp17_input_iterator<_InpIter>::value &&
+        -: 1541:                                   !__is_cpp17_forward_iterator<_InpIter>::value>::type* = 0);
+        -: 1542:    template <class _ForIter>
+        -: 1543:        void __append(_ForIter __f, _ForIter __l,
+        -: 1544:                      typename enable_if<__is_cpp17_forward_iterator<_ForIter>::value>::type* = 0);
+        -: 1545:    void __append(size_type __n);
+        -: 1546:    void __append(size_type __n, const value_type& __v);
+        -: 1547:    void __erase_to_end(const_iterator __f);
+        -: 1548:    void __add_front_capacity();
+        -: 1549:    void __add_front_capacity(size_type __n);
+        -: 1550:    void __add_back_capacity();
+        -: 1551:    void __add_back_capacity(size_type __n);
+        -: 1552:    iterator __move_and_check(iterator __f, iterator __l, iterator __r,
+        -: 1553:                              const_pointer& __vt);
+        -: 1554:    iterator __move_backward_and_check(iterator __f, iterator __l, iterator __r,
+        -: 1555:                                       const_pointer& __vt);
+        -: 1556:    void __move_construct_and_check(iterator __f, iterator __l,
+        -: 1557:                                    iterator __r, const_pointer& __vt);
+        -: 1558:    void __move_construct_backward_and_check(iterator __f, iterator __l,
+        -: 1559:                                             iterator __r, const_pointer& __vt);
+        -: 1560:
+        -: 1561:    _LIBCPP_INLINE_VISIBILITY
+        -: 1562:    void __copy_assign_alloc(const deque& __c)
+        -: 1563:        {__copy_assign_alloc(__c, integral_constant<bool,
+        -: 1564:                      __alloc_traits::propagate_on_container_copy_assignment::value>());}
+        -: 1565:
+        -: 1566:    _LIBCPP_INLINE_VISIBILITY
+        -: 1567:    void __copy_assign_alloc(const deque& __c, true_type)
+        -: 1568:        {
+        -: 1569:            if (__base::__alloc() != __c.__alloc())
+        -: 1570:            {
+        -: 1571:                clear();
+        -: 1572:                shrink_to_fit();
+        -: 1573:            }
+        -: 1574:            __base::__alloc() = __c.__alloc();
+        -: 1575:            __base::__map_.__alloc() = __c.__map_.__alloc();
+        -: 1576:        }
+        -: 1577:
+        -: 1578:    _LIBCPP_INLINE_VISIBILITY
+        -: 1579:    void __copy_assign_alloc(const deque&, false_type)
+        -: 1580:        {}
+        -: 1581:
+        -: 1582:    void __move_assign(deque& __c, true_type)
+        -: 1583:        _NOEXCEPT_(is_nothrow_move_assignable<allocator_type>::value);
+        -: 1584:    void __move_assign(deque& __c, false_type);
+        -: 1585:};
+        -: 1586:
+        -: 1587:#ifndef _LIBCPP_HAS_NO_DEDUCTION_GUIDES
+        -: 1588:template<class _InputIterator,
+        -: 1589:         class _Alloc = typename std::allocator<typename iterator_traits<_InputIterator>::value_type>,
+        -: 1590:         class = typename enable_if<__is_allocator<_Alloc>::value, void>::type
+        -: 1591:         >
+        -: 1592:deque(_InputIterator, _InputIterator)
+        -: 1593:  -> deque<typename iterator_traits<_InputIterator>::value_type, _Alloc>;
+        -: 1594:
+        -: 1595:template<class _InputIterator,
+        -: 1596:         class _Alloc,
+        -: 1597:         class = typename enable_if<__is_allocator<_Alloc>::value, void>::type
+        -: 1598:         >
+        -: 1599:deque(_InputIterator, _InputIterator, _Alloc)
+        -: 1600:  -> deque<typename iterator_traits<_InputIterator>::value_type, _Alloc>;
+        -: 1601:#endif
+        -: 1602:
+        -: 1603:
+        -: 1604:template <class _Tp, class _Allocator>
+        -: 1605:deque<_Tp, _Allocator>::deque(size_type __n)
+        -: 1606:{
+        -: 1607:    if (__n > 0)
+        -: 1608:        __append(__n);
+        -: 1609:}
+        -: 1610:
+        -: 1611:#if _LIBCPP_STD_VER > 11
+        -: 1612:template <class _Tp, class _Allocator>
+        -: 1613:deque<_Tp, _Allocator>::deque(size_type __n, const _Allocator& __a)
+        -: 1614:    : __base(__a)
+        -: 1615:{
+        -: 1616:    if (__n > 0)
+        -: 1617:        __append(__n);
+        -: 1618:}
+        -: 1619:#endif
+        -: 1620:
+        -: 1621:template <class _Tp, class _Allocator>
+        -: 1622:deque<_Tp, _Allocator>::deque(size_type __n, const value_type& __v)
+        -: 1623:{
+        -: 1624:    if (__n > 0)
+        -: 1625:        __append(__n, __v);
+        -: 1626:}
+        -: 1627:
+        -: 1628:template <class _Tp, class _Allocator>
+        -: 1629:deque<_Tp, _Allocator>::deque(size_type __n, const value_type& __v, const allocator_type& __a)
+        -: 1630:    : __base(__a)
+        -: 1631:{
+        -: 1632:    if (__n > 0)
+        -: 1633:        __append(__n, __v);
+        -: 1634:}
+        -: 1635:
+        -: 1636:template <class _Tp, class _Allocator>
+        -: 1637:template <class _InputIter>
+        -: 1638:deque<_Tp, _Allocator>::deque(_InputIter __f, _InputIter __l,
+        -: 1639:              typename enable_if<__is_cpp17_input_iterator<_InputIter>::value>::type*)
+        -: 1640:{
+        -: 1641:    __append(__f, __l);
+        -: 1642:}
+        -: 1643:
+        -: 1644:template <class _Tp, class _Allocator>
+        -: 1645:template <class _InputIter>
+        -: 1646:deque<_Tp, _Allocator>::deque(_InputIter __f, _InputIter __l, const allocator_type& __a,
+        -: 1647:              typename enable_if<__is_cpp17_input_iterator<_InputIter>::value>::type*)
+        -: 1648:    : __base(__a)
+        -: 1649:{
+        -: 1650:    __append(__f, __l);
+        -: 1651:}
+        -: 1652:
+        -: 1653:template <class _Tp, class _Allocator>
+        -: 1654:deque<_Tp, _Allocator>::deque(const deque& __c)
+        -: 1655:    : __base(__alloc_traits::select_on_container_copy_construction(__c.__alloc()))
+        -: 1656:{
+        -: 1657:    __append(__c.begin(), __c.end());
+        -: 1658:}
+        -: 1659:
+        -: 1660:template <class _Tp, class _Allocator>
+        -: 1661:deque<_Tp, _Allocator>::deque(const deque& __c, const allocator_type& __a)
+        -: 1662:    : __base(__a)
+        -: 1663:{
+        -: 1664:    __append(__c.begin(), __c.end());
+        -: 1665:}
+        -: 1666:
+        -: 1667:template <class _Tp, class _Allocator>
+        -: 1668:deque<_Tp, _Allocator>&
+        -: 1669:deque<_Tp, _Allocator>::operator=(const deque& __c)
+        -: 1670:{
+        -: 1671:    if (this != &__c)
+        -: 1672:    {
+        -: 1673:        __copy_assign_alloc(__c);
+        -: 1674:        assign(__c.begin(), __c.end());
+        -: 1675:    }
+        -: 1676:    return *this;
+        -: 1677:}
+        -: 1678:
+        -: 1679:#ifndef _LIBCPP_CXX03_LANG
+        -: 1680:
+        -: 1681:template <class _Tp, class _Allocator>
+        -: 1682:deque<_Tp, _Allocator>::deque(initializer_list<value_type> __il)
+        -: 1683:{
+        -: 1684:    __append(__il.begin(), __il.end());
+        -: 1685:}
+        -: 1686:
+        -: 1687:template <class _Tp, class _Allocator>
+        -: 1688:deque<_Tp, _Allocator>::deque(initializer_list<value_type> __il, const allocator_type& __a)
+        -: 1689:    : __base(__a)
+        -: 1690:{
+        -: 1691:    __append(__il.begin(), __il.end());
+        -: 1692:}
+        -: 1693:
+        -: 1694:template <class _Tp, class _Allocator>
+        -: 1695:inline
+        -: 1696:deque<_Tp, _Allocator>::deque(deque&& __c)
+        -: 1697:    _NOEXCEPT_(is_nothrow_move_constructible<__base>::value)
+        -: 1698:    : __base(_VSTD::move(__c))
+        -: 1699:{
+        -: 1700:}
+        -: 1701:
+        -: 1702:template <class _Tp, class _Allocator>
+        -: 1703:inline
+        -: 1704:deque<_Tp, _Allocator>::deque(deque&& __c, const allocator_type& __a)
+        -: 1705:    : __base(_VSTD::move(__c), __a)
+        -: 1706:{
+        -: 1707:    if (__a != __c.__alloc())
+        -: 1708:    {
+        -: 1709:        typedef move_iterator<iterator> _Ip;
+        -: 1710:        assign(_Ip(__c.begin()), _Ip(__c.end()));
+        -: 1711:    }
+        -: 1712:}
+        -: 1713:
+        -: 1714:template <class _Tp, class _Allocator>
+        -: 1715:inline
+        -: 1716:deque<_Tp, _Allocator>&
+        -: 1717:deque<_Tp, _Allocator>::operator=(deque&& __c)
+        -: 1718:        _NOEXCEPT_(__alloc_traits::propagate_on_container_move_assignment::value &&
+        -: 1719:                   is_nothrow_move_assignable<allocator_type>::value)
+        -: 1720:{
+        -: 1721:    __move_assign(__c, integral_constant<bool,
+        -: 1722:          __alloc_traits::propagate_on_container_move_assignment::value>());
+        -: 1723:    return *this;
+        -: 1724:}
+        -: 1725:
+        -: 1726:template <class _Tp, class _Allocator>
+        -: 1727:void
+        -: 1728:deque<_Tp, _Allocator>::__move_assign(deque& __c, false_type)
+        -: 1729:{
+        -: 1730:    if (__base::__alloc() != __c.__alloc())
+        -: 1731:    {
+        -: 1732:        typedef move_iterator<iterator> _Ip;
+        -: 1733:        assign(_Ip(__c.begin()), _Ip(__c.end()));
+        -: 1734:    }
+        -: 1735:    else
+        -: 1736:        __move_assign(__c, true_type());
+        -: 1737:}
+        -: 1738:
+        -: 1739:template <class _Tp, class _Allocator>
+        -: 1740:void
+        -: 1741:deque<_Tp, _Allocator>::__move_assign(deque& __c, true_type)
+        -: 1742:    _NOEXCEPT_(is_nothrow_move_assignable<allocator_type>::value)
+        -: 1743:{
+        -: 1744:    clear();
+        -: 1745:    shrink_to_fit();
+        -: 1746:    __base::__move_assign(__c);
+        -: 1747:}
+        -: 1748:
+        -: 1749:#endif  // _LIBCPP_CXX03_LANG
+        -: 1750:
+        -: 1751:template <class _Tp, class _Allocator>
+        -: 1752:template <class _InputIter>
+        -: 1753:void
+        -: 1754:deque<_Tp, _Allocator>::assign(_InputIter __f, _InputIter __l,
+        -: 1755:                               typename enable_if<__is_cpp17_input_iterator<_InputIter>::value &&
+        -: 1756:                                                 !__is_cpp17_random_access_iterator<_InputIter>::value>::type*)
+        -: 1757:{
+        -: 1758:    iterator __i = __base::begin();
+        -: 1759:    iterator __e = __base::end();
+        -: 1760:    for (; __f != __l && __i != __e; ++__f, (void) ++__i)
+        -: 1761:        *__i = *__f;
+        -: 1762:    if (__f != __l)
+        -: 1763:        __append(__f, __l);
+        -: 1764:    else
+        -: 1765:        __erase_to_end(__i);
+        -: 1766:}
+        -: 1767:
+        -: 1768:template <class _Tp, class _Allocator>
+        -: 1769:template <class _RAIter>
+        -: 1770:void
+        -: 1771:deque<_Tp, _Allocator>::assign(_RAIter __f, _RAIter __l,
+        -: 1772:                               typename enable_if<__is_cpp17_random_access_iterator<_RAIter>::value>::type*)
+        -: 1773:{
+        -: 1774:    if (static_cast<size_type>(__l - __f) > __base::size())
+        -: 1775:    {
+        -: 1776:        _RAIter __m = __f + __base::size();
+        -: 1777:        _VSTD::copy(__f, __m, __base::begin());
+        -: 1778:        __append(__m, __l);
+        -: 1779:    }
+        -: 1780:    else
+        -: 1781:        __erase_to_end(_VSTD::copy(__f, __l, __base::begin()));
+        -: 1782:}
+        -: 1783:
+        -: 1784:template <class _Tp, class _Allocator>
+        -: 1785:void
+        -: 1786:deque<_Tp, _Allocator>::assign(size_type __n, const value_type& __v)
+        -: 1787:{
+        -: 1788:    if (__n > __base::size())
+        -: 1789:    {
+        -: 1790:        _VSTD::fill_n(__base::begin(), __base::size(), __v);
+        -: 1791:        __n -= __base::size();
+        -: 1792:        __append(__n, __v);
+        -: 1793:    }
+        -: 1794:    else
+        -: 1795:        __erase_to_end(_VSTD::fill_n(__base::begin(), __n, __v));
+        -: 1796:}
+        -: 1797:
+        -: 1798:template <class _Tp, class _Allocator>
+        -: 1799:inline
+        -: 1800:_Allocator
+        -: 1801:deque<_Tp, _Allocator>::get_allocator() const _NOEXCEPT
+        -: 1802:{
+        -: 1803:    return __base::__alloc();
+        -: 1804:}
+        -: 1805:
+        -: 1806:template <class _Tp, class _Allocator>
+        -: 1807:void
+        -: 1808:deque<_Tp, _Allocator>::resize(size_type __n)
+        -: 1809:{
+        -: 1810:    if (__n > __base::size())
+        -: 1811:        __append(__n - __base::size());
+        -: 1812:    else if (__n < __base::size())
+        -: 1813:        __erase_to_end(__base::begin() + __n);
+        -: 1814:}
+        -: 1815:
+        -: 1816:template <class _Tp, class _Allocator>
+        -: 1817:void
+        -: 1818:deque<_Tp, _Allocator>::resize(size_type __n, const value_type& __v)
+        -: 1819:{
+        -: 1820:    if (__n > __base::size())
+        -: 1821:        __append(__n - __base::size(), __v);
+        -: 1822:    else if (__n < __base::size())
+        -: 1823:        __erase_to_end(__base::begin() + __n);
+        -: 1824:}
+        -: 1825:
+        -: 1826:template <class _Tp, class _Allocator>
+        -: 1827:void
+        -: 1828:deque<_Tp, _Allocator>::shrink_to_fit() _NOEXCEPT
+        -: 1829:{
+        -: 1830:    allocator_type& __a = __base::__alloc();
+        -: 1831:    if (empty())
+        -: 1832:    {
+        -: 1833:        while (__base::__map_.size() > 0)
+        -: 1834:        {
+        -: 1835:            __alloc_traits::deallocate(__a, __base::__map_.back(), __base::__block_size);
+        -: 1836:            __base::__map_.pop_back();
+        -: 1837:        }
+        -: 1838:        __base::__start_ = 0;
+        -: 1839:    }
+        -: 1840:    else
+        -: 1841:    {
+        -: 1842:      __maybe_remove_front_spare(/*__keep_one=*/false);
+        -: 1843:      __maybe_remove_back_spare(/*__keep_one=*/false);
+        -: 1844:    }
+        -: 1845:    __base::__map_.shrink_to_fit();
+        -: 1846:}
+        -: 1847:
+        -: 1848:template <class _Tp, class _Allocator>
+        -: 1849:inline
+        -: 1850:typename deque<_Tp, _Allocator>::reference
+        -: 1851:deque<_Tp, _Allocator>::operator[](size_type __i) _NOEXCEPT
+        -: 1852:{
+        -: 1853:    size_type __p = __base::__start_ + __i;
+        -: 1854:    return *(*(__base::__map_.begin() + __p / __base::__block_size) + __p % __base::__block_size);
+        -: 1855:}
+        -: 1856:
+        -: 1857:template <class _Tp, class _Allocator>
+        -: 1858:inline
+        -: 1859:typename deque<_Tp, _Allocator>::const_reference
+        -: 1860:deque<_Tp, _Allocator>::operator[](size_type __i) const _NOEXCEPT
+        -: 1861:{
+        -: 1862:    size_type __p = __base::__start_ + __i;
+        -: 1863:    return *(*(__base::__map_.begin() + __p / __base::__block_size) + __p % __base::__block_size);
+        -: 1864:}
+        -: 1865:
+        -: 1866:template <class _Tp, class _Allocator>
+        -: 1867:inline
+        -: 1868:typename deque<_Tp, _Allocator>::reference
+        -: 1869:deque<_Tp, _Allocator>::at(size_type __i)
+        -: 1870:{
+        -: 1871:    if (__i >= __base::size())
+        -: 1872:        __base::__throw_out_of_range();
+        -: 1873:    size_type __p = __base::__start_ + __i;
+        -: 1874:    return *(*(__base::__map_.begin() + __p / __base::__block_size) + __p % __base::__block_size);
+        -: 1875:}
+        -: 1876:
+        -: 1877:template <class _Tp, class _Allocator>
+        -: 1878:inline
+        -: 1879:typename deque<_Tp, _Allocator>::const_reference
+        -: 1880:deque<_Tp, _Allocator>::at(size_type __i) const
+        -: 1881:{
+        -: 1882:    if (__i >= __base::size())
+        -: 1883:        __base::__throw_out_of_range();
+        -: 1884:    size_type __p = __base::__start_ + __i;
+        -: 1885:    return *(*(__base::__map_.begin() + __p / __base::__block_size) + __p % __base::__block_size);
+        -: 1886:}
+        -: 1887:
+        -: 1888:template <class _Tp, class _Allocator>
+        -: 1889:inline
+        -: 1890:typename deque<_Tp, _Allocator>::reference
+function _ZNSt3__15dequeIiNS_9allocatorIiEEE5frontEv called 30 returned 100% blocks executed 100%
+       30: 1891:deque<_Tp, _Allocator>::front() _NOEXCEPT
+       30: 1891-block  0
+        -: 1892:{
+       60: 1893:    return *(*(__base::__map_.begin() + __base::__start_ / __base::__block_size)
+       30: 1893-block  0
+       30: 1893-block  1
+       30: 1894:                                      + __base::__start_ % __base::__block_size);
+        -: 1895:}
+        -: 1896:
+        -: 1897:template <class _Tp, class _Allocator>
+        -: 1898:inline
+        -: 1899:typename deque<_Tp, _Allocator>::const_reference
+        -: 1900:deque<_Tp, _Allocator>::front() const _NOEXCEPT
+        -: 1901:{
+        -: 1902:    return *(*(__base::__map_.begin() + __base::__start_ / __base::__block_size)
+        -: 1903:                                      + __base::__start_ % __base::__block_size);
+        -: 1904:}
+        -: 1905:
+        -: 1906:template <class _Tp, class _Allocator>
+        -: 1907:inline
+        -: 1908:typename deque<_Tp, _Allocator>::reference
+        -: 1909:deque<_Tp, _Allocator>::back() _NOEXCEPT
+        -: 1910:{
+        -: 1911:    size_type __p = __base::size() + __base::__start_ - 1;
+        -: 1912:    return *(*(__base::__map_.begin() + __p / __base::__block_size) + __p % __base::__block_size);
+        -: 1913:}
+        -: 1914:
+        -: 1915:template <class _Tp, class _Allocator>
+        -: 1916:inline
+        -: 1917:typename deque<_Tp, _Allocator>::const_reference
+        -: 1918:deque<_Tp, _Allocator>::back() const _NOEXCEPT
+        -: 1919:{
+        -: 1920:    size_type __p = __base::size() + __base::__start_ - 1;
+        -: 1921:    return *(*(__base::__map_.begin() + __p / __base::__block_size) + __p % __base::__block_size);
+        -: 1922:}
+        -: 1923:
+        -: 1924:template <class _Tp, class _Allocator>
+        -: 1925:void
+function _ZNSt3__15dequeIiNS_9allocatorIiEEE9push_backERKi called 30 returned 100% blocks executed 100%
+       30: 1926:deque<_Tp, _Allocator>::push_back(const value_type& __v)
+       30: 1926-block  0
+        -: 1927:{
+       30: 1928:    allocator_type& __a = __base::__alloc();
+       30: 1929:    if (__back_spare() == 0)
+       30: 1929-block  0
+branch  0 taken 24
+branch  1 taken 6
+       24: 1930:        __add_back_capacity();
+       24: 1930-block  0
+        -: 1931:    // __back_spare() >= 1
+       30: 1932:    __alloc_traits::construct(__a, _VSTD::addressof(*__base::end()), __v);
+       30: 1933:    ++__base::size();
+       30: 1934:}
+       30: 1934-block  0
+        -: 1935:
+        -: 1936:template <class _Tp, class _Allocator>
+        -: 1937:void
+        -: 1938:deque<_Tp, _Allocator>::push_front(const value_type& __v)
+        -: 1939:{
+        -: 1940:    allocator_type& __a = __base::__alloc();
+        -: 1941:    if (__front_spare() == 0)
+        -: 1942:        __add_front_capacity();
+        -: 1943:    // __front_spare() >= 1
+        -: 1944:    __alloc_traits::construct(__a, _VSTD::addressof(*--__base::begin()), __v);
+        -: 1945:    --__base::__start_;
+        -: 1946:    ++__base::size();
+        -: 1947:}
+        -: 1948:
+        -: 1949:#ifndef _LIBCPP_CXX03_LANG
+        -: 1950:template <class _Tp, class _Allocator>
+        -: 1951:void
+        -: 1952:deque<_Tp, _Allocator>::push_back(value_type&& __v)
+        -: 1953:{
+        -: 1954:    allocator_type& __a = __base::__alloc();
+        -: 1955:    if (__back_spare() == 0)
+        -: 1956:        __add_back_capacity();
+        -: 1957:    // __back_spare() >= 1
+        -: 1958:    __alloc_traits::construct(__a, _VSTD::addressof(*__base::end()), _VSTD::move(__v));
+        -: 1959:    ++__base::size();
+        -: 1960:}
+        -: 1961:
+        -: 1962:template <class _Tp, class _Allocator>
+        -: 1963:template <class... _Args>
+        -: 1964:#if _LIBCPP_STD_VER > 14
+        -: 1965:typename deque<_Tp, _Allocator>::reference
+        -: 1966:#else
+        -: 1967:void
+        -: 1968:#endif
+        -: 1969:deque<_Tp, _Allocator>::emplace_back(_Args&&... __args)
+        -: 1970:{
+        -: 1971:    allocator_type& __a = __base::__alloc();
+        -: 1972:    if (__back_spare() == 0)
+        -: 1973:        __add_back_capacity();
+        -: 1974:    // __back_spare() >= 1
+        -: 1975:    __alloc_traits::construct(__a, _VSTD::addressof(*__base::end()),
+        -: 1976:                              _VSTD::forward<_Args>(__args)...);
+        -: 1977:    ++__base::size();
+        -: 1978:#if _LIBCPP_STD_VER > 14
+        -: 1979:    return *--__base::end();
+        -: 1980:#endif
+        -: 1981:}
+        -: 1982:
+        -: 1983:template <class _Tp, class _Allocator>
+        -: 1984:void
+        -: 1985:deque<_Tp, _Allocator>::push_front(value_type&& __v)
+        -: 1986:{
+        -: 1987:    allocator_type& __a = __base::__alloc();
+        -: 1988:    if (__front_spare() == 0)
+        -: 1989:        __add_front_capacity();
+        -: 1990:    // __front_spare() >= 1
+        -: 1991:    __alloc_traits::construct(__a, _VSTD::addressof(*--__base::begin()), _VSTD::move(__v));
+        -: 1992:    --__base::__start_;
+        -: 1993:    ++__base::size();
+        -: 1994:}
+        -: 1995:
+        -: 1996:
+        -: 1997:template <class _Tp, class _Allocator>
+        -: 1998:template <class... _Args>
+        -: 1999:#if _LIBCPP_STD_VER > 14
+        -: 2000:typename deque<_Tp, _Allocator>::reference
+        -: 2001:#else
+        -: 2002:void
+        -: 2003:#endif
+        -: 2004:deque<_Tp, _Allocator>::emplace_front(_Args&&... __args)
+        -: 2005:{
+        -: 2006:    allocator_type& __a = __base::__alloc();
+        -: 2007:    if (__front_spare() == 0)
+        -: 2008:        __add_front_capacity();
+        -: 2009:    // __front_spare() >= 1
+        -: 2010:    __alloc_traits::construct(__a, _VSTD::addressof(*--__base::begin()), _VSTD::forward<_Args>(__args)...);
+        -: 2011:    --__base::__start_;
+        -: 2012:    ++__base::size();
+        -: 2013:#if _LIBCPP_STD_VER > 14
+        -: 2014:    return *__base::begin();
+        -: 2015:#endif
+        -: 2016:}
+        -: 2017:
+        -: 2018:template <class _Tp, class _Allocator>
+        -: 2019:typename deque<_Tp, _Allocator>::iterator
+        -: 2020:deque<_Tp, _Allocator>::insert(const_iterator __p, value_type&& __v)
+        -: 2021:{
+        -: 2022:    size_type __pos = __p - __base::begin();
+        -: 2023:    size_type __to_end = __base::size() - __pos;
+        -: 2024:    allocator_type& __a = __base::__alloc();
+        -: 2025:    if (__pos < __to_end)
+        -: 2026:    {   // insert by shifting things backward
+        -: 2027:        if (__front_spare() == 0)
+        -: 2028:            __add_front_capacity();
+        -: 2029:        // __front_spare() >= 1
+        -: 2030:        if (__pos == 0)
+        -: 2031:        {
+        -: 2032:            __alloc_traits::construct(__a, _VSTD::addressof(*--__base::begin()), _VSTD::move(__v));
+        -: 2033:            --__base::__start_;
+        -: 2034:            ++__base::size();
+        -: 2035:        }
+        -: 2036:        else
+        -: 2037:        {
+        -: 2038:            iterator __b = __base::begin();
+        -: 2039:            iterator __bm1 = _VSTD::prev(__b);
+        -: 2040:            __alloc_traits::construct(__a, _VSTD::addressof(*__bm1), _VSTD::move(*__b));
+        -: 2041:            --__base::__start_;
+        -: 2042:            ++__base::size();
+        -: 2043:            if (__pos > 1)
+        -: 2044:                __b = _VSTD::move(_VSTD::next(__b), __b + __pos, __b);
+        -: 2045:            *__b = _VSTD::move(__v);
+        -: 2046:        }
+        -: 2047:    }
+        -: 2048:    else
+        -: 2049:    {   // insert by shifting things forward
+        -: 2050:        if (__back_spare() == 0)
+        -: 2051:            __add_back_capacity();
+        -: 2052:        // __back_capacity >= 1
+        -: 2053:        size_type __de = __base::size() - __pos;
+        -: 2054:        if (__de == 0)
+        -: 2055:        {
+        -: 2056:            __alloc_traits::construct(__a, _VSTD::addressof(*__base::end()), _VSTD::move(__v));
+        -: 2057:            ++__base::size();
+        -: 2058:        }
+        -: 2059:        else
+        -: 2060:        {
+        -: 2061:            iterator __e = __base::end();
+        -: 2062:            iterator __em1 = _VSTD::prev(__e);
+        -: 2063:            __alloc_traits::construct(__a, _VSTD::addressof(*__e), _VSTD::move(*__em1));
+        -: 2064:            ++__base::size();
+        -: 2065:            if (__de > 1)
+        -: 2066:                __e = _VSTD::move_backward(__e - __de, __em1, __e);
+        -: 2067:            *--__e = _VSTD::move(__v);
+        -: 2068:        }
+        -: 2069:    }
+        -: 2070:    return __base::begin() + __pos;
+        -: 2071:}
+        -: 2072:
+        -: 2073:template <class _Tp, class _Allocator>
+        -: 2074:template <class... _Args>
+        -: 2075:typename deque<_Tp, _Allocator>::iterator
+        -: 2076:deque<_Tp, _Allocator>::emplace(const_iterator __p, _Args&&... __args)
+        -: 2077:{
+        -: 2078:    size_type __pos = __p - __base::begin();
+        -: 2079:    size_type __to_end = __base::size() - __pos;
+        -: 2080:    allocator_type& __a = __base::__alloc();
+        -: 2081:    if (__pos < __to_end)
+        -: 2082:    {   // insert by shifting things backward
+        -: 2083:        if (__front_spare() == 0)
+        -: 2084:            __add_front_capacity();
+        -: 2085:        // __front_spare() >= 1
+        -: 2086:        if (__pos == 0)
+        -: 2087:        {
+        -: 2088:            __alloc_traits::construct(__a, _VSTD::addressof(*--__base::begin()), _VSTD::forward<_Args>(__args)...);
+        -: 2089:            --__base::__start_;
+        -: 2090:            ++__base::size();
+        -: 2091:        }
+        -: 2092:        else
+        -: 2093:        {
+        -: 2094:            __temp_value<value_type, _Allocator> __tmp(this->__alloc(), _VSTD::forward<_Args>(__args)...);
+        -: 2095:            iterator __b = __base::begin();
+        -: 2096:            iterator __bm1 = _VSTD::prev(__b);
+        -: 2097:            __alloc_traits::construct(__a, _VSTD::addressof(*__bm1), _VSTD::move(*__b));
+        -: 2098:            --__base::__start_;
+        -: 2099:            ++__base::size();
+        -: 2100:            if (__pos > 1)
+        -: 2101:                __b = _VSTD::move(_VSTD::next(__b), __b + __pos, __b);
+        -: 2102:            *__b = _VSTD::move(__tmp.get());
+        -: 2103:        }
+        -: 2104:    }
+        -: 2105:    else
+        -: 2106:    {   // insert by shifting things forward
+        -: 2107:        if (__back_spare() == 0)
+        -: 2108:            __add_back_capacity();
+        -: 2109:        // __back_capacity >= 1
+        -: 2110:        size_type __de = __base::size() - __pos;
+        -: 2111:        if (__de == 0)
+        -: 2112:        {
+        -: 2113:            __alloc_traits::construct(__a, _VSTD::addressof(*__base::end()), _VSTD::forward<_Args>(__args)...);
+        -: 2114:            ++__base::size();
+        -: 2115:        }
+        -: 2116:        else
+        -: 2117:        {
+        -: 2118:            __temp_value<value_type, _Allocator> __tmp(this->__alloc(), _VSTD::forward<_Args>(__args)...);
+        -: 2119:            iterator __e = __base::end();
+        -: 2120:            iterator __em1 = _VSTD::prev(__e);
+        -: 2121:            __alloc_traits::construct(__a, _VSTD::addressof(*__e), _VSTD::move(*__em1));
+        -: 2122:            ++__base::size();
+        -: 2123:            if (__de > 1)
+        -: 2124:                __e = _VSTD::move_backward(__e - __de, __em1, __e);
+        -: 2125:            *--__e = _VSTD::move(__tmp.get());
+        -: 2126:        }
+        -: 2127:    }
+        -: 2128:    return __base::begin() + __pos;
+        -: 2129:}
+        -: 2130:
+        -: 2131:#endif  // _LIBCPP_CXX03_LANG
+        -: 2132:
+        -: 2133:
+        -: 2134:template <class _Tp, class _Allocator>
+        -: 2135:typename deque<_Tp, _Allocator>::iterator
+        -: 2136:deque<_Tp, _Allocator>::insert(const_iterator __p, const value_type& __v)
+        -: 2137:{
+        -: 2138:    size_type __pos = __p - __base::begin();
+        -: 2139:    size_type __to_end = __base::size() - __pos;
+        -: 2140:    allocator_type& __a = __base::__alloc();
+        -: 2141:    if (__pos < __to_end)
+        -: 2142:    {   // insert by shifting things backward
+        -: 2143:        if (__front_spare() == 0)
+        -: 2144:            __add_front_capacity();
+        -: 2145:        // __front_spare() >= 1
+        -: 2146:        if (__pos == 0)
+        -: 2147:        {
+        -: 2148:            __alloc_traits::construct(__a, _VSTD::addressof(*--__base::begin()), __v);
+        -: 2149:            --__base::__start_;
+        -: 2150:            ++__base::size();
+        -: 2151:        }
+        -: 2152:        else
+        -: 2153:        {
+        -: 2154:            const_pointer __vt = pointer_traits<const_pointer>::pointer_to(__v);
+        -: 2155:            iterator __b = __base::begin();
+        -: 2156:            iterator __bm1 = _VSTD::prev(__b);
+        -: 2157:            if (__vt == pointer_traits<const_pointer>::pointer_to(*__b))
+        -: 2158:                __vt = pointer_traits<const_pointer>::pointer_to(*__bm1);
+        -: 2159:            __alloc_traits::construct(__a, _VSTD::addressof(*__bm1), _VSTD::move(*__b));
+        -: 2160:            --__base::__start_;
+        -: 2161:            ++__base::size();
+        -: 2162:            if (__pos > 1)
+        -: 2163:                __b = __move_and_check(_VSTD::next(__b), __b + __pos, __b, __vt);
+        -: 2164:            *__b = *__vt;
+        -: 2165:        }
+        -: 2166:    }
+        -: 2167:    else
+        -: 2168:    {   // insert by shifting things forward
+        -: 2169:        if (__back_spare() == 0)
+        -: 2170:            __add_back_capacity();
+        -: 2171:        // __back_capacity >= 1
+        -: 2172:        size_type __de = __base::size() - __pos;
+        -: 2173:        if (__de == 0)
+        -: 2174:        {
+        -: 2175:            __alloc_traits::construct(__a, _VSTD::addressof(*__base::end()), __v);
+        -: 2176:            ++__base::size();
+        -: 2177:        }
+        -: 2178:        else
+        -: 2179:        {
+        -: 2180:            const_pointer __vt = pointer_traits<const_pointer>::pointer_to(__v);
+        -: 2181:            iterator __e = __base::end();
+        -: 2182:            iterator __em1 = _VSTD::prev(__e);
+        -: 2183:            if (__vt == pointer_traits<const_pointer>::pointer_to(*__em1))
+        -: 2184:                __vt = pointer_traits<const_pointer>::pointer_to(*__e);
+        -: 2185:            __alloc_traits::construct(__a, _VSTD::addressof(*__e), _VSTD::move(*__em1));
+        -: 2186:            ++__base::size();
+        -: 2187:            if (__de > 1)
+        -: 2188:                __e = __move_backward_and_check(__e - __de, __em1, __e, __vt);
+        -: 2189:            *--__e = *__vt;
+        -: 2190:        }
+        -: 2191:    }
+        -: 2192:    return __base::begin() + __pos;
+        -: 2193:}
+        -: 2194:
+        -: 2195:template <class _Tp, class _Allocator>
+        -: 2196:typename deque<_Tp, _Allocator>::iterator
+        -: 2197:deque<_Tp, _Allocator>::insert(const_iterator __p, size_type __n, const value_type& __v)
+        -: 2198:{
+        -: 2199:    size_type __pos = __p - __base::begin();
+        -: 2200:    size_type __to_end = __base::size() - __pos;
+        -: 2201:    allocator_type& __a = __base::__alloc();
+        -: 2202:    if (__pos < __to_end)
+        -: 2203:    {   // insert by shifting things backward
+        -: 2204:        if (__n > __front_spare())
+        -: 2205:            __add_front_capacity(__n - __front_spare());
+        -: 2206:        // __n <= __front_spare()
+        -: 2207:        iterator __old_begin = __base::begin();
+        -: 2208:        iterator __i = __old_begin;
+        -: 2209:        if (__n > __pos)
+        -: 2210:        {
+        -: 2211:            for (size_type __m = __n - __pos; __m; --__m, --__base::__start_, ++__base::size())
+        -: 2212:                __alloc_traits::construct(__a, _VSTD::addressof(*--__i), __v);
+        -: 2213:            __n = __pos;
+        -: 2214:        }
+        -: 2215:        if (__n > 0)
+        -: 2216:        {
+        -: 2217:            const_pointer __vt = pointer_traits<const_pointer>::pointer_to(__v);
+        -: 2218:            iterator __obn = __old_begin + __n;
+        -: 2219:            __move_construct_backward_and_check(__old_begin, __obn, __i, __vt);
+        -: 2220:            if (__n < __pos)
+        -: 2221:                __old_begin = __move_and_check(__obn, __old_begin + __pos, __old_begin, __vt);
+        -: 2222:            _VSTD::fill_n(__old_begin, __n, *__vt);
+        -: 2223:        }
+        -: 2224:    }
+        -: 2225:    else
+        -: 2226:    {   // insert by shifting things forward
+        -: 2227:        size_type __back_capacity = __back_spare();
+        -: 2228:        if (__n > __back_capacity)
+        -: 2229:            __add_back_capacity(__n - __back_capacity);
+        -: 2230:        // __n <= __back_capacity
+        -: 2231:        iterator __old_end = __base::end();
+        -: 2232:        iterator __i = __old_end;
+        -: 2233:        size_type __de = __base::size() - __pos;
+        -: 2234:        if (__n > __de)
+        -: 2235:        {
+        -: 2236:            for (size_type __m = __n - __de; __m; --__m, ++__i, ++__base::size())
+        -: 2237:                __alloc_traits::construct(__a, _VSTD::addressof(*__i), __v);
+        -: 2238:            __n = __de;
+        -: 2239:        }
+        -: 2240:        if (__n > 0)
+        -: 2241:        {
+        -: 2242:            const_pointer __vt = pointer_traits<const_pointer>::pointer_to(__v);
+        -: 2243:            iterator __oen = __old_end - __n;
+        -: 2244:            __move_construct_and_check(__oen, __old_end, __i, __vt);
+        -: 2245:            if (__n < __de)
+        -: 2246:                __old_end = __move_backward_and_check(__old_end - __de, __oen, __old_end, __vt);
+        -: 2247:            _VSTD::fill_n(__old_end - __n, __n, *__vt);
+        -: 2248:        }
+        -: 2249:    }
+        -: 2250:    return __base::begin() + __pos;
+        -: 2251:}
+        -: 2252:
+        -: 2253:template <class _Tp, class _Allocator>
+        -: 2254:template <class _InputIter>
+        -: 2255:typename deque<_Tp, _Allocator>::iterator
+        -: 2256:deque<_Tp, _Allocator>::insert(const_iterator __p, _InputIter __f, _InputIter __l,
+        -: 2257:                               typename enable_if<__is_cpp17_input_iterator<_InputIter>::value
+        -: 2258:                                               &&!__is_cpp17_forward_iterator<_InputIter>::value>::type*)
+        -: 2259:{
+        -: 2260:    __split_buffer<value_type, allocator_type&> __buf(__base::__alloc());
+        -: 2261:    __buf.__construct_at_end(__f, __l);
+        -: 2262:    typedef typename __split_buffer<value_type, allocator_type&>::iterator __bi;
+        -: 2263:    return insert(__p, move_iterator<__bi>(__buf.begin()), move_iterator<__bi>(__buf.end()));
+        -: 2264:}
+        -: 2265:
+        -: 2266:template <class _Tp, class _Allocator>
+        -: 2267:template <class _ForwardIterator>
+        -: 2268:typename deque<_Tp, _Allocator>::iterator
+        -: 2269:deque<_Tp, _Allocator>::insert(const_iterator __p, _ForwardIterator __f, _ForwardIterator __l,
+        -: 2270:                               typename enable_if<__is_cpp17_forward_iterator<_ForwardIterator>::value
+        -: 2271:                                               &&!__is_cpp17_bidirectional_iterator<_ForwardIterator>::value>::type*)
+        -: 2272:{
+        -: 2273:    size_type __n = _VSTD::distance(__f, __l);
+        -: 2274:    __split_buffer<value_type, allocator_type&> __buf(__n, 0, __base::__alloc());
+        -: 2275:    __buf.__construct_at_end(__f, __l);
+        -: 2276:    typedef typename __split_buffer<value_type, allocator_type&>::iterator __fwd;
+        -: 2277:    return insert(__p, move_iterator<__fwd>(__buf.begin()), move_iterator<__fwd>(__buf.end()));
+        -: 2278:}
+        -: 2279:
+        -: 2280:template <class _Tp, class _Allocator>
+        -: 2281:template <class _BiIter>
+        -: 2282:typename deque<_Tp, _Allocator>::iterator
+        -: 2283:deque<_Tp, _Allocator>::insert(const_iterator __p, _BiIter __f, _BiIter __l,
+        -: 2284:                               typename enable_if<__is_cpp17_bidirectional_iterator<_BiIter>::value>::type*)
+        -: 2285:{
+        -: 2286:    size_type __n = _VSTD::distance(__f, __l);
+        -: 2287:    size_type __pos = __p - __base::begin();
+        -: 2288:    size_type __to_end = __base::size() - __pos;
+        -: 2289:    allocator_type& __a = __base::__alloc();
+        -: 2290:    if (__pos < __to_end)
+        -: 2291:    {   // insert by shifting things backward
+        -: 2292:        if (__n > __front_spare())
+        -: 2293:            __add_front_capacity(__n - __front_spare());
+        -: 2294:        // __n <= __front_spare()
+        -: 2295:        iterator __old_begin = __base::begin();
+        -: 2296:        iterator __i = __old_begin;
+        -: 2297:        _BiIter __m = __f;
+        -: 2298:        if (__n > __pos)
+        -: 2299:        {
+        -: 2300:            __m = __pos < __n / 2 ? _VSTD::prev(__l, __pos) : _VSTD::next(__f, __n - __pos);
+        -: 2301:            for (_BiIter __j = __m; __j != __f; --__base::__start_, ++__base::size())
+        -: 2302:                __alloc_traits::construct(__a, _VSTD::addressof(*--__i), *--__j);
+        -: 2303:            __n = __pos;
+        -: 2304:        }
+        -: 2305:        if (__n > 0)
+        -: 2306:        {
+        -: 2307:            iterator __obn = __old_begin + __n;
+        -: 2308:            for (iterator __j = __obn; __j != __old_begin;)
+        -: 2309:            {
+        -: 2310:                __alloc_traits::construct(__a, _VSTD::addressof(*--__i), _VSTD::move(*--__j));
+        -: 2311:                --__base::__start_;
+        -: 2312:                ++__base::size();
+        -: 2313:            }
+        -: 2314:            if (__n < __pos)
+        -: 2315:                __old_begin = _VSTD::move(__obn, __old_begin + __pos, __old_begin);
+        -: 2316:            _VSTD::copy(__m, __l, __old_begin);
+        -: 2317:        }
+        -: 2318:    }
+        -: 2319:    else
+        -: 2320:    {   // insert by shifting things forward
+        -: 2321:        size_type __back_capacity = __back_spare();
+        -: 2322:        if (__n > __back_capacity)
+        -: 2323:            __add_back_capacity(__n - __back_capacity);
+        -: 2324:        // __n <= __back_capacity
+        -: 2325:        iterator __old_end = __base::end();
+        -: 2326:        iterator __i = __old_end;
+        -: 2327:        _BiIter __m = __l;
+        -: 2328:        size_type __de = __base::size() - __pos;
+        -: 2329:        if (__n > __de)
+        -: 2330:        {
+        -: 2331:            __m = __de < __n / 2 ? _VSTD::next(__f, __de) : _VSTD::prev(__l, __n - __de);
+        -: 2332:            for (_BiIter __j = __m; __j != __l; ++__i, (void) ++__j, ++__base::size())
+        -: 2333:                __alloc_traits::construct(__a, _VSTD::addressof(*__i), *__j);
+        -: 2334:            __n = __de;
+        -: 2335:        }
+        -: 2336:        if (__n > 0)
+        -: 2337:        {
+        -: 2338:            iterator __oen = __old_end - __n;
+        -: 2339:            for (iterator __j = __oen; __j != __old_end; ++__i, ++__j, ++__base::size())
+        -: 2340:                __alloc_traits::construct(__a, _VSTD::addressof(*__i), _VSTD::move(*__j));
+        -: 2341:            if (__n < __de)
+        -: 2342:                __old_end = _VSTD::move_backward(__old_end - __de, __oen, __old_end);
+        -: 2343:            _VSTD::copy_backward(__f, __m, __old_end);
+        -: 2344:        }
+        -: 2345:    }
+        -: 2346:    return __base::begin() + __pos;
+        -: 2347:}
+        -: 2348:
+        -: 2349:template <class _Tp, class _Allocator>
+        -: 2350:template <class _InpIter>
+        -: 2351:void
+        -: 2352:deque<_Tp, _Allocator>::__append(_InpIter __f, _InpIter __l,
+        -: 2353:                                 typename enable_if<__is_cpp17_input_iterator<_InpIter>::value &&
+        -: 2354:                                                   !__is_cpp17_forward_iterator<_InpIter>::value>::type*)
+        -: 2355:{
+        -: 2356:    for (; __f != __l; ++__f)
+        -: 2357:#ifdef _LIBCPP_CXX03_LANG
+        -: 2358:        push_back(*__f);
+        -: 2359:#else
+        -: 2360:        emplace_back(*__f);
+        -: 2361:#endif
+        -: 2362:}
+        -: 2363:
+        -: 2364:template <class _Tp, class _Allocator>
+        -: 2365:template <class _ForIter>
+        -: 2366:void
+        -: 2367:deque<_Tp, _Allocator>::__append(_ForIter __f, _ForIter __l,
+        -: 2368:                                 typename enable_if<__is_cpp17_forward_iterator<_ForIter>::value>::type*)
+        -: 2369:{
+        -: 2370:    size_type __n = _VSTD::distance(__f, __l);
+        -: 2371:    allocator_type& __a = __base::__alloc();
+        -: 2372:    size_type __back_capacity = __back_spare();
+        -: 2373:    if (__n > __back_capacity)
+        -: 2374:        __add_back_capacity(__n - __back_capacity);
+        -: 2375:    // __n <= __back_capacity
+        -: 2376:    for (__deque_block_range __br : __deque_range(__base::end(), __base::end() + __n)) {
+        -: 2377:      _ConstructTransaction __tx(this, __br);
+        -: 2378:      for (; __tx.__pos_ != __tx.__end_; ++__tx.__pos_, (void)++__f) {
+        -: 2379:        __alloc_traits::construct(__a, std::__to_address(__tx.__pos_), *__f);
+        -: 2380:      }
+        -: 2381:    }
+        -: 2382:}
+        -: 2383:
+        -: 2384:template <class _Tp, class _Allocator>
+        -: 2385:void
+        -: 2386:deque<_Tp, _Allocator>::__append(size_type __n)
+        -: 2387:{
+        -: 2388:    allocator_type& __a = __base::__alloc();
+        -: 2389:    size_type __back_capacity = __back_spare();
+        -: 2390:    if (__n > __back_capacity)
+        -: 2391:        __add_back_capacity(__n - __back_capacity);
+        -: 2392:    // __n <= __back_capacity
+        -: 2393:    for (__deque_block_range __br : __deque_range(__base::end(), __base::end() + __n)) {
+        -: 2394:      _ConstructTransaction __tx(this, __br);
+        -: 2395:      for (; __tx.__pos_ != __tx.__end_; ++__tx.__pos_) {
+        -: 2396:        __alloc_traits::construct(__a, std::__to_address(__tx.__pos_));
+        -: 2397:      }
+        -: 2398:    }
+        -: 2399:}
+        -: 2400:
+        -: 2401:template <class _Tp, class _Allocator>
+        -: 2402:void
+        -: 2403:deque<_Tp, _Allocator>::__append(size_type __n, const value_type& __v)
+        -: 2404:{
+        -: 2405:    allocator_type& __a = __base::__alloc();
+        -: 2406:    size_type __back_capacity = __back_spare();
+        -: 2407:    if (__n > __back_capacity)
+        -: 2408:        __add_back_capacity(__n - __back_capacity);
+        -: 2409:    // __n <= __back_capacity
+        -: 2410:    for (__deque_block_range __br : __deque_range(__base::end(), __base::end() + __n)) {
+        -: 2411:      _ConstructTransaction __tx(this, __br);
+        -: 2412:      for (; __tx.__pos_ != __tx.__end_; ++__tx.__pos_) {
+        -: 2413:        __alloc_traits::construct(__a, std::__to_address(__tx.__pos_), __v);
+        -: 2414:      }
+        -: 2415:    }
+        -: 2416:
+        -: 2417:}
+        -: 2418:
+        -: 2419:// Create front capacity for one block of elements.
+        -: 2420:// Strong guarantee.  Either do it or don't touch anything.
+        -: 2421:template <class _Tp, class _Allocator>
+        -: 2422:void
+        -: 2423:deque<_Tp, _Allocator>::__add_front_capacity()
+        -: 2424:{
+        -: 2425:    allocator_type& __a = __base::__alloc();
+        -: 2426:    if (__back_spare() >= __base::__block_size)
+        -: 2427:    {
+        -: 2428:        __base::__start_ += __base::__block_size;
+        -: 2429:        pointer __pt = __base::__map_.back();
+        -: 2430:        __base::__map_.pop_back();
+        -: 2431:        __base::__map_.push_front(__pt);
+        -: 2432:    }
+        -: 2433:    // Else if __base::__map_.size() < __base::__map_.capacity() then we need to allocate 1 buffer
+        -: 2434:    else if (__base::__map_.size() < __base::__map_.capacity())
+        -: 2435:    {   // we can put the new buffer into the map, but don't shift things around
+        -: 2436:        // until all buffers are allocated.  If we throw, we don't need to fix
+        -: 2437:        // anything up (any added buffers are undetectible)
+        -: 2438:        if (__base::__map_.__front_spare() > 0)
+        -: 2439:            __base::__map_.push_front(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2440:        else
+        -: 2441:        {
+        -: 2442:            __base::__map_.push_back(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2443:            // Done allocating, reorder capacity
+        -: 2444:            pointer __pt = __base::__map_.back();
+        -: 2445:            __base::__map_.pop_back();
+        -: 2446:            __base::__map_.push_front(__pt);
+        -: 2447:        }
+        -: 2448:        __base::__start_ = __base::__map_.size() == 1 ?
+        -: 2449:                               __base::__block_size / 2 :
+        -: 2450:                               __base::__start_ + __base::__block_size;
+        -: 2451:    }
+        -: 2452:    // Else need to allocate 1 buffer, *and* we need to reallocate __map_.
+        -: 2453:    else
+        -: 2454:    {
+        -: 2455:        __split_buffer<pointer, typename __base::__pointer_allocator&>
+        -: 2456:            __buf(max<size_type>(2 * __base::__map_.capacity(), 1),
+        -: 2457:                  0, __base::__map_.__alloc());
+        -: 2458:
+        -: 2459:        typedef __allocator_destructor<_Allocator> _Dp;
+        -: 2460:        unique_ptr<pointer, _Dp> __hold(
+        -: 2461:            __alloc_traits::allocate(__a, __base::__block_size),
+        -: 2462:                _Dp(__a, __base::__block_size));
+        -: 2463:        __buf.push_back(__hold.get());
+        -: 2464:        __hold.release();
+        -: 2465:
+        -: 2466:        for (typename __base::__map_pointer __i = __base::__map_.begin();
+        -: 2467:                __i != __base::__map_.end(); ++__i)
+        -: 2468:            __buf.push_back(*__i);
+        -: 2469:        _VSTD::swap(__base::__map_.__first_, __buf.__first_);
+        -: 2470:        _VSTD::swap(__base::__map_.__begin_, __buf.__begin_);
+        -: 2471:        _VSTD::swap(__base::__map_.__end_, __buf.__end_);
+        -: 2472:        _VSTD::swap(__base::__map_.__end_cap(), __buf.__end_cap());
+        -: 2473:        __base::__start_ = __base::__map_.size() == 1 ?
+        -: 2474:                               __base::__block_size / 2 :
+        -: 2475:                               __base::__start_ + __base::__block_size;
+        -: 2476:    }
+        -: 2477:}
+        -: 2478:
+        -: 2479:// Create front capacity for __n elements.
+        -: 2480:// Strong guarantee.  Either do it or don't touch anything.
+        -: 2481:template <class _Tp, class _Allocator>
+        -: 2482:void
+        -: 2483:deque<_Tp, _Allocator>::__add_front_capacity(size_type __n)
+        -: 2484:{
+        -: 2485:    allocator_type& __a = __base::__alloc();
+        -: 2486:    size_type __nb = __recommend_blocks(__n + __base::__map_.empty());
+        -: 2487:    // Number of unused blocks at back:
+        -: 2488:    size_type __back_capacity = __back_spare() / __base::__block_size;
+        -: 2489:    __back_capacity = _VSTD::min(__back_capacity, __nb);  // don't take more than you need
+        -: 2490:    __nb -= __back_capacity;  // number of blocks need to allocate
+        -: 2491:    // If __nb == 0, then we have sufficient capacity.
+        -: 2492:    if (__nb == 0)
+        -: 2493:    {
+        -: 2494:        __base::__start_ += __base::__block_size * __back_capacity;
+        -: 2495:        for (; __back_capacity > 0; --__back_capacity)
+        -: 2496:        {
+        -: 2497:            pointer __pt = __base::__map_.back();
+        -: 2498:            __base::__map_.pop_back();
+        -: 2499:            __base::__map_.push_front(__pt);
+        -: 2500:        }
+        -: 2501:    }
+        -: 2502:    // Else if __nb <= __map_.capacity() - __map_.size() then we need to allocate __nb buffers
+        -: 2503:    else if (__nb <= __base::__map_.capacity() - __base::__map_.size())
+        -: 2504:    {   // we can put the new buffers into the map, but don't shift things around
+        -: 2505:        // until all buffers are allocated.  If we throw, we don't need to fix
+        -: 2506:        // anything up (any added buffers are undetectible)
+        -: 2507:        for (; __nb > 0; --__nb, __base::__start_ += __base::__block_size - (__base::__map_.size() == 1))
+        -: 2508:        {
+        -: 2509:            if (__base::__map_.__front_spare() == 0)
+        -: 2510:                break;
+        -: 2511:            __base::__map_.push_front(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2512:        }
+        -: 2513:        for (; __nb > 0; --__nb, ++__back_capacity)
+        -: 2514:            __base::__map_.push_back(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2515:        // Done allocating, reorder capacity
+        -: 2516:        __base::__start_ += __back_capacity * __base::__block_size;
+        -: 2517:        for (; __back_capacity > 0; --__back_capacity)
+        -: 2518:        {
+        -: 2519:            pointer __pt = __base::__map_.back();
+        -: 2520:            __base::__map_.pop_back();
+        -: 2521:            __base::__map_.push_front(__pt);
+        -: 2522:        }
+        -: 2523:    }
+        -: 2524:    // Else need to allocate __nb buffers, *and* we need to reallocate __map_.
+        -: 2525:    else
+        -: 2526:    {
+        -: 2527:        size_type __ds = (__nb + __back_capacity) * __base::__block_size - __base::__map_.empty();
+        -: 2528:        __split_buffer<pointer, typename __base::__pointer_allocator&>
+        -: 2529:            __buf(max<size_type>(2* __base::__map_.capacity(),
+        -: 2530:                                 __nb + __base::__map_.size()),
+        -: 2531:                  0, __base::__map_.__alloc());
+        -: 2532:#ifndef _LIBCPP_NO_EXCEPTIONS
+        -: 2533:        try
+        -: 2534:        {
+        -: 2535:#endif  // _LIBCPP_NO_EXCEPTIONS
+        -: 2536:            for (; __nb > 0; --__nb)
+        -: 2537:                __buf.push_back(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2538:#ifndef _LIBCPP_NO_EXCEPTIONS
+        -: 2539:        }
+        -: 2540:        catch (...)
+        -: 2541:        {
+        -: 2542:            for (typename __base::__map_pointer __i = __buf.begin();
+        -: 2543:                    __i != __buf.end(); ++__i)
+        -: 2544:                __alloc_traits::deallocate(__a, *__i, __base::__block_size);
+        -: 2545:            throw;
+        -: 2546:        }
+        -: 2547:#endif  // _LIBCPP_NO_EXCEPTIONS
+        -: 2548:        for (; __back_capacity > 0; --__back_capacity)
+        -: 2549:        {
+        -: 2550:            __buf.push_back(__base::__map_.back());
+        -: 2551:            __base::__map_.pop_back();
+        -: 2552:        }
+        -: 2553:        for (typename __base::__map_pointer __i = __base::__map_.begin();
+        -: 2554:                __i != __base::__map_.end(); ++__i)
+        -: 2555:            __buf.push_back(*__i);
+        -: 2556:        _VSTD::swap(__base::__map_.__first_, __buf.__first_);
+        -: 2557:        _VSTD::swap(__base::__map_.__begin_, __buf.__begin_);
+        -: 2558:        _VSTD::swap(__base::__map_.__end_, __buf.__end_);
+        -: 2559:        _VSTD::swap(__base::__map_.__end_cap(), __buf.__end_cap());
+        -: 2560:        __base::__start_ += __ds;
+        -: 2561:    }
+        -: 2562:}
+        -: 2563:
+        -: 2564:// Create back capacity for one block of elements.
+        -: 2565:// Strong guarantee.  Either do it or don't touch anything.
+        -: 2566:template <class _Tp, class _Allocator>
+        -: 2567:void
+function _ZNSt3__15dequeIiNS_9allocatorIiEEE19__add_back_capacityEv called 24 returned 0% blocks executed 47%
+       24: 2568:deque<_Tp, _Allocator>::__add_back_capacity()
+       24: 2568-block  0
+        -: 2569:{
+       24: 2570:    allocator_type& __a = __base::__alloc();
+       24: 2571:    if (__front_spare() >= __base::__block_size)
+       24: 2571-block  0
+branch  0 taken 0
+branch  1 taken 24
+        -: 2572:    {
+    #####: 2573:        __base::__start_ -= __base::__block_size;
+    #####: 2574:        pointer __pt = __base::__map_.front();
+    #####: 2575:        __base::__map_.pop_front();
+    #####: 2576:        __base::__map_.push_back(__pt);
+    #####: 2577:    }
+    $$$$$: 2577-block  0
+        -: 2578:    // Else if __nb <= __map_.capacity() - __map_.size() then we need to allocate __nb buffers
+       24: 2579:    else if (__base::__map_.size() < __base::__map_.capacity())
+       24: 2579-block  0
+branch  0 taken 0
+branch  1 taken 24
+        -: 2580:    {   // we can put the new buffer into the map, but don't shift things around
+        -: 2581:        // until it is allocated.  If we throw, we don't need to fix
+        -: 2582:        // anything up (any added buffers are undetectible)
+    #####: 2583:        if (__base::__map_.__back_spare() != 0)
+    $$$$$: 2583-block  0
+branch  0 never executed
+branch  1 never executed
+    #####: 2584:            __base::__map_.push_back(__alloc_traits::allocate(__a, __base::__block_size));
+    $$$$$: 2584-block  0
+        -: 2585:        else
+        -: 2586:        {
+    #####: 2587:            __base::__map_.push_front(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2588:            // Done allocating, reorder capacity
+    #####: 2589:            pointer __pt = __base::__map_.front();
+    #####: 2590:            __base::__map_.pop_front();
+    #####: 2591:            __base::__map_.push_back(__pt);
+    $$$$$: 2591-block  0
+        -: 2592:        }
+    #####: 2593:    }
+    $$$$$: 2593-block  0
+        -: 2594:    // Else need to allocate 1 buffer, *and* we need to reallocate __map_.
+        -: 2595:    else
+        -: 2596:    {
+        -: 2597:        __split_buffer<pointer, typename __base::__pointer_allocator&>
+       48: 2598:            __buf(max<size_type>(2* __base::__map_.capacity(), 1),
+       24: 2599:                  __base::__map_.size(),
+       24: 2600:                  __base::__map_.__alloc());
+        -: 2601:
+        -: 2602:        typedef __allocator_destructor<_Allocator> _Dp;
+       24: 2603:        unique_ptr<pointer, _Dp> __hold(
+       24: 2604:            __alloc_traits::allocate(__a, __base::__block_size),
+       24: 2604-block  0
+branch  0 taken 24
+branch  1 taken 0
+       24: 2605:                _Dp(__a, __base::__block_size));
+       24: 2606:        __buf.push_back(__hold.get());
+       24: 2606-block  0
+branch  0 taken 24
+branch  1 taken 0
+       24: 2607:        __hold.release();
+        -: 2608:
+       24: 2609:        for (typename __base::__map_pointer __i = __base::__map_.end();
+       24: 2609-block  0
+       24: 2609-block  1
+branch  0 taken 0
+branch  1 taken 24
+    $$$$$: 2609-block  2
+       24: 2610:                __i != __base::__map_.begin();)
+    #####: 2611:            __buf.push_front(*--__i);
+    $$$$$: 2611-block  0
+branch  0 never executed
+branch  1 never executed
+       24: 2612:        _VSTD::swap(__base::__map_.__first_, __buf.__first_);
+       24: 2613:        _VSTD::swap(__base::__map_.__begin_, __buf.__begin_);
+       24: 2614:        _VSTD::swap(__base::__map_.__end_, __buf.__end_);
+       24: 2615:        _VSTD::swap(__base::__map_.__end_cap(), __buf.__end_cap());
+       24: 2616:    }
+    $$$$$: 2616-block  0
+       24: 2616-block  1
+    $$$$$: 2616-block  2
+    $$$$$: 2616-block  3
+       24: 2617:}
+    $$$$$: 2617-block  0
+       24: 2617-block  1
+        -: 2618:
+        -: 2619:// Create back capacity for __n elements.
+        -: 2620:// Strong guarantee.  Either do it or don't touch anything.
+        -: 2621:template <class _Tp, class _Allocator>
+        -: 2622:void
+        -: 2623:deque<_Tp, _Allocator>::__add_back_capacity(size_type __n)
+        -: 2624:{
+        -: 2625:    allocator_type& __a = __base::__alloc();
+        -: 2626:    size_type __nb = __recommend_blocks(__n + __base::__map_.empty());
+        -: 2627:    // Number of unused blocks at front:
+        -: 2628:    size_type __front_capacity = __front_spare() / __base::__block_size;
+        -: 2629:    __front_capacity = _VSTD::min(__front_capacity, __nb);  // don't take more than you need
+        -: 2630:    __nb -= __front_capacity;  // number of blocks need to allocate
+        -: 2631:    // If __nb == 0, then we have sufficient capacity.
+        -: 2632:    if (__nb == 0)
+        -: 2633:    {
+        -: 2634:        __base::__start_ -= __base::__block_size * __front_capacity;
+        -: 2635:        for (; __front_capacity > 0; --__front_capacity)
+        -: 2636:        {
+        -: 2637:            pointer __pt = __base::__map_.front();
+        -: 2638:            __base::__map_.pop_front();
+        -: 2639:            __base::__map_.push_back(__pt);
+        -: 2640:        }
+        -: 2641:    }
+        -: 2642:    // Else if __nb <= __map_.capacity() - __map_.size() then we need to allocate __nb buffers
+        -: 2643:    else if (__nb <= __base::__map_.capacity() - __base::__map_.size())
+        -: 2644:    {   // we can put the new buffers into the map, but don't shift things around
+        -: 2645:        // until all buffers are allocated.  If we throw, we don't need to fix
+        -: 2646:        // anything up (any added buffers are undetectible)
+        -: 2647:        for (; __nb > 0; --__nb)
+        -: 2648:        {
+        -: 2649:            if (__base::__map_.__back_spare() == 0)
+        -: 2650:                break;
+        -: 2651:            __base::__map_.push_back(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2652:        }
+        -: 2653:        for (; __nb > 0; --__nb, ++__front_capacity, __base::__start_ +=
+        -: 2654:                                 __base::__block_size - (__base::__map_.size() == 1))
+        -: 2655:            __base::__map_.push_front(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2656:        // Done allocating, reorder capacity
+        -: 2657:        __base::__start_ -= __base::__block_size * __front_capacity;
+        -: 2658:        for (; __front_capacity > 0; --__front_capacity)
+        -: 2659:        {
+        -: 2660:            pointer __pt = __base::__map_.front();
+        -: 2661:            __base::__map_.pop_front();
+        -: 2662:            __base::__map_.push_back(__pt);
+        -: 2663:        }
+        -: 2664:    }
+        -: 2665:    // Else need to allocate __nb buffers, *and* we need to reallocate __map_.
+        -: 2666:    else
+        -: 2667:    {
+        -: 2668:        size_type __ds = __front_capacity * __base::__block_size;
+        -: 2669:        __split_buffer<pointer, typename __base::__pointer_allocator&>
+        -: 2670:            __buf(max<size_type>(2* __base::__map_.capacity(),
+        -: 2671:                                 __nb + __base::__map_.size()),
+        -: 2672:                  __base::__map_.size() - __front_capacity,
+        -: 2673:                  __base::__map_.__alloc());
+        -: 2674:#ifndef _LIBCPP_NO_EXCEPTIONS
+        -: 2675:        try
+        -: 2676:        {
+        -: 2677:#endif  // _LIBCPP_NO_EXCEPTIONS
+        -: 2678:            for (; __nb > 0; --__nb)
+        -: 2679:                __buf.push_back(__alloc_traits::allocate(__a, __base::__block_size));
+        -: 2680:#ifndef _LIBCPP_NO_EXCEPTIONS
+        -: 2681:        }
+        -: 2682:        catch (...)
+        -: 2683:        {
+        -: 2684:            for (typename __base::__map_pointer __i = __buf.begin();
+        -: 2685:                    __i != __buf.end(); ++__i)
+        -: 2686:                __alloc_traits::deallocate(__a, *__i, __base::__block_size);
+        -: 2687:            throw;
+        -: 2688:        }
+        -: 2689:#endif  // _LIBCPP_NO_EXCEPTIONS
+        -: 2690:        for (; __front_capacity > 0; --__front_capacity)
+        -: 2691:        {
+        -: 2692:            __buf.push_back(__base::__map_.front());
+        -: 2693:            __base::__map_.pop_front();
+        -: 2694:        }
+        -: 2695:        for (typename __base::__map_pointer __i = __base::__map_.end();
+        -: 2696:                __i != __base::__map_.begin();)
+        -: 2697:            __buf.push_front(*--__i);
+        -: 2698:        _VSTD::swap(__base::__map_.__first_, __buf.__first_);
+        -: 2699:        _VSTD::swap(__base::__map_.__begin_, __buf.__begin_);
+        -: 2700:        _VSTD::swap(__base::__map_.__end_, __buf.__end_);
+        -: 2701:        _VSTD::swap(__base::__map_.__end_cap(), __buf.__end_cap());
+        -: 2702:        __base::__start_ -= __ds;
+        -: 2703:    }
+        -: 2704:}
+        -: 2705:
+        -: 2706:template <class _Tp, class _Allocator>
+        -: 2707:void
+function _ZNSt3__15dequeIiNS_9allocatorIiEEE9pop_frontEv called 30 returned 100% blocks executed 100%
+       30: 2708:deque<_Tp, _Allocator>::pop_front()
+       30: 2708-block  0
+        -: 2709:{
+       30: 2710:    allocator_type& __a = __base::__alloc();
+       90: 2711:    __alloc_traits::destroy(__a, __to_address(*(__base::__map_.begin() +
+       60: 2712:                                                    __base::__start_ / __base::__block_size) +
+       30: 2713:                                                    __base::__start_ % __base::__block_size));
+       30: 2714:    --__base::size();
+       30: 2715:    ++__base::__start_;
+       30: 2716:    __maybe_remove_front_spare();
+       30: 2717:}
+       30: 2717-block  0
+        -: 2718:
+        -: 2719:template <class _Tp, class _Allocator>
+        -: 2720:void
+        -: 2721:deque<_Tp, _Allocator>::pop_back()
+        -: 2722:{
+        -: 2723:    _LIBCPP_ASSERT(!empty(), "deque::pop_back called for empty deque");
+        -: 2724:    allocator_type& __a = __base::__alloc();
+        -: 2725:    size_type __p = __base::size() + __base::__start_ - 1;
+        -: 2726:    __alloc_traits::destroy(__a, __to_address(*(__base::__map_.begin() +
+        -: 2727:                                                    __p / __base::__block_size) +
+        -: 2728:                                                    __p % __base::__block_size));
+        -: 2729:    --__base::size();
+        -: 2730:    __maybe_remove_back_spare();
+        -: 2731:}
+        -: 2732:
+        -: 2733:// move assign [__f, __l) to [__r, __r + (__l-__f)).
+        -: 2734:// If __vt points into [__f, __l), then subtract (__f - __r) from __vt.
+        -: 2735:template <class _Tp, class _Allocator>
+        -: 2736:typename deque<_Tp, _Allocator>::iterator
+        -: 2737:deque<_Tp, _Allocator>::__move_and_check(iterator __f, iterator __l, iterator __r,
+        -: 2738:                                         const_pointer& __vt)
+        -: 2739:{
+        -: 2740:    // as if
+        -: 2741:    //   for (; __f != __l; ++__f, ++__r)
+        -: 2742:    //       *__r = _VSTD::move(*__f);
+        -: 2743:    difference_type __n = __l - __f;
+        -: 2744:    while (__n > 0)
+        -: 2745:    {
+        -: 2746:        pointer __fb = __f.__ptr_;
+        -: 2747:        pointer __fe = *__f.__m_iter_ + __base::__block_size;
+        -: 2748:        difference_type __bs = __fe - __fb;
+        -: 2749:        if (__bs > __n)
+        -: 2750:        {
+        -: 2751:            __bs = __n;
+        -: 2752:            __fe = __fb + __bs;
+        -: 2753:        }
+        -: 2754:        if (__fb <= __vt && __vt < __fe)
+        -: 2755:            __vt = (const_iterator(static_cast<__map_const_pointer>(__f.__m_iter_), __vt) -= __f - __r).__ptr_;
+        -: 2756:        __r = _VSTD::move(__fb, __fe, __r);
+        -: 2757:        __n -= __bs;
+        -: 2758:        __f += __bs;
+        -: 2759:    }
+        -: 2760:    return __r;
+        -: 2761:}
+        -: 2762:
+        -: 2763:// move assign [__f, __l) to [__r - (__l-__f), __r) backwards.
+        -: 2764:// If __vt points into [__f, __l), then add (__r - __l) to __vt.
+        -: 2765:template <class _Tp, class _Allocator>
+        -: 2766:typename deque<_Tp, _Allocator>::iterator
+        -: 2767:deque<_Tp, _Allocator>::__move_backward_and_check(iterator __f, iterator __l, iterator __r,
+        -: 2768:                                                  const_pointer& __vt)
+        -: 2769:{
+        -: 2770:    // as if
+        -: 2771:    //   while (__f != __l)
+        -: 2772:    //       *--__r = _VSTD::move(*--__l);
+        -: 2773:    difference_type __n = __l - __f;
+        -: 2774:    while (__n > 0)
+        -: 2775:    {
+        -: 2776:        --__l;
+        -: 2777:        pointer __lb = *__l.__m_iter_;
+        -: 2778:        pointer __le = __l.__ptr_ + 1;
+        -: 2779:        difference_type __bs = __le - __lb;
+        -: 2780:        if (__bs > __n)
+        -: 2781:        {
+        -: 2782:            __bs = __n;
+        -: 2783:            __lb = __le - __bs;
+        -: 2784:        }
+        -: 2785:        if (__lb <= __vt && __vt < __le)
+        -: 2786:            __vt = (const_iterator(static_cast<__map_const_pointer>(__l.__m_iter_), __vt) += __r - __l - 1).__ptr_;
+        -: 2787:        __r = _VSTD::move_backward(__lb, __le, __r);
+        -: 2788:        __n -= __bs;
+        -: 2789:        __l -= __bs - 1;
+        -: 2790:    }
+        -: 2791:    return __r;
+        -: 2792:}
+        -: 2793:
+        -: 2794:// move construct [__f, __l) to [__r, __r + (__l-__f)).
+        -: 2795:// If __vt points into [__f, __l), then add (__r - __f) to __vt.
+        -: 2796:template <class _Tp, class _Allocator>
+        -: 2797:void
+        -: 2798:deque<_Tp, _Allocator>::__move_construct_and_check(iterator __f, iterator __l,
+        -: 2799:                                                   iterator __r, const_pointer& __vt)
+        -: 2800:{
+        -: 2801:    allocator_type& __a = __base::__alloc();
+        -: 2802:    // as if
+        -: 2803:    //   for (; __f != __l; ++__r, ++__f, ++__base::size())
+        -: 2804:    //       __alloc_traits::construct(__a, _VSTD::addressof(*__r), _VSTD::move(*__f));
+        -: 2805:    difference_type __n = __l - __f;
+        -: 2806:    while (__n > 0)
+        -: 2807:    {
+        -: 2808:        pointer __fb = __f.__ptr_;
+        -: 2809:        pointer __fe = *__f.__m_iter_ + __base::__block_size;
+        -: 2810:        difference_type __bs = __fe - __fb;
+        -: 2811:        if (__bs > __n)
+        -: 2812:        {
+        -: 2813:            __bs = __n;
+        -: 2814:            __fe = __fb + __bs;
+        -: 2815:        }
+        -: 2816:        if (__fb <= __vt && __vt < __fe)
+        -: 2817:            __vt = (const_iterator(static_cast<__map_const_pointer>(__f.__m_iter_), __vt) += __r - __f).__ptr_;
+        -: 2818:        for (; __fb != __fe; ++__fb, ++__r, ++__base::size())
+        -: 2819:            __alloc_traits::construct(__a, _VSTD::addressof(*__r), _VSTD::move(*__fb));
+        -: 2820:        __n -= __bs;
+        -: 2821:        __f += __bs;
+        -: 2822:    }
+        -: 2823:}
+        -: 2824:
+        -: 2825:// move construct [__f, __l) to [__r - (__l-__f), __r) backwards.
+        -: 2826:// If __vt points into [__f, __l), then subtract (__l - __r) from __vt.
+        -: 2827:template <class _Tp, class _Allocator>
+        -: 2828:void
+        -: 2829:deque<_Tp, _Allocator>::__move_construct_backward_and_check(iterator __f, iterator __l,
+        -: 2830:                                                            iterator __r, const_pointer& __vt)
+        -: 2831:{
+        -: 2832:    allocator_type& __a = __base::__alloc();
+        -: 2833:    // as if
+        -: 2834:    //   for (iterator __j = __l; __j != __f;)
+        -: 2835:    //   {
+        -: 2836:    //       __alloc_traitsconstruct(__a, _VSTD::addressof(*--__r), _VSTD::move(*--__j));
+        -: 2837:    //       --__base::__start_;
+        -: 2838:    //       ++__base::size();
+        -: 2839:    //   }
+        -: 2840:    difference_type __n = __l - __f;
+        -: 2841:    while (__n > 0)
+        -: 2842:    {
+        -: 2843:        --__l;
+        -: 2844:        pointer __lb = *__l.__m_iter_;
+        -: 2845:        pointer __le = __l.__ptr_ + 1;
+        -: 2846:        difference_type __bs = __le - __lb;
+        -: 2847:        if (__bs > __n)
+        -: 2848:        {
+        -: 2849:            __bs = __n;
+        -: 2850:            __lb = __le - __bs;
+        -: 2851:        }
+        -: 2852:        if (__lb <= __vt && __vt < __le)
+        -: 2853:            __vt = (const_iterator(static_cast<__map_const_pointer>(__l.__m_iter_), __vt) -= __l - __r + 1).__ptr_;
+        -: 2854:        while (__le != __lb)
+        -: 2855:        {
+        -: 2856:            __alloc_traits::construct(__a, _VSTD::addressof(*--__r), _VSTD::move(*--__le));
+        -: 2857:            --__base::__start_;
+        -: 2858:            ++__base::size();
+        -: 2859:        }
+        -: 2860:        __n -= __bs;
+        -: 2861:        __l -= __bs - 1;
+        -: 2862:    }
+        -: 2863:}
+        -: 2864:
+        -: 2865:template <class _Tp, class _Allocator>
+        -: 2866:typename deque<_Tp, _Allocator>::iterator
+        -: 2867:deque<_Tp, _Allocator>::erase(const_iterator __f)
+        -: 2868:{
+        -: 2869:    iterator __b = __base::begin();
+        -: 2870:    difference_type __pos = __f - __b;
+        -: 2871:    iterator __p = __b + __pos;
+        -: 2872:    allocator_type& __a = __base::__alloc();
+        -: 2873:    if (static_cast<size_t>(__pos) <= (__base::size() - 1) / 2)
+        -: 2874:    {   // erase from front
+        -: 2875:        _VSTD::move_backward(__b, __p, _VSTD::next(__p));
+        -: 2876:        __alloc_traits::destroy(__a, _VSTD::addressof(*__b));
+        -: 2877:        --__base::size();
+        -: 2878:        ++__base::__start_;
+        -: 2879:        __maybe_remove_front_spare();
+        -: 2880:    }
+        -: 2881:    else
+        -: 2882:    {   // erase from back
+        -: 2883:        iterator __i = _VSTD::move(_VSTD::next(__p), __base::end(), __p);
+        -: 2884:        __alloc_traits::destroy(__a, _VSTD::addressof(*__i));
+        -: 2885:        --__base::size();
+        -: 2886:        __maybe_remove_back_spare();
+        -: 2887:    }
+        -: 2888:    return __base::begin() + __pos;
+        -: 2889:}
+        -: 2890:
+        -: 2891:template <class _Tp, class _Allocator>
+        -: 2892:typename deque<_Tp, _Allocator>::iterator
+        -: 2893:deque<_Tp, _Allocator>::erase(const_iterator __f, const_iterator __l)
+        -: 2894:{
+        -: 2895:    difference_type __n = __l - __f;
+        -: 2896:    iterator __b = __base::begin();
+        -: 2897:    difference_type __pos = __f - __b;
+        -: 2898:    iterator __p = __b + __pos;
+        -: 2899:    if (__n > 0)
+        -: 2900:    {
+        -: 2901:        allocator_type& __a = __base::__alloc();
+        -: 2902:        if (static_cast<size_t>(__pos) <= (__base::size() - __n) / 2)
+        -: 2903:        {   // erase from front
+        -: 2904:            iterator __i = _VSTD::move_backward(__b, __p, __p + __n);
+        -: 2905:            for (; __b != __i; ++__b)
+        -: 2906:                __alloc_traits::destroy(__a, _VSTD::addressof(*__b));
+        -: 2907:            __base::size() -= __n;
+        -: 2908:            __base::__start_ += __n;
+        -: 2909:            while (__maybe_remove_front_spare()) {
+        -: 2910:            }
+        -: 2911:        }
+        -: 2912:        else
+        -: 2913:        {   // erase from back
+        -: 2914:            iterator __i = _VSTD::move(__p + __n, __base::end(), __p);
+        -: 2915:            for (iterator __e = __base::end(); __i != __e; ++__i)
+        -: 2916:                __alloc_traits::destroy(__a, _VSTD::addressof(*__i));
+        -: 2917:            __base::size() -= __n;
+        -: 2918:            while (__maybe_remove_back_spare()) {
+        -: 2919:            }
+        -: 2920:        }
+        -: 2921:    }
+        -: 2922:    return __base::begin() + __pos;
+        -: 2923:}
+        -: 2924:
+        -: 2925:template <class _Tp, class _Allocator>
+        -: 2926:void
+        -: 2927:deque<_Tp, _Allocator>::__erase_to_end(const_iterator __f)
+        -: 2928:{
+        -: 2929:    iterator __e = __base::end();
+        -: 2930:    difference_type __n = __e - __f;
+        -: 2931:    if (__n > 0)
+        -: 2932:    {
+        -: 2933:        allocator_type& __a = __base::__alloc();
+        -: 2934:        iterator __b = __base::begin();
+        -: 2935:        difference_type __pos = __f - __b;
+        -: 2936:        for (iterator __p = __b + __pos; __p != __e; ++__p)
+        -: 2937:            __alloc_traits::destroy(__a, _VSTD::addressof(*__p));
+        -: 2938:        __base::size() -= __n;
+        -: 2939:        while (__maybe_remove_back_spare()) {
+        -: 2940:        }
+        -: 2941:    }
+        -: 2942:}
+        -: 2943:
+        -: 2944:template <class _Tp, class _Allocator>
+        -: 2945:inline
+        -: 2946:void
+        -: 2947:deque<_Tp, _Allocator>::swap(deque& __c)
+        -: 2948:#if _LIBCPP_STD_VER >= 14
+        -: 2949:        _NOEXCEPT
+        -: 2950:#else
+        -: 2951:        _NOEXCEPT_(!__alloc_traits::propagate_on_container_swap::value ||
+        -: 2952:                    __is_nothrow_swappable<allocator_type>::value)
+        -: 2953:#endif
+        -: 2954:{
+        -: 2955:    __base::swap(__c);
+        -: 2956:}
+        -: 2957:
+        -: 2958:template <class _Tp, class _Allocator>
+        -: 2959:inline
+        -: 2960:void
+        -: 2961:deque<_Tp, _Allocator>::clear() _NOEXCEPT
+        -: 2962:{
+        -: 2963:    __base::clear();
+        -: 2964:}
+        -: 2965:
+        -: 2966:template <class _Tp, class _Allocator>
+        -: 2967:inline _LIBCPP_INLINE_VISIBILITY
+        -: 2968:bool
+        -: 2969:operator==(const deque<_Tp, _Allocator>& __x, const deque<_Tp, _Allocator>& __y)
+        -: 2970:{
+        -: 2971:    const typename deque<_Tp, _Allocator>::size_type __sz = __x.size();
+        -: 2972:    return __sz == __y.size() && _VSTD::equal(__x.begin(), __x.end(), __y.begin());
+        -: 2973:}
+        -: 2974:
+        -: 2975:template <class _Tp, class _Allocator>
+        -: 2976:inline _LIBCPP_INLINE_VISIBILITY
+        -: 2977:bool
+        -: 2978:operator!=(const deque<_Tp, _Allocator>& __x, const deque<_Tp, _Allocator>& __y)
+        -: 2979:{
+        -: 2980:    return !(__x == __y);
+        -: 2981:}
+        -: 2982:
+        -: 2983:template <class _Tp, class _Allocator>
+        -: 2984:inline _LIBCPP_INLINE_VISIBILITY
+        -: 2985:bool
+        -: 2986:operator< (const deque<_Tp, _Allocator>& __x, const deque<_Tp, _Allocator>& __y)
+        -: 2987:{
+        -: 2988:    return _VSTD::lexicographical_compare(__x.begin(), __x.end(), __y.begin(), __y.end());
+        -: 2989:}
+        -: 2990:
+        -: 2991:template <class _Tp, class _Allocator>
+        -: 2992:inline _LIBCPP_INLINE_VISIBILITY
+        -: 2993:bool
+        -: 2994:operator> (const deque<_Tp, _Allocator>& __x, const deque<_Tp, _Allocator>& __y)
+        -: 2995:{
+        -: 2996:    return __y < __x;
+        -: 2997:}
+        -: 2998:
+        -: 2999:template <class _Tp, class _Allocator>
+        -: 3000:inline _LIBCPP_INLINE_VISIBILITY
+        -: 3001:bool
+        -: 3002:operator>=(const deque<_Tp, _Allocator>& __x, const deque<_Tp, _Allocator>& __y)
+        -: 3003:{
+        -: 3004:    return !(__x < __y);
+        -: 3005:}
+        -: 3006:
+        -: 3007:template <class _Tp, class _Allocator>
+        -: 3008:inline _LIBCPP_INLINE_VISIBILITY
+        -: 3009:bool
+        -: 3010:operator<=(const deque<_Tp, _Allocator>& __x, const deque<_Tp, _Allocator>& __y)
+        -: 3011:{
+        -: 3012:    return !(__y < __x);
+        -: 3013:}
+        -: 3014:
+        -: 3015:template <class _Tp, class _Allocator>
+        -: 3016:inline _LIBCPP_INLINE_VISIBILITY
+        -: 3017:void
+        -: 3018:swap(deque<_Tp, _Allocator>& __x, deque<_Tp, _Allocator>& __y)
+        -: 3019:    _NOEXCEPT_(_NOEXCEPT_(__x.swap(__y)))
+        -: 3020:{
+        -: 3021:    __x.swap(__y);
+        -: 3022:}
+        -: 3023:
+        -: 3024:#if _LIBCPP_STD_VER > 17
+        -: 3025:template <class _Tp, class _Allocator, class _Up>
+        -: 3026:inline _LIBCPP_INLINE_VISIBILITY typename deque<_Tp, _Allocator>::size_type
+        -: 3027:erase(deque<_Tp, _Allocator>& __c, const _Up& __v) {
+        -: 3028:  auto __old_size = __c.size();
+        -: 3029:  __c.erase(_VSTD::remove(__c.begin(), __c.end(), __v), __c.end());
+        -: 3030:  return __old_size - __c.size();
+        -: 3031:}
+        -: 3032:
+        -: 3033:template <class _Tp, class _Allocator, class _Predicate>
+        -: 3034:inline _LIBCPP_INLINE_VISIBILITY typename deque<_Tp, _Allocator>::size_type
+        -: 3035:erase_if(deque<_Tp, _Allocator>& __c, _Predicate __pred) {
+        -: 3036:  auto __old_size = __c.size();
+        -: 3037:  __c.erase(_VSTD::remove_if(__c.begin(), __c.end(), __pred), __c.end());
+        -: 3038:  return __old_size - __c.size();
+        -: 3039:}
+        -: 3040:#endif
+        -: 3041:
+        -: 3042:
+        -: 3043:_LIBCPP_END_NAMESPACE_STD
+        -: 3044:
+        -: 3045:_LIBCPP_POP_MACROS
+        -: 3046:
+        -: 3047:#endif  // _LIBCPP_DEQUE

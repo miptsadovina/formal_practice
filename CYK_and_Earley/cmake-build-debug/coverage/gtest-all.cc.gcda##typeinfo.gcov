@@ -1,0 +1,389 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/typeinfo
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -*- C++ -*-
+        -:    2://===-------------------------- typeinfo ----------------------------------===//
+        -:    3://
+        -:    4:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    5:// See https://llvm.org/LICENSE.txt for license information.
+        -:    6:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    7://
+        -:    8://===----------------------------------------------------------------------===//
+        -:    9:
+        -:   10:#ifndef __LIBCPP_TYPEINFO
+        -:   11:#define __LIBCPP_TYPEINFO
+        -:   12:
+        -:   13:/*
+        -:   14:
+        -:   15:    typeinfo synopsis
+        -:   16:
+        -:   17:namespace std {
+        -:   18:
+        -:   19:class type_info
+        -:   20:{
+        -:   21:public:
+        -:   22:    virtual ~type_info();
+        -:   23:
+        -:   24:    bool operator==(const type_info& rhs) const noexcept;
+        -:   25:    bool operator!=(const type_info& rhs) const noexcept;
+        -:   26:
+        -:   27:    bool before(const type_info& rhs) const noexcept;
+        -:   28:    size_t hash_code() const noexcept;
+        -:   29:    const char* name() const noexcept;
+        -:   30:
+        -:   31:    type_info(const type_info& rhs) = delete;
+        -:   32:    type_info& operator=(const type_info& rhs) = delete;
+        -:   33:};
+        -:   34:
+        -:   35:class bad_cast
+        -:   36:    : public exception
+        -:   37:{
+        -:   38:public:
+        -:   39:    bad_cast() noexcept;
+        -:   40:    bad_cast(const bad_cast&) noexcept;
+        -:   41:    bad_cast& operator=(const bad_cast&) noexcept;
+        -:   42:    virtual const char* what() const noexcept;
+        -:   43:};
+        -:   44:
+        -:   45:class bad_typeid
+        -:   46:    : public exception
+        -:   47:{
+        -:   48:public:
+        -:   49:    bad_typeid() noexcept;
+        -:   50:    bad_typeid(const bad_typeid&) noexcept;
+        -:   51:    bad_typeid& operator=(const bad_typeid&) noexcept;
+        -:   52:    virtual const char* what() const noexcept;
+        -:   53:};
+        -:   54:
+        -:   55:}  // std
+        -:   56:
+        -:   57:*/
+        -:   58:
+        -:   59:#include <__config>
+        -:   60:#include <exception>
+        -:   61:#include <cstddef>
+        -:   62:#include <cstdint>
+        -:   63:#include <type_traits>
+        -:   64:#ifdef _LIBCPP_NO_EXCEPTIONS
+        -:   65:#include <cstdlib>
+        -:   66:#endif
+        -:   67:
+        -:   68:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:   69:#pragma GCC system_header
+        -:   70:#endif
+        -:   71:
+        -:   72:#if defined(_LIBCPP_ABI_VCRUNTIME)
+        -:   73:#include <vcruntime_typeinfo.h>
+        -:   74:#else
+        -:   75:
+        -:   76:namespace std  // purposefully not using versioning namespace
+        -:   77:{
+        -:   78:
+        -:   79:
+        -:   80:#if defined(_LIBCPP_ABI_MICROSOFT)
+        -:   81:
+        -:   82:class _LIBCPP_EXCEPTION_ABI type_info
+        -:   83:{
+        -:   84:    type_info& operator=(const type_info&);
+        -:   85:    type_info(const type_info&);
+        -:   86:
+        -:   87:    mutable struct {
+        -:   88:      const char *__undecorated_name;
+        -:   89:      const char __decorated_name[1];
+        -:   90:    } __data;
+        -:   91:
+        -:   92:    int __compare(const type_info &__rhs) const _NOEXCEPT;
+        -:   93:
+        -:   94:public:
+        -:   95:    _LIBCPP_AVAILABILITY_TYPEINFO_VTABLE
+        -:   96:    virtual ~type_info();
+        -:   97:
+        -:   98:    const char *name() const _NOEXCEPT;
+        -:   99:
+        -:  100:    _LIBCPP_INLINE_VISIBILITY
+        -:  101:    bool before(const type_info& __arg) const _NOEXCEPT {
+        -:  102:      return __compare(__arg) < 0;
+        -:  103:    }
+        -:  104:
+        -:  105:    size_t hash_code() const _NOEXCEPT;
+        -:  106:
+        -:  107:    _LIBCPP_INLINE_VISIBILITY
+        -:  108:    bool operator==(const type_info& __arg) const _NOEXCEPT {
+        -:  109:      return __compare(__arg) == 0;
+        -:  110:    }
+        -:  111:
+        -:  112:    _LIBCPP_INLINE_VISIBILITY
+        -:  113:    bool operator!=(const type_info& __arg) const _NOEXCEPT
+        -:  114:    { return !operator==(__arg); }
+        -:  115:};
+        -:  116:
+        -:  117:#else // !defined(_LIBCPP_ABI_MICROSOFT)
+        -:  118:
+        -:  119:// ========================================================================== //
+        -:  120://                           Implementations
+        -:  121:// ========================================================================== //
+        -:  122:// ------------------------------------------------------------------------- //
+        -:  123://                               Unique
+        -:  124://               (_LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION = 1)
+        -:  125:// ------------------------------------------------------------------------- //
+        -:  126:// This implementation of type_info assumes a unique copy of the RTTI for a
+        -:  127:// given type inside a program. This is a valid assumption when abiding to
+        -:  128:// Itanium ABI (http://itanium-cxx-abi.github.io/cxx-abi/abi.html#vtable-components).
+        -:  129:// Under this assumption, we can always compare the addresses of the type names
+        -:  130:// to implement equality-comparison of type_infos instead of having to perform
+        -:  131:// a deep string comparison.
+        -:  132:// -------------------------------------------------------------------------- //
+        -:  133://                             NonUnique
+        -:  134://               (_LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION = 2)
+        -:  135:// -------------------------------------------------------------------------- //
+        -:  136:// This implementation of type_info does not assume there is always a unique
+        -:  137:// copy of the RTTI for a given type inside a program. For various reasons
+        -:  138:// the linker may have failed to merge every copy of a types RTTI
+        -:  139:// (For example: -Bsymbolic or llvm.org/PR37398). Under this assumption, two
+        -:  140:// type_infos are equal if their addresses are equal or if a deep string
+        -:  141:// comparison is equal.
+        -:  142:// -------------------------------------------------------------------------- //
+        -:  143://                          NonUniqueARMRTTIBit
+        -:  144:// (selected on ARM64 regardless of _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION)
+        -:  145:// -------------------------------------------------------------------------- //
+        -:  146:// This implementation of type_info does not assume always a unique copy of
+        -:  147:// the RTTI for a given type inside a program. It packs the pointer to the
+        -:  148:// type name into a uintptr_t and reserves the high bit of that pointer (which
+        -:  149:// is assumed to be free for use under the ABI in use) to represent whether
+        -:  150:// that specific copy of the RTTI can be assumed unique inside the program.
+        -:  151:// To implement equality-comparison of type_infos, we check whether BOTH
+        -:  152:// type_infos are guaranteed unique, and if so, we simply compare the addresses
+        -:  153:// of their type names instead of doing a deep string comparison, which is
+        -:  154:// faster. If at least one of the type_infos can't guarantee uniqueness, we
+        -:  155:// have no choice but to fall back to a deep string comparison.
+        -:  156://
+        -:  157:// This implementation is specific to ARM64 on Apple platforms.
+        -:  158://
+        -:  159:// Note that the compiler is the one setting (or unsetting) the high bit of
+        -:  160:// the pointer when it constructs the type_info, depending on whether it can
+        -:  161:// guarantee uniqueness for that specific type_info.
+        -:  162:
+        -:  163:struct __type_info_implementations {
+        -:  164:  struct __string_impl_base {
+        -:  165:    typedef const char* __type_name_t;
+        -:  166:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  167:    _LIBCPP_CONSTEXPR static const char* __type_name_to_string(__type_name_t __v) _NOEXCEPT {
+        -:  168:      return __v;
+        -:  169:    }
+        -:  170:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  171:    _LIBCPP_CONSTEXPR static __type_name_t __string_to_type_name(const char* __v) _NOEXCEPT {
+        -:  172:      return __v;
+        -:  173:    }
+        -:  174:  };
+        -:  175:
+        -:  176:  struct __unique_impl : __string_impl_base {
+        -:  177:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  178:    static size_t __hash(__type_name_t __v) _NOEXCEPT {
+        -:  179:      return reinterpret_cast<size_t>(__v);
+        -:  180:    }
+        -:  181:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  182:    static bool __eq(__type_name_t __lhs, __type_name_t __rhs) _NOEXCEPT {
+        -:  183:      return __lhs == __rhs;
+        -:  184:    }
+        -:  185:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  186:    static bool __lt(__type_name_t __lhs, __type_name_t __rhs) _NOEXCEPT {
+        -:  187:      return __lhs < __rhs;
+        -:  188:    }
+        -:  189:  };
+        -:  190:
+        -:  191:  struct __non_unique_impl : __string_impl_base {
+        -:  192:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  193:    static size_t __hash(__type_name_t __ptr) _NOEXCEPT {
+        -:  194:      size_t __hash = 5381;
+        -:  195:      while (unsigned char __c = static_cast<unsigned char>(*__ptr++))
+        -:  196:        __hash = (__hash * 33) ^ __c;
+        -:  197:      return __hash;
+        -:  198:    }
+        -:  199:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  200:    static bool __eq(__type_name_t __lhs, __type_name_t __rhs) _NOEXCEPT {
+        -:  201:      return __lhs == __rhs || __builtin_strcmp(__lhs, __rhs) == 0;
+        -:  202:    }
+        -:  203:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  204:    static bool __lt(__type_name_t __lhs, __type_name_t __rhs) _NOEXCEPT {
+        -:  205:      return __builtin_strcmp(__lhs, __rhs) < 0;
+        -:  206:    }
+        -:  207:  };
+        -:  208:
+        -:  209:  struct __non_unique_arm_rtti_bit_impl {
+        -:  210:    typedef uintptr_t __type_name_t;
+        -:  211:
+        -:  212:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+function _ZNSt27__type_info_implementations30__non_unique_arm_rtti_bit_impl21__type_name_to_stringEm called 0 returned 0% blocks executed 0%
+    #####:  213:    static const char* __type_name_to_string(__type_name_t __v) _NOEXCEPT {
+    $$$$$:  213-block  0
+    #####:  214:      return reinterpret_cast<const char*>(__v &
+    $$$$$:  214-block  0
+        -:  215:          ~__non_unique_rtti_bit::value);
+        -:  216:    }
+        -:  217:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  218:    static __type_name_t __string_to_type_name(const char* __v) _NOEXCEPT {
+        -:  219:      return reinterpret_cast<__type_name_t>(__v);
+        -:  220:    }
+        -:  221:
+        -:  222:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  223:    static size_t __hash(__type_name_t __v) _NOEXCEPT {
+        -:  224:      if (__is_type_name_unique(__v))
+        -:  225:        return reinterpret_cast<size_t>(__v);
+        -:  226:      return __non_unique_impl::__hash(__type_name_to_string(__v));
+        -:  227:    }
+        -:  228:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+function _ZNSt27__type_info_implementations30__non_unique_arm_rtti_bit_impl4__eqEmm called 0 returned 0% blocks executed 0%
+    #####:  229:    static bool __eq(__type_name_t __lhs, __type_name_t __rhs) _NOEXCEPT {
+    $$$$$:  229-block  0
+    #####:  230:      if (__lhs == __rhs)
+    $$$$$:  230-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:  231:        return true;
+    $$$$$:  231-block  0
+    #####:  232:      if (__is_type_name_unique(__lhs, __rhs))
+    $$$$$:  232-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:  233:        return false;
+    $$$$$:  233-block  0
+    #####:  234:      return __builtin_strcmp(__type_name_to_string(__lhs), __type_name_to_string(__rhs)) == 0;
+    $$$$$:  234-block  0
+    #####:  235:    }
+    $$$$$:  235-block  0
+        -:  236:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_ALWAYS_INLINE
+        -:  237:    static bool __lt(__type_name_t __lhs, __type_name_t __rhs) _NOEXCEPT {
+        -:  238:      if (__is_type_name_unique(__lhs, __rhs))
+        -:  239:        return __lhs < __rhs;
+        -:  240:      return __builtin_strcmp(__type_name_to_string(__lhs), __type_name_to_string(__rhs)) < 0;
+        -:  241:    }
+        -:  242:
+        -:  243:   private:
+        -:  244:    // The unique bit is the top bit. It is expected that __type_name_t is 64 bits when
+        -:  245:    // this implementation is actually used.
+        -:  246:    typedef std::integral_constant<__type_name_t,
+        -:  247:      (1ULL << ((__CHAR_BIT__ * sizeof(__type_name_t)) - 1))> __non_unique_rtti_bit;
+        -:  248:
+        -:  249:    _LIBCPP_INLINE_VISIBILITY
+        -:  250:    static bool __is_type_name_unique(__type_name_t __lhs) _NOEXCEPT {
+        -:  251:      return !(__lhs & __non_unique_rtti_bit::value);
+        -:  252:    }
+        -:  253:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt27__type_info_implementations30__non_unique_arm_rtti_bit_impl21__is_type_name_uniqueEmm called 0 returned 0% blocks executed 0%
+    #####:  254:    static bool __is_type_name_unique(__type_name_t __lhs, __type_name_t __rhs) _NOEXCEPT {
+    $$$$$:  254-block  0
+    #####:  255:      return !((__lhs & __rhs) & __non_unique_rtti_bit::value);
+    $$$$$:  255-block  0
+        -:  256:    }
+        -:  257:  };
+        -:  258:
+        -:  259:  typedef
+        -:  260:#if defined(__APPLE__) && defined(__LP64__) && !defined(__x86_64__)
+        -:  261:    __non_unique_arm_rtti_bit_impl
+        -:  262:#elif _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION == 1
+        -:  263:    __unique_impl
+        -:  264:#elif _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION == 2
+        -:  265:    __non_unique_impl
+        -:  266:#else
+        -:  267:#   error invalid configuration for _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION
+        -:  268:#endif
+        -:  269:     __impl;
+        -:  270:};
+        -:  271:
+        -:  272:#if defined(__arm64__) && __has_cpp_attribute(clang::ptrauth_vtable_pointer)
+        -:  273:#define _LIBCPP_TYPE_INFO_VTABLE_POINTER_AUTH \
+        -:  274:   [[clang::ptrauth_vtable_pointer(process_independent, no_address_discrimination, no_extra_discrimination)]]
+        -:  275:#else
+        -:  276:#define _LIBCPP_TYPE_INFO_VTABLE_POINTER_AUTH
+        -:  277:#endif
+        -:  278:
+        -:  279:
+        -:  280:class _LIBCPP_EXCEPTION_ABI _LIBCPP_TYPE_INFO_VTABLE_POINTER_AUTH type_info
+        -:  281:{
+        -:  282:  type_info& operator=(const type_info&);
+        -:  283:  type_info(const type_info&);
+        -:  284:
+        -:  285: protected:
+        -:  286:    typedef __type_info_implementations::__impl __impl;
+        -:  287:
+        -:  288:    __impl::__type_name_t __type_name;
+        -:  289:
+        -:  290:    _LIBCPP_INLINE_VISIBILITY
+        -:  291:    explicit type_info(const char* __n)
+        -:  292:      : __type_name(__impl::__string_to_type_name(__n)) {}
+        -:  293:
+        -:  294:public:
+        -:  295:    _LIBCPP_AVAILABILITY_TYPEINFO_VTABLE
+        -:  296:    virtual ~type_info();
+        -:  297:
+        -:  298:    _LIBCPP_INLINE_VISIBILITY
+        -:  299:    const char* name() const _NOEXCEPT
+        -:  300:    {
+        -:  301:      return __impl::__type_name_to_string(__type_name);
+        -:  302:    }
+        -:  303:
+        -:  304:    _LIBCPP_INLINE_VISIBILITY
+        -:  305:    bool before(const type_info& __arg) const _NOEXCEPT
+        -:  306:    {
+        -:  307:      return __impl::__lt(__type_name, __arg.__type_name);
+        -:  308:    }
+        -:  309:
+        -:  310:    _LIBCPP_INLINE_VISIBILITY
+        -:  311:    size_t hash_code() const _NOEXCEPT
+        -:  312:    {
+        -:  313:      return __impl::__hash(__type_name);
+        -:  314:    }
+        -:  315:
+        -:  316:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt9type_infoeqERKS_ called 0 returned 0% blocks executed 0%
+    #####:  317:    bool operator==(const type_info& __arg) const _NOEXCEPT
+    $$$$$:  317-block  0
+        -:  318:    {
+    #####:  319:      return __impl::__eq(__type_name, __arg.__type_name);
+    $$$$$:  319-block  0
+        -:  320:    }
+        -:  321:
+        -:  322:    _LIBCPP_INLINE_VISIBILITY
+        -:  323:    bool operator!=(const type_info& __arg) const _NOEXCEPT
+        -:  324:    { return !operator==(__arg); }
+        -:  325:};
+        -:  326:#endif // defined(_LIBCPP_ABI_MICROSOFT)
+        -:  327:
+        -:  328:class _LIBCPP_EXCEPTION_ABI bad_cast
+        -:  329:    : public exception
+        -:  330:{
+        -:  331: public:
+        -:  332:  bad_cast() _NOEXCEPT;
+        -:  333:  bad_cast(const bad_cast&) _NOEXCEPT = default;
+        -:  334:  virtual ~bad_cast() _NOEXCEPT;
+        -:  335:  virtual const char* what() const _NOEXCEPT;
+        -:  336:};
+        -:  337:
+        -:  338:class _LIBCPP_EXCEPTION_ABI bad_typeid
+        -:  339:    : public exception
+        -:  340:{
+        -:  341: public:
+        -:  342:  bad_typeid() _NOEXCEPT;
+        -:  343:  virtual ~bad_typeid() _NOEXCEPT;
+        -:  344:  virtual const char* what() const _NOEXCEPT;
+        -:  345:};
+        -:  346:
+        -:  347:}  // std
+        -:  348:
+        -:  349:#endif // defined(_LIBCPP_ABI_VCRUNTIME)
+        -:  350:
+        -:  351:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:  352:_LIBCPP_NORETURN inline _LIBCPP_INLINE_VISIBILITY
+        -:  353:void __throw_bad_cast()
+        -:  354:{
+        -:  355:#ifndef _LIBCPP_NO_EXCEPTIONS
+        -:  356:    throw bad_cast();
+        -:  357:#else
+        -:  358:    _VSTD::abort();
+        -:  359:#endif
+        -:  360:}
+        -:  361:_LIBCPP_END_NAMESPACE_STD
+        -:  362:
+        -:  363:#endif  // __LIBCPP_TYPEINFO

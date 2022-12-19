@@ -1,0 +1,193 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/wchar.h
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -*- C++ -*-
+        -:    2://===--------------------------- wchar.h ----------------------------------===//
+        -:    3://
+        -:    4:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    5:// See https://llvm.org/LICENSE.txt for license information.
+        -:    6:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    7://
+        -:    8://===----------------------------------------------------------------------===//
+        -:    9:
+        -:   10:#if defined(__need_wint_t) || defined(__need_mbstate_t)
+        -:   11:
+        -:   12:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:   13:#pragma GCC system_header
+        -:   14:#endif
+        -:   15:
+        -:   16:#include_next <wchar.h>
+        -:   17:
+        -:   18:#elif !defined(_LIBCPP_WCHAR_H)
+        -:   19:#define _LIBCPP_WCHAR_H
+        -:   20:
+        -:   21:/*
+        -:   22:    wchar.h synopsis
+        -:   23:
+        -:   24:Macros:
+        -:   25:
+        -:   26:    NULL
+        -:   27:    WCHAR_MAX
+        -:   28:    WCHAR_MIN
+        -:   29:    WEOF
+        -:   30:
+        -:   31:Types:
+        -:   32:
+        -:   33:    mbstate_t
+        -:   34:    size_t
+        -:   35:    tm
+        -:   36:    wint_t
+        -:   37:
+        -:   38:int fwprintf(FILE* restrict stream, const wchar_t* restrict format, ...);
+        -:   39:int fwscanf(FILE* restrict stream, const wchar_t* restrict format, ...);
+        -:   40:int swprintf(wchar_t* restrict s, size_t n, const wchar_t* restrict format, ...);
+        -:   41:int swscanf(const wchar_t* restrict s, const wchar_t* restrict format, ...);
+        -:   42:int vfwprintf(FILE* restrict stream, const wchar_t* restrict format, va_list arg);
+        -:   43:int vfwscanf(FILE* restrict stream, const wchar_t* restrict format, va_list arg);  // C99
+        -:   44:int vswprintf(wchar_t* restrict s, size_t n, const wchar_t* restrict format, va_list arg);
+        -:   45:int vswscanf(const wchar_t* restrict s, const wchar_t* restrict format, va_list arg);  // C99
+        -:   46:int vwprintf(const wchar_t* restrict format, va_list arg);
+        -:   47:int vwscanf(const wchar_t* restrict format, va_list arg);  // C99
+        -:   48:int wprintf(const wchar_t* restrict format, ...);
+        -:   49:int wscanf(const wchar_t* restrict format, ...);
+        -:   50:wint_t fgetwc(FILE* stream);
+        -:   51:wchar_t* fgetws(wchar_t* restrict s, int n, FILE* restrict stream);
+        -:   52:wint_t fputwc(wchar_t c, FILE* stream);
+        -:   53:int fputws(const wchar_t* restrict s, FILE* restrict stream);
+        -:   54:int fwide(FILE* stream, int mode);
+        -:   55:wint_t getwc(FILE* stream);
+        -:   56:wint_t getwchar();
+        -:   57:wint_t putwc(wchar_t c, FILE* stream);
+        -:   58:wint_t putwchar(wchar_t c);
+        -:   59:wint_t ungetwc(wint_t c, FILE* stream);
+        -:   60:double wcstod(const wchar_t* restrict nptr, wchar_t** restrict endptr);
+        -:   61:float wcstof(const wchar_t* restrict nptr, wchar_t** restrict endptr);         // C99
+        -:   62:long double wcstold(const wchar_t* restrict nptr, wchar_t** restrict endptr);  // C99
+        -:   63:long wcstol(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);
+        -:   64:long long wcstoll(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);  // C99
+        -:   65:unsigned long wcstoul(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);
+        -:   66:unsigned long long wcstoull(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);  // C99
+        -:   67:wchar_t* wcscpy(wchar_t* restrict s1, const wchar_t* restrict s2);
+        -:   68:wchar_t* wcsncpy(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+        -:   69:wchar_t* wcscat(wchar_t* restrict s1, const wchar_t* restrict s2);
+        -:   70:wchar_t* wcsncat(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+        -:   71:int wcscmp(const wchar_t* s1, const wchar_t* s2);
+        -:   72:int wcscoll(const wchar_t* s1, const wchar_t* s2);
+        -:   73:int wcsncmp(const wchar_t* s1, const wchar_t* s2, size_t n);
+        -:   74:size_t wcsxfrm(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+        -:   75:const wchar_t* wcschr(const wchar_t* s, wchar_t c);
+        -:   76:      wchar_t* wcschr(      wchar_t* s, wchar_t c);
+        -:   77:size_t wcscspn(const wchar_t* s1, const wchar_t* s2);
+        -:   78:size_t wcslen(const wchar_t* s);
+        -:   79:const wchar_t* wcspbrk(const wchar_t* s1, const wchar_t* s2);
+        -:   80:      wchar_t* wcspbrk(      wchar_t* s1, const wchar_t* s2);
+        -:   81:const wchar_t* wcsrchr(const wchar_t* s, wchar_t c);
+        -:   82:      wchar_t* wcsrchr(      wchar_t* s, wchar_t c);
+        -:   83:size_t wcsspn(const wchar_t* s1, const wchar_t* s2);
+        -:   84:const wchar_t* wcsstr(const wchar_t* s1, const wchar_t* s2);
+        -:   85:      wchar_t* wcsstr(      wchar_t* s1, const wchar_t* s2);
+        -:   86:wchar_t* wcstok(wchar_t* restrict s1, const wchar_t* restrict s2, wchar_t** restrict ptr);
+        -:   87:const wchar_t* wmemchr(const wchar_t* s, wchar_t c, size_t n);
+        -:   88:      wchar_t* wmemchr(      wchar_t* s, wchar_t c, size_t n);
+        -:   89:int wmemcmp(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+        -:   90:wchar_t* wmemcpy(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+        -:   91:wchar_t* wmemmove(wchar_t* s1, const wchar_t* s2, size_t n);
+        -:   92:wchar_t* wmemset(wchar_t* s, wchar_t c, size_t n);
+        -:   93:size_t wcsftime(wchar_t* restrict s, size_t maxsize, const wchar_t* restrict format,
+        -:   94:                const tm* restrict timeptr);
+        -:   95:wint_t btowc(int c);
+        -:   96:int wctob(wint_t c);
+        -:   97:int mbsinit(const mbstate_t* ps);
+        -:   98:size_t mbrlen(const char* restrict s, size_t n, mbstate_t* restrict ps);
+        -:   99:size_t mbrtowc(wchar_t* restrict pwc, const char* restrict s, size_t n, mbstate_t* restrict ps);
+        -:  100:size_t wcrtomb(char* restrict s, wchar_t wc, mbstate_t* restrict ps);
+        -:  101:size_t mbsrtowcs(wchar_t* restrict dst, const char** restrict src, size_t len,
+        -:  102:                 mbstate_t* restrict ps);
+        -:  103:size_t wcsrtombs(char* restrict dst, const wchar_t** restrict src, size_t len,
+        -:  104:                 mbstate_t* restrict ps);
+        -:  105:
+        -:  106:*/
+        -:  107:
+        -:  108:#include <__config>
+        -:  109:#include <stddef.h>
+        -:  110:
+        -:  111:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:  112:#pragma GCC system_header
+        -:  113:#endif
+        -:  114:
+        -:  115:#ifdef __cplusplus
+        -:  116:#define __CORRECT_ISO_CPP_WCHAR_H_PROTO
+        -:  117:#endif
+        -:  118:
+        -:  119:#include_next <wchar.h>
+        -:  120:
+        -:  121:// Determine whether we have const-correct overloads for wcschr and friends.
+        -:  122:#if defined(_WCHAR_H_CPLUSPLUS_98_CONFORMANCE_)
+        -:  123:#  define _LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS 1
+        -:  124:#elif defined(__GLIBC_PREREQ)
+        -:  125:#  if __GLIBC_PREREQ(2, 10)
+        -:  126:#    define _LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS 1
+        -:  127:#  endif
+        -:  128:#elif defined(_LIBCPP_MSVCRT)
+        -:  129:#  if defined(_CRT_CONST_CORRECT_OVERLOADS)
+        -:  130:#    define _LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS 1
+        -:  131:#  endif
+        -:  132:#endif
+        -:  133:
+        -:  134:#if defined(__cplusplus) && !defined(_LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS) && defined(_LIBCPP_PREFERRED_OVERLOAD)
+        -:  135:extern "C++" {
+        -:  136:inline _LIBCPP_INLINE_VISIBILITY
+        -:  137:wchar_t* __libcpp_wcschr(const wchar_t* __s, wchar_t __c) {return (wchar_t*)wcschr(__s, __c);}
+        -:  138:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  139:const wchar_t* wcschr(const wchar_t* __s, wchar_t __c) {return __libcpp_wcschr(__s, __c);}
+        -:  140:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  141:      wchar_t* wcschr(      wchar_t* __s, wchar_t __c) {return __libcpp_wcschr(__s, __c);}
+        -:  142:
+        -:  143:inline _LIBCPP_INLINE_VISIBILITY
+        -:  144:wchar_t* __libcpp_wcspbrk(const wchar_t* __s1, const wchar_t* __s2) {return (wchar_t*)wcspbrk(__s1, __s2);}
+        -:  145:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  146:const wchar_t* wcspbrk(const wchar_t* __s1, const wchar_t* __s2) {return __libcpp_wcspbrk(__s1, __s2);}
+        -:  147:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  148:      wchar_t* wcspbrk(      wchar_t* __s1, const wchar_t* __s2) {return __libcpp_wcspbrk(__s1, __s2);}
+        -:  149:
+        -:  150:inline _LIBCPP_INLINE_VISIBILITY
+        -:  151:wchar_t* __libcpp_wcsrchr(const wchar_t* __s, wchar_t __c) {return (wchar_t*)wcsrchr(__s, __c);}
+        -:  152:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  153:const wchar_t* wcsrchr(const wchar_t* __s, wchar_t __c) {return __libcpp_wcsrchr(__s, __c);}
+        -:  154:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  155:      wchar_t* wcsrchr(      wchar_t* __s, wchar_t __c) {return __libcpp_wcsrchr(__s, __c);}
+        -:  156:
+        -:  157:inline _LIBCPP_INLINE_VISIBILITY
+function _ZL15__libcpp_wcsstrPKwS0_ called 0 returned 0% blocks executed 0%
+    #####:  158:wchar_t* __libcpp_wcsstr(const wchar_t* __s1, const wchar_t* __s2) {return (wchar_t*)wcsstr(__s1, __s2);}
+    $$$$$:  158-block  0
+    $$$$$:  158-block  1
+        -:  159:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+function _ZL6wcsstrUa9enable_ifIXLb1EEEPKwS0_ called 0 returned 0% blocks executed 0%
+    #####:  160:const wchar_t* wcsstr(const wchar_t* __s1, const wchar_t* __s2) {return __libcpp_wcsstr(__s1, __s2);}
+    $$$$$:  160-block  0
+    $$$$$:  160-block  1
+        -:  161:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  162:      wchar_t* wcsstr(      wchar_t* __s1, const wchar_t* __s2) {return __libcpp_wcsstr(__s1, __s2);}
+        -:  163:
+        -:  164:inline _LIBCPP_INLINE_VISIBILITY
+        -:  165:wchar_t* __libcpp_wmemchr(const wchar_t* __s, wchar_t __c, size_t __n) {return (wchar_t*)wmemchr(__s, __c, __n);}
+        -:  166:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  167:const wchar_t* wmemchr(const wchar_t* __s, wchar_t __c, size_t __n) {return __libcpp_wmemchr(__s, __c, __n);}
+        -:  168:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_PREFERRED_OVERLOAD
+        -:  169:      wchar_t* wmemchr(      wchar_t* __s, wchar_t __c, size_t __n) {return __libcpp_wmemchr(__s, __c, __n);}
+        -:  170:}
+        -:  171:#endif
+        -:  172:
+        -:  173:#if defined(__cplusplus) && defined(_LIBCPP_MSVCRT_LIKE)
+        -:  174:extern "C" {
+        -:  175:size_t mbsnrtowcs(wchar_t *__restrict dst, const char **__restrict src,
+        -:  176:                  size_t nmc, size_t len, mbstate_t *__restrict ps);
+        -:  177:size_t wcsnrtombs(char *__restrict dst, const wchar_t **__restrict src,
+        -:  178:                  size_t nwc, size_t len, mbstate_t *__restrict ps);
+        -:  179:}  // extern "C++"
+        -:  180:#endif  // __cplusplus && _LIBCPP_MSVCRT
+        -:  181:
+        -:  182:#endif  // _LIBCPP_WCHAR_H

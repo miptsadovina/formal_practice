@@ -1,7 +1,7 @@
 # CMake generated Testfile for 
-# Source directory: /Users/sadovinama/CLionProjects/first_algorithm
-# Build directory: /Users/sadovinama/CLionProjects/first_algorithm/cmake-build-debug
+# Source directory: /Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley
+# Build directory: /Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
-subdirs("tests")
+subdirs("_deps/googletest-build")

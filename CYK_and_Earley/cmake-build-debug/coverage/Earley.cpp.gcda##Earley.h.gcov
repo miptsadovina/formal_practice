@@ -1,0 +1,43 @@
+        -:    0:Source:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/src/Earley.h
+        -:    0:Graph:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/src/Earley.cpp.gcno
+        -:    0:Data:/Users/sadovinama/CLionProjects/formal_practice/CYK_and_Earley/cmake-build-debug/CMakeFiles/unit_tests.dir/src/Earley.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "Grammar.h"
+        -:    2:
+function _ZN5stateD1Ev called 0 returned 0% blocks executed 0%
+function _ZN5stateC1EOS_ called 112 returned 100% blocks executed 100%
+function _ZN5stateC2EOS_ called 112 returned 100% blocks executed 100%
+function _ZN5stateD2Ev called 0 returned 0% blocks executed 0%
+function _ZN5stateC1ERKS_ called 724 returned 100% blocks executed 100%
+function _ZN5stateC2ERKS_ called 724 returned 100% blocks executed 100%
+     1672:    3:struct state{
+    $$$$$:    3-block  0
+      112:    3-block  1
+      112:    3-block  2
+    $$$$$:    3-block  3
+      724:    3-block  4
+      724:    3-block  5
+        -:    4:    std::vector<int> rule;
+        -:    5:    int index_point;
+        -:    6:    int i;
+function _ZN5stateC1ERNSt3__16vectorIiNS0_9allocatorIiEEEEii called 274 returned 100% blocks executed 100%
+function _ZN5stateC2ERNSt3__16vectorIiNS0_9allocatorIiEEEEii called 274 returned 100% blocks executed 100%
+      548:    7:    state(std::vector<int>& rule, int index_point, int i) :
+      274:    7-block  0
+      274:    7-block  1
+      548:    8:            rule(rule), index_point(index_point), i(i) {}
+      274:    8-block  0
+      274:    8-block  1
+        -:    9:};
+        -:   10:
+        -:   11:struct Parser {
+        -:   12:    Grammar g;
+        -:   13:    const std::string& word;
+        -:   14:    std::vector<std::set<std::pair<int, state>>> D;
+        -:   15:    Parser(Grammar& grammar,const std::string& word) : g(grammar), word(word) {}
+        -:   16:    void Earley();
+        -:   17:    void scan(int j);
+        -:   18:    bool predict(int j);
+        -:   19:    bool complete(int j);
+        -:   20:};
